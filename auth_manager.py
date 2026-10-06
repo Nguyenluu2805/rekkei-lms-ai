@@ -35,17 +35,8 @@ def _decode_jwt_exp(token):
         return 0
 
 def get_valid_token():
-    """Kiểm tra token từ biến môi trường hoặc cache, nếu còn hạn > 15 phút thì trả về token."""
-    # 1. Ưu tiên biến môi trường LMS_TOKEN / RIKKEI_TOKEN (tiện lợi cho cloud Render/Railway/Docker)
-    env_token = os.getenv("LMS_TOKEN") or os.getenv("RIKKEI_TOKEN")
-    if env_token:
-        exp = _decode_jwt_exp(env_token)
-        current_time = int(time.time())
-        # Nếu exp = 0 (token không phải JWT chuẩn) hoặc còn hạn > 60s
-        if exp == 0 or exp - current_time > 60:
-            return env_token
-
-    # 2. Kiểm tra token trong file cache
+    """Kiểm tra token từ file cache hoặc biến môi trường."""
+    # 1. Kiểm tra token trong file cache trước (ưu tiên token mới cập nhật)
     if os.path.exists(config.TOKEN_CACHE_FILE):
         try:
             with open(config.TOKEN_CACHE_FILE, 'r') as f:
@@ -54,12 +45,19 @@ def get_valid_token():
                 if token:
                     exp = _decode_jwt_exp(token)
                     current_time = int(time.time())
-                    # Nếu còn hạn trên 15 phút (900 giây)
-                    if exp - current_time > 900:
-                        print("Sử dụng token từ cache.")
+                    if exp == 0 or exp - current_time > 60:
                         return token
         except Exception as e:
             print(f"Lỗi đọc token cache: {e}")
+
+    # 2. Kiểm tra biến môi trường LMS_TOKEN / RIKKEI_TOKEN
+    env_token = os.getenv("LMS_TOKEN") or os.getenv("RIKKEI_TOKEN")
+    if env_token:
+        exp = _decode_jwt_exp(env_token)
+        current_time = int(time.time())
+        if exp == 0 or exp - current_time > 60:
+            return env_token
+
     return None
 
 def save_token(token):
@@ -326,12 +324,30 @@ class RikkeiPortalAPI:
         self.token = get_valid_token()
         
     def _ensure_authenticated(self, force_refresh=False):
-        if force_refresh or not self.token:
-            print("Cần làm mới Token, đang chạy luồng đăng nhập...")
-            self.token = login_and_fetch_token()
+        # 1. Kiểm tra nếu token hiện tại vẫn còn hợp lệ (> 60s)
+        if not force_refresh and self.token:
+            exp = _decode_jwt_exp(self.token)
+            if exp == 0 or exp - int(time.time()) > 60:
+                return
+
+        # 2. Thử lấy token từ cache/env trước khi kích hoạt auto-login Playwright
+        latest_token = get_valid_token()
+        if latest_token and not force_refresh:
+            self.token = latest_token
+            return
             
+        print("Cần làm mới Token, đang chạy luồng đăng nhập...")
+        try:
+            self.token = login_and_fetch_token()
+        except Exception as e:
+            print(f"Lỗi tự động đăng nhập Playwright: {e}")
+            self.token = None
+
         if not self.token:
-            raise Exception("Không thể xác thực với LMS.")
+            self.token = get_valid_token()
+
+        if not self.token:
+            raise Exception("Không thể xác thực với LMS. Token có thể đã hết hạn hoặc chưa được cập nhật.")
             
     def _make_request(self, method, url, **kwargs):
         self._ensure_authenticated()
@@ -339,13 +355,15 @@ class RikkeiPortalAPI:
         headers['Authorization'] = f"Bearer {self.token}"
         kwargs['headers'] = headers
         
+        if 'timeout' not in kwargs:
+            kwargs['timeout'] = 25
+            
         response = requests.request(method, url, **kwargs)
         
         # Cơ chế Auto Recovery
         if response.status_code in [401, 403]:
             print("Token hết hạn hoặc không hợp lệ (401/403). Đang đăng nhập lại...")
             self._ensure_authenticated(force_refresh=True)
-            # Thử lại request
             headers['Authorization'] = f"Bearer {self.token}"
             kwargs['headers'] = headers
             response = requests.request(method, url, **kwargs)
