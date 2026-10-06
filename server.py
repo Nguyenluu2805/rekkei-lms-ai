@@ -200,6 +200,67 @@ async def health():
     return {"status": "ok", "model": "gemini-3.8-flash", "tools": len(active), "total_tools": len(tools)}
 
 
+class TokenUpdateRequest(BaseModel):
+    token: str
+
+
+@app.get("/api/token/status")
+async def get_token_status():
+    import time
+    from auth_manager import _decode_jwt_exp
+    import config
+    token = None
+    if os.path.exists(config.TOKEN_CACHE_FILE):
+        try:
+            with open(config.TOKEN_CACHE_FILE, 'r') as f:
+                token = json.load(f).get('token')
+        except Exception:
+            pass
+    if not token:
+        token = os.getenv("LMS_TOKEN") or os.getenv("RIKKEI_TOKEN")
+
+    if not token:
+        return {"status": "missing", "valid": False, "message": "Chưa có token nào"}
+
+    exp = _decode_jwt_exp(token)
+    now = int(time.time())
+    remaining_seconds = exp - now if exp > 0 else 0
+    valid = remaining_seconds > 0
+
+    return {
+        "status": "valid" if valid else "expired",
+        "valid": valid,
+        "exp": exp,
+        "remaining_minutes": round(remaining_seconds / 60, 1),
+        "token_preview": token[:15] + "..." + token[-10:] if len(token) > 25 else token
+    }
+
+
+@app.post("/api/token")
+async def update_token(req: TokenUpdateRequest):
+    import time
+    from auth_manager import save_token, _decode_jwt_exp
+    raw_token = req.token.strip().replace("Bearer ", "")
+    exp = _decode_jwt_exp(raw_token)
+    now = int(time.time())
+    
+    save_token(raw_token)
+    os.environ["LMS_TOKEN"] = raw_token
+    
+    with _session_lock:
+        for s in sessions.values():
+            if hasattr(s, "executor") and hasattr(s.executor, "_tools"):
+                tools = s.executor._tools
+                if hasattr(tools, "_api"):
+                    tools._api.token = raw_token
+                    
+    return {
+        "ok": True,
+        "message": "Token đã được cập nhật thành công!",
+        "remaining_minutes": round((exp - now) / 60, 1) if exp > 0 else "unknown"
+    }
+
+
 # ---------------------------------------------------------------------------
 # TOOLSET MANAGEMENT APIS (Cài đặt bộ Tools: Xem, Thêm, Sửa, Xoá)
 # ---------------------------------------------------------------------------

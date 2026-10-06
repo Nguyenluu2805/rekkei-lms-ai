@@ -135,9 +135,11 @@ def login_and_fetch_token():
     print("Khởi chạy Playwright...")
     with sync_playwright() as p:
         # Sử dụng persistent context
+        # Tự động bật headless nếu chạy trên Linux/Render hoặc biến môi trường HEADLESS=true
+        is_headless = os.getenv("RENDER") is not None or sys.platform != "win32" or os.getenv("HEADLESS", "false").lower() == "true"
         context = p.chromium.launch_persistent_context(
             user_data_dir=config.BROWSER_PROFILE_DIR,
-            headless=False, # Mặc định mở cửa sổ thật
+            headless=is_headless,
             args=[
                 "--disable-blink-features=AutomationControlled",
                 "--no-sandbox"
