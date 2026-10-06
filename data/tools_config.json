@@ -3,7 +3,7 @@
     "name": "get_my_profile",
     "description": "Lấy thông tin hồ sơ cá nhân của nhân viên/giảng viên đang đăng nhập. Dùng khi người dùng hỏi: 'Thông tin tài khoản của tôi', 'Tôi có role gì', 'Tôi đang dạy hệ thống nào', 'Họ tên email của tôi là gì'.",
     "category": "Hồ sơ cá nhân",
-    "enabled": true,
+    "enabled": false,
     "is_builtin": true,
     "parameters": {
       "type": "object",

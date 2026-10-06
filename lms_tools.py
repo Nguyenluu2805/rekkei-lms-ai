@@ -957,8 +957,11 @@ class LMSFunctionExecutor:
     # --- NHÓM 1: HỒ SƠ ---
 
     def get_my_profile(self) -> dict:
-        """Lấy thông tin hồ sơ cá nhân của người dùng đang đăng nhập."""
-        return self._get("/api/staff/profile/me")
+        """Lấy thông tin hồ sơ cá nhân của người dùng đang đăng nhập (ĐÃ VÔ HIỆU HÓA)."""
+        return {
+            "statusCode": 403,
+            "message": "Tính năng xem thông tin cá nhân đã bị vô hiệu hóa vì lý do bảo mật và quyền riêng tư."
+        }
 
     # --- NHÓM 2: HỆ THỐNG ĐÀO TẠO ---
 
