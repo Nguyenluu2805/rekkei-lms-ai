@@ -1,0 +1,177 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/staff/profile/me",
+    "description": "Lấy thông tin profile cá nhân",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'id': '6a5840dfcb86a0edcb952274', 'fullName': 'Lưu Xuân Hoàng Nguyên', 'email': 'nguyenlxh@rikkeieducation.com', 'phone': '0987273547', 'address': 'HCM', 'avatar': None, '"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/notifications/received",
+    "description": "Lấy thông báo đã nhận",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6ab143fd30624c18d90aec83', 'userId': None, 'title': 'Đơn xin nghỉ phép mới', 'message': 'Sinh viên Đặng Trần Tiệp 2 (RE26435) đã nộp đơn xin nghỉ phép lớ"
+  },
+  {
+    "method": "GET",
+    "path": "/api/systems",
+    "description": "Danh sách tất cả hệ thống/khoá học",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': [{'id': '6a868c33c6d890523883e335', 'systemCode': 'K26-QTKDS', 'name': 'K26 - Cử nhân Quản trị kinh doanh số', 'createdAt': '2026-08-20T05:10:11.449Z'}, {'id': '6a868c22c6d"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes",
+    "description": "Danh sách lớp học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classes?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/classes?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:09.282Z', 'path': '/v1/cl"
+  },
+  {
+    "method": "GET",
+    "path": "/api/students",
+    "description": "Danh sách sinh viên",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6ab0ee764cf535213d26a981', 'studentCode': 'RE26449', 'fullName': 'Trần Thị Mỹ Phước', 'email': 'phuocttm@rikkeieducation.id.vn', 'phone': '123', 'dateOfB"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff",
+    "description": "Danh sách nhân viên/giảng viên",
+    "status": 403,
+    "preview": "{'statusCode': 403, 'messageCode': 'PERMISSION_DENIED', 'message': ['Bạn không có quyền thực hiện thao tác này'], 'timestamp': '2026-09-22T04:11:09.767Z', 'path': '/v1/staff?limit=5&offset=0'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/courses",
+    "description": "Danh sách khoá học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/courses?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/courses?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:10.117Z', 'path': '/v1/co"
+  },
+  {
+    "method": "GET",
+    "path": "/api/assignments",
+    "description": "Danh sách bài tập",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/assignments?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/assignments?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:10.410Z', 'path':"
+  },
+  {
+    "method": "GET",
+    "path": "/api/attendance",
+    "description": "Điểm danh",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/attendance?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/attendance?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:10.718Z', 'path': '"
+  },
+  {
+    "method": "GET",
+    "path": "/api/grades",
+    "description": "Điểm số",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/grades?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/grades?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:10.959Z', 'path': '/v1/grad"
+  },
+  {
+    "method": "GET",
+    "path": "/api/schedules",
+    "description": "Lịch học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/schedules?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/schedules?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:11.164Z', 'path': '/v"
+  },
+  {
+    "method": "GET",
+    "path": "/api/reports",
+    "description": "Báo cáo",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/reports?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/reports?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:11.449Z', 'path': '/v1/re"
+  },
+  {
+    "method": "GET",
+    "path": "/api/exams",
+    "description": "Kỳ thi",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/exams?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/exams?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:11.791Z', 'path': '/v1/exams?"
+  },
+  {
+    "method": "GET",
+    "path": "/api/subjects",
+    "description": "Môn học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/subjects?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/subjects?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:12.112Z', 'path': '/v1/"
+  },
+  {
+    "method": "GET",
+    "path": "/api/departments",
+    "description": "Khoa/Bộ phận",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/departments?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/departments?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:12.372Z', 'path':"
+  },
+  {
+    "method": "GET",
+    "path": "/api/semesters",
+    "description": "Học kỳ",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/semesters?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/semesters?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:12.564Z', 'path': '/v"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/leaves",
+    "description": "Đơn nghỉ phép",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Người dùng không tồn tại', 'message': ['translate.Người dùng không tồn tại'], 'timestamp': '2026-09-22T04:11:12.791Z', 'path': '/v1/staff/leaves?limit=5&offset=0'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/leaves/received",
+    "description": "Đơn nghỉ phép nhận được",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/leaves/received?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/staff/leaves/received?limit=5&offset=0'], 'timestamp': '2026-09-22T04:"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/notifications",
+    "description": "Tất cả thông báo",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6ab0d55d4cf535213d20ecf1', 'userId': None, 'targetStudentIds': ['6aaa12f07baff09e71f6582a'], 'title': 'Thông báo lịch học', 'message': 'Thông báo lịch họ"
+  },
+  {
+    "method": "GET",
+    "path": "/api/docs",
+    "description": "Swagger UI Docs",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/docs?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/docs?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:13.676Z', 'path': '/v1/docs?lim"
+  },
+  {
+    "method": "GET",
+    "path": "/api/swagger",
+    "description": "Swagger",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/swagger?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/swagger?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:13.941Z', 'path': '/v1/sw"
+  },
+  {
+    "method": "GET",
+    "path": "/api/openapi.json",
+    "description": "OpenAPI JSON spec",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/openapi.json?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/openapi.json?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:14.251Z', 'path"
+  },
+  {
+    "method": "GET",
+    "path": "/api/swagger.json",
+    "description": "Swagger JSON spec",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/swagger.json?limit=5&offset=0', 'message': ['translate.Cannot GET /v1/swagger.json?limit=5&offset=0'], 'timestamp': '2026-09-22T04:11:14.549Z', 'path"
+  },
+  {
+    "method": "GET",
+    "path": "/swagger",
+    "description": "Swagger (root)",
+    "status": 200,
+    "preview": "<!DOCTYPE html><html lang=\"vi\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/3c285486269019b7-s.p.2g-0"
+  },
+  {
+    "method": "GET",
+    "path": "/docs",
+    "description": "API Docs (root)",
+    "status": 200,
+    "preview": "<!DOCTYPE html><html lang=\"vi\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><link rel=\"preload\" href=\"/_next/static/media/3c285486269019b7-s.p.2g-0"
+  }
+]

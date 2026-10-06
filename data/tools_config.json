@@ -1,0 +1,779 @@
+[
+  {
+    "name": "get_my_profile",
+    "description": "Lấy thông tin hồ sơ cá nhân của nhân viên/giảng viên đang đăng nhập. Dùng khi người dùng hỏi: 'Thông tin tài khoản của tôi', 'Tôi có role gì', 'Tôi đang dạy hệ thống nào', 'Họ tên email của tôi là gì'.",
+    "category": "Hồ sơ cá nhân",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_training_systems",
+    "description": "Liệt kê tất cả các hệ thống/chương trình đào tạo hiện có (ví dụ: K26-CNTT, K26-QTKDS). Dùng khi người dùng hỏi: 'Có những chương trình đào tạo nào', 'Hệ thống CNTT là gì', 'Danh sách ngành học', 'Các khóa K26 gồm những gì'.",
+    "category": "Hệ thống đào tạo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_training_system_detail",
+    "description": "Lấy thông tin chi tiết của một hệ thống/chương trình đào tạo theo ID. Dùng sau khi đã biết systemId từ list_training_systems, khi người dùng muốn xem chi tiết về một chương trình cụ thể.",
+    "category": "Hệ thống đào tạo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "system_id": {
+          "type": "string",
+          "description": "ID duy nhất của hệ thống đào tạo (MongoDB ObjectId). Ví dụ: '6a868c22c6d890523883e324'"
+        }
+      },
+      "required": [
+        "system_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_classes",
+    "description": "Lấy danh sách tất cả các lớp học mà nhân viên/giảng viên hiện tại có quyền quản lý. Dùng khi người dùng hỏi: 'Tôi đang quản lý những lớp nào', 'Danh sách lớp học', 'Có bao nhiêu lớp', 'Lớp HN-KS26-CNTT1 có tồn tại không'. Hỗ trợ lọc theo tên lớp, phân trang.",
+    "category": "Lớp học",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Số lớp tối đa trả về mỗi trang. Mặc định: 20, tối đa: 100.",
+          "default": 20
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+          "default": 0
+        },
+        "search": {
+          "type": "string",
+          "description": "Từ khoá tìm kiếm lớp theo tên hoặc mã lớp (classCode). Ví dụ: 'HN-KS26-CNTT'"
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_class_detail",
+    "description": "Lấy thông tin chi tiết của một lớp học cụ thể theo ID. Trả về mã lớp (classCode), loại hình (FULLTIME/PARTTIME), danh sách ID khoá học (courseIds), ID hệ thống (systemIds). Dùng khi người dùng muốn xem chi tiết về một lớp cụ thể.",
+    "category": "Lớp học",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_id": {
+          "type": "string",
+          "description": "ID duy nhất của lớp học. Ví dụ: '6aac917e6fde2b6e692ed504'"
+        }
+      },
+      "required": [
+        "class_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_courses",
+    "description": "Lấy danh sách tất cả các khoá học/môn học mà nhân viên có quyền xem. Bao gồm: Tiếng Anh (ENG), Tiếng Nhật (JPN), CNTT (IT), Kỹ năng mềm (SSK), Marketing, AI, DA, Project... Dùng khi người dùng hỏi: 'Có những môn học nào', 'Danh sách khoá học', 'Môn IT101 có không', 'Khoá học Orientation là gì'.",
+    "category": "Khoá học & Môn học",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Số khoá học tối đa trả về. Mặc định: 50.",
+          "default": 50
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+          "default": 0
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_course_detail",
+    "description": "Lấy thông tin chi tiết của một khoá học/môn học theo ID. Trả về: tên, mã khoá (courseCode), số buổi học (totalSessions), công thức tính điểm (scoringFormula với trọng số: attendance, quiz, hackathon, finalExam), loại thi (examType: PROJECT/EXAM), phương pháp chấm (scoringMethod). Dùng khi người dùng muốn biết cấu trúc điểm của một môn học.",
+    "category": "Khoá học & Môn học",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "course_id": {
+          "type": "string",
+          "description": "ID duy nhất của khoá học. Ví dụ: '6aae5ad27d22545796a8eeaa'"
+        }
+      },
+      "required": [
+        "course_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_students",
+    "description": "Lấy danh sách sinh viên với nhiều bộ lọc linh hoạt. Dùng khi người dùng hỏi: 'Danh sách sinh viên', 'Sinh viên lớp CNTT', 'Có bao nhiêu sinh viên đang học', 'Sinh viên ở Hà Nội', 'Tìm sinh viên tên Nguyễn Văn A'. Có thể lọc theo hệ thống, địa điểm, trạng thái, tên.",
+    "category": "Quản lý Sinh viên",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Số sinh viên tối đa trả về mỗi trang. Mặc định: 20.",
+          "default": 20
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+          "default": 0
+        },
+        "system_id": {
+          "type": "string",
+          "description": "Lọc sinh viên theo ID hệ thống đào tạo. K26-CNTT: '6a868c22c6d890523883e324', K26-QTKDS: '6a868c33c6d890523883e335'"
+        },
+        "search": {
+          "type": "string",
+          "description": "Tìm kiếm theo tên hoặc mã sinh viên (studentCode, ví dụ: RE26449)"
+        },
+        "status": {
+          "type": "string",
+          "description": "Lọc theo trạng thái học tập.",
+          "enum": [
+            "ĐANG HỌC",
+            "BẢO LƯU",
+            "ĐÃ TỐT NGHIỆP",
+            "NGHỈ HỌC"
+          ]
+        },
+        "location": {
+          "type": "string",
+          "description": "Lọc theo địa điểm học.",
+          "enum": [
+            "HN",
+            "HCM"
+          ]
+        },
+        "class_id": {
+          "type": "string",
+          "description": "Lọc danh sách sinh viên theo ID lớp học cụ thể."
+        },
+        "class_name": {
+          "type": "string",
+          "description": "Lọc sinh viên theo tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1', 'HN-KS26-CNTT1')."
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_student_detail",
+    "description": "Lấy thông tin chi tiết đầy đủ của một sinh viên theo ID. Trả về: mã sinh viên, họ tên, email, SĐT, ngày sinh, trạng thái, địa điểm học (HN/HCM), hệ thống đào tạo, tên lớp. Dùng khi cần xem profile cụ thể của một sinh viên.",
+    "category": "Quản lý Sinh viên",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "student_id": {
+          "type": "string",
+          "description": "ID duy nhất của sinh viên (MongoDB ObjectId). Ví dụ: '6ab0ee764cf535213d26a981'"
+        }
+      },
+      "required": [
+        "student_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_sent_notifications",
+    "description": "Lấy danh sách các thông báo mà nhân viên/hệ thống đã gửi đi trước đây. Dùng khi người dùng hỏi: 'Tôi đã gửi thông báo gì', 'Lịch sử thông báo', 'Những thông báo nào đã được gửi', 'Kiểm tra thông báo lịch học đã gửi chưa'.",
+    "category": "Thông báo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Số thông báo tối đa trả về. Mặc định: 10.",
+          "default": 10
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+          "default": 0
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_received_notifications",
+    "description": "Lấy danh sách các thông báo mà nhân viên NHẬN ĐƯỢC từ sinh viên hoặc hệ thống. Bao gồm: đơn xin nghỉ phép, thông báo từ sinh viên. Dùng khi người dùng hỏi: 'Tôi có thông báo mới không', 'Có đơn nghỉ phép nào chưa xử lý không', 'Sinh viên nào vừa gửi đơn xin phép'.",
+    "category": "Thông báo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Số thông báo tối đa trả về. Mặc định: 10.",
+          "default": 10
+        },
+        "offset": {
+          "type": "integer",
+          "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+          "default": 0
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "send_notification",
+    "description": "Gửi thông báo đến một hoặc nhiều sinh viên cụ thể thông qua hệ thống LMS. Dùng khi người dùng yêu cầu: 'Gửi thông báo cho lớp HN-KS26-CNTT1', 'Nhắc nhở sinh viên RE26449 về lịch nộp bài', 'Thông báo lịch thi cho tất cả sinh viên CNTT'. QUAN TRỌNG: Phải có danh sách targetStudentIds trước khi gọi hàm này. Nếu chưa có, hãy gọi list_students trước để lấy ID sinh viên.",
+    "category": "Thông báo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Tiêu đề ngắn gọn của thông báo. Tối đa 100 ký tự. Ví dụ: 'Thông báo lịch thi cuối kỳ'"
+        },
+        "message": {
+          "type": "string",
+          "description": "Nội dung thông báo chính. Ví dụ: 'Lịch thi môn IT101 sẽ diễn ra vào ngày 30/09/2026'"
+        },
+        "target_student_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Danh sách ID của các sinh viên sẽ nhận thông báo. Đây là MongoDB ObjectId của sinh viên. Ví dụ: ['6ab0ee764cf535213d26a981', '6aae50fc7d22545796a8dbdb']"
+        },
+        "body": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Danh sách các dòng nội dung chi tiết bổ sung (tuỳ chọn). Ví dụ: ['Phòng thi: A301', 'Thời gian: 8:00 - 10:00', 'Mang theo CMND/CCCD']"
+        }
+      },
+      "required": [
+        "title",
+        "message",
+        "target_student_ids"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_attendance_sessions",
+    "description": "Lấy danh sách các buổi học / điểm danh trong hệ thống. Có thể lọc theo ID lớp học (class_id) hoặc ID môn học (course_id). Dùng khi người dùng hỏi: 'Danh sách các buổi học của lớp HCM-KS26-CNTT1', 'Có những buổi điểm danh nào'.",
+    "category": "Điểm danh & Chuyên cần",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học. Ví dụ: '6aac91736fde2b6e692ed4f8'"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học. Ví dụ: '6aad0918f00919310d3f102b'"
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_session_roster",
+    "description": "Lấy chi tiết danh sách điểm danh (roster) của một buổi học cụ thể theo session_id. Trả về danh sách sinh viên cùng trạng thái điểm danh (PRESENT, ABSENT, LATE...). Dùng khi muốn xem điểm danh của một buổi học nhất định.",
+    "category": "Điểm danh & Chuyên cần",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "ID duy nhất của buổi học điểm danh. Ví dụ: '6ab077dfd2575492aebd621b'"
+        }
+      },
+      "required": [
+        "session_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_student_attendance",
+    "description": "Tra cứu chi tiết lịch sử điểm danh, các ngày nghỉ học (vắng không phép, vắng có phép, đi muộn) của một sinh viên cụ thể trong toàn bộ các buổi học hoặc theo một môn học nhất định. DÙNG KHI người dùng hỏi: 'Bùi Gia Anh nghỉ những ngày nào', 'Điểm danh của sinh viên X', 'Sinh viên RE26444 đã nghỉ các buổi nào môn IT108-K26'.",
+    "category": "Điểm danh & Chuyên cần",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "student_id": {
+          "type": "string",
+          "description": "ID duy nhất của sinh viên (MongoDB ObjectId) nếu biết."
+        },
+        "search": {
+          "type": "string",
+          "description": "Họ và tên hoặc Mã sinh viên (Ví dụ: 'Bùi Gia Anh' hoặc 'RK2600063')"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "Tùy chọn: ID môn học nếu chỉ muốn lọc ngày nghỉ theo 1 môn cụ thể (Ví dụ: '6a88fb77a493e63f11a75432')"
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_class_attendance_summary",
+    "description": "Báo cáo tổng hợp tình hình điểm danh / chuyên cần của toàn bộ sinh viên trong lớp học. Tự động quét tất cả các buổi học của lớp (hoặc theo môn học), thống kê tổng số buổi có mặt, nghỉ có phép và nghỉ KHÔNG PHÉP (ABSENT_UNEXCUSED) của từng sinh viên. Đặc biệt tự động lọc ra danh sách các sinh viên nghỉ không phép nhiều nhất hoặc nghỉ quá số buổi quy định. DÙNG KHI người dùng hỏi: 'Sinh viên nào nghỉ không phép quá 2 buổi', 'Tình hình điểm danh lớp HCM-KS26-CNTT1', 'Ai vắng học nhiều nhất trong lớp', 'Danh sách chuyên cần toàn lớp'.",
+    "category": "Điểm danh & Chuyên cần",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_id": {
+          "type": "string",
+          "description": "ID duy nhất của lớp học (Ví dụ: '6aac91736fde2b6e692ed4f8')"
+        },
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học nếu chưa có class_id (Ví dụ: 'HCM-KS26-CNTT1')"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "Tùy chọn: ID môn học nếu chỉ muốn lọc điểm danh theo 1 môn cụ thể (Ví dụ: '6a88fb77a493e63f11a75432')"
+        },
+        "min_unexcused": {
+          "type": "integer",
+          "description": "Tùy chọn: Số buổi nghỉ không phép tối thiểu cần lọc (Mặc định: 1, nếu tìm > 2 buổi thì truyền 3)"
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_homework_session_detail",
+    "description": "Lấy thông tin đề bài tập về nhà, mô tả yêu cầu, và đáp án/tiêu chí chấm điểm (gradingCriteria) của một buổi học theo session_id. Dùng khi người dùng hỏi: 'Đề bài tập buổi 1 là gì', 'Tiêu chí chấm điểm bài tập session X'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "ID duy nhất của buổi học (sessionId). Ví dụ: '6aae2d7f051be35c19c09b49'"
+        }
+      },
+      "required": [
+        "session_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "list_homework_submissions",
+    "description": "Lấy danh sách tình hình nộp bài tập về nhà của toàn bộ sinh viên trong lớp theo session_id và class_id. Trả về danh sách sinh viên cùng trạng thái nộp bài (COMPLETED/chưa nộp), link nộp bài (Docs/Github), thời gian nộp. Dùng khi người dùng hỏi: 'Danh sách nộp bài tập buổi 1 của lớp HCM-KS26-CNTT1', 'Có bao nhiêu sinh viên đã làm bài tập'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "ID buổi học. Ví dụ: '6aae2d7f051be35c19c09b49'"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học. Ví dụ: '6aac91736fde2b6e692ed4f8'"
+        }
+      },
+      "required": [
+        "session_id",
+        "class_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_student_homework_status",
+    "description": "Kểm tra trạng thái nộp bài tập về nhà của một sinh viên cụ thể trong một buổi học. Dùng khi người dùng hỏi: 'Phan Gia Hiển đã nộp bài tập buổi 1 chưa', 'Link bài nộp của sinh viên RE26444'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "ID buổi học. Ví dụ: '6aae2d7f051be35c19c09b49'"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học. Ví dụ: '6aac91736fde2b6e692ed4f8'"
+        },
+        "search": {
+          "type": "string",
+          "description": "Tên hoặc Mã sinh viên (Ví dụ: 'Phan Gia Hiển' hoặc 'RE26444')"
+        }
+      },
+      "required": [
+        "session_id",
+        "class_id",
+        "search"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "create_homework",
+    "description": "Tạo mới bài tập về nhà cho một buổi học trên hệ thống LMS Rikkei. Có thể truyền session_id của buổi học, tiêu đề, mô tả đề bài, tiêu chí chấm điểm (gradingCriteria), độ khó (EASY, MEDIUM, HARD), thời lượng dự kiến (phút) và số lần tối đa AI chấm bài. Dùng khi người dùng yêu cầu: 'Tạo bài tập về nhà cho buổi 1', 'Thêm bài tập session X', 'Giao bài tập về nhà cho lớp'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "ID duy nhất của buổi học (có thể là sessionId của giáo trình hoặc attendanceSessionId)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Tiêu đề bài tập về nhà (Ví dụ: 'BÀI TẬP VỀ NHÀ SESSION 01: Học tập chủ động')."
+        },
+        "description": {
+          "type": "string",
+          "description": "Nội dung chi tiết đề bài, tình huống thực tế hoặc các câu hỏi nhiệm vụ sinh viên cần hoàn thành."
+        },
+        "grading_criteria": {
+          "type": "string",
+          "description": "Tiêu chí chấm điểm, rubric phân bổ điểm (thang điểm 100), hoặc đáp án/hướng dẫn chấm cho AI."
+        },
+        "difficulty_level": {
+          "type": "string",
+          "enum": [
+            "EASY",
+            "MEDIUM",
+            "HARD"
+          ],
+          "description": "Mức độ khó của bài tập: EASY (Dễ), MEDIUM (Trung bình), HARD (Khó). Mặc định là MEDIUM."
+        },
+        "expected_time": {
+          "type": "integer",
+          "description": "Thời gian dự kiến hoàn thành bài tập tính theo phút (Ví dụ: 60)."
+        },
+        "max_ai_grade_attempts": {
+          "type": "integer",
+          "description": "Số lần tối đa sinh viên được AI chấm thử lại (mặc định là 3)."
+        }
+      },
+      "required": [
+        "session_id",
+        "title"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "update_homework",
+    "description": "Chỉnh sửa hoặc cập nhật nội dung bài tập về nhà đã tồn tại trên LMS Rikkei. Cho phép cập nhật tiêu đề, nội dung đề bài, tiêu chí chấm điểm, độ khó hoặc thời gian làm bài. Chỉ cần truyền homework_id hoặc session_id (hệ thống sẽ tự tìm bài tập của buổi học đó). Dùng khi người dùng yêu cầu: 'Sửa bài tập buổi 1', 'Cập nhật tiêu chí chấm điểm bài tập', 'Thay đổi deadline/thời gian làm bài tập session X'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "homework_id": {
+          "type": "string",
+          "description": "ID duy nhất của bài tập về nhà (_id) nếu đã biết."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "ID của buổi học nếu không biết homework_id (hệ thống sẽ tự động tra cứu bài tập của buổi học này)."
+        },
+        "title": {
+          "type": "string",
+          "description": "Tiêu đề mới của bài tập (để trống nếu không muốn thay đổi)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Nội dung mô tả / đề bài mới (để trống nếu không muốn thay đổi)."
+        },
+        "grading_criteria": {
+          "type": "string",
+          "description": "Tiêu chí chấm điểm mới (để trống nếu không muốn thay đổi)."
+        },
+        "difficulty_level": {
+          "type": "string",
+          "enum": [
+            "EASY",
+            "MEDIUM",
+            "HARD"
+          ],
+          "description": "Mức độ khó mới (EASY, MEDIUM, HARD)."
+        },
+        "expected_time": {
+          "type": "integer",
+          "description": "Thời gian dự kiến làm bài mới tính theo phút."
+        },
+        "max_ai_grade_attempts": {
+          "type": "integer",
+          "description": "Số lần tối đa AI chấm bài mới."
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "delete_homework",
+    "description": "Xóa bài tập về nhà của một buổi học trên hệ thống LMS Rikkei. Chỉ định homework_id hoặc session_id của buổi học cần xóa bài tập. Dùng khi người dùng yêu cầu: 'Xóa bài tập về nhà buổi 1', 'Hủy bài tập session X'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "homework_id": {
+          "type": "string",
+          "description": "ID duy nhất của bài tập về nhà (_id) cần xóa."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "ID của buổi học cần xóa bài tập nếu không có homework_id."
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "update_submission_feedback",
+    "description": "Chỉnh sửa hoặc cập nhật nhận xét đánh giá của AI (aiSummary), điểm số (aiScore) và kết quả (aiDecision: PASS/FAIL) cho bài nộp bài tập về nhà của sinh viên trên LMS Rikkei. Có thể truyền trực tiếp submission_id, hoặc cung cấp (session_id, class_id, student_search) để hệ thống tự động tra cứu bài nộp của sinh viên đó. Dùng khi người dùng yêu cầu: 'Sửa nhận xét bài tập của sinh viên X', 'Chấm điểm lại cho bài tập của Y', 'Cập nhật aiSummary và aiScore cho bài nộp'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "submission_id": {
+          "type": "string",
+          "description": "ID bài nộp của sinh viên (latestSubmissionId hoặc submissionId)."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "Tùy chọn: ID của buổi học (dùng để tự tìm bài nộp nếu chưa có submission_id)."
+        },
+        "class_id": {
+          "type": "string",
+          "description": "Tùy chọn: ID của lớp học (dùng để tự tìm bài nộp nếu chưa có submission_id)."
+        },
+        "student_search": {
+          "type": "string",
+          "description": "Tùy chọn: Tên hoặc mã sinh viên (dùng để tự tìm bài nộp nếu chưa có submission_id)."
+        },
+        "ai_summary": {
+          "type": "string",
+          "description": "Nội dung văn bản nhận xét mới dành cho bài làm của sinh viên."
+        },
+        "ai_score": {
+          "type": "number",
+          "description": "Điểm số mới cho bài tập của sinh viên (Ví dụ: 90 hoặc 8.5)."
+        },
+        "ai_decision": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_PASS"
+          ],
+          "description": "Kết quả đánh giá: 'PASS' (Đạt) hoặc 'FAIL' / 'NOT_PASS' (Không đạt)."
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
+    "name": "get_student_training_metrics",
+    "description": "Tra cứu chi tiết toàn bộ các chỉ số đào tạo của một sinh viên trong một môn học / lớp học: Điểm rPoint (totalScore, baseScore), tỷ lệ nghỉ học (absenceRate %), tỷ lệ nộp bài tập (submissionRate %), điểm chuẩn bị bài (preparationScore), điểm chuyên cần (attendanceScore), điểm bài tập (assignmentScore), điểm tuân thủ (complianceScore), và điều kiện dự thi (examEligible: Đạt / Không đạt kèm chi tiết từng tiêu chí). Hỗ trợ tìm kiếm thông minh bằng tên/mã sinh viên, tên/mã lớp học và tên môn học. Dùng khi người dùng hỏi: 'Điểm rPoint của sinh viên X là bao nhiêu', 'Tỷ lệ nghỉ học của X', 'Điểm chuẩn bị bài của X', 'X có đủ điều kiện thi môn này không', 'Xem bảng chỉ số đào tạo của X'.",
+    "category": "Chỉ số đào tạo & rPoint",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "student_search": {
+          "type": "string",
+          "description": "Tên hoặc mã sinh viên (Ví dụ: 'Phạm Đăng Khoa', 'N26DTCN049', 'Nguyễn Vũ Quốc Anh')"
+        },
+        "student_id": {
+          "type": "string",
+          "description": "ID sinh viên nếu đã biết (Ví dụ: '6aa9f0c2bd4a73a68ce4bce7')"
+        },
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1', 'HCM-KS26-CNTT2')"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên hoặc mã môn học (Ví dụ: 'Nhập Môn Công Nghệ Thông Tin'). Nếu để trống hệ thống sẽ tự lấy môn học hiện tại của lớp."
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        }
+      },
+      "required": [
+        "student_search"
+      ]
+    },
+    "createdAt": 1791175532919,
+    "updatedAt": 1791175532919
+  },
+  {
+    "name": "get_class_training_metrics",
+    "description": "Báo cáo và thống kê các chỉ số đào tạo tổng hợp của cả lớp trong một môn học: Điểm rPoint trung bình, tỷ lệ nghỉ học trung bình, điểm chuẩn bị bài trung bình, tỷ lệ nộp bài trung bình, số lượng sinh viên đủ điều kiện thi / nguy cơ cấm thi, và danh sách chi tiết các sinh viên (rPoint, vắng học %, chuẩn bị bài, nộp bài, điều kiện thi). Dùng khi người dùng hỏi: 'Tình hình rPoint của lớp', 'Thống kê tỷ lệ nghỉ học của lớp HCM-KS26-CNTT2', 'Lớp có bao nhiêu bạn chuẩn bị bài tốt', 'Danh sách đủ điều kiện thi môn CNTT'.",
+    "category": "Chỉ số đào tạo & rPoint",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1', 'HCM-KS26-CNTT2')"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học (Ví dụ: 'Nhập Môn Công Nghệ Thông Tin'). Nếu để trống sẽ lấy môn học chính của lớp."
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Số lượng sinh viên hiển thị chi tiết (mặc định 20)."
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791175532919,
+    "updatedAt": 1791175532919
+  },
+  {
+    "name": "get_course_class_roster",
+    "description": "Lấy danh sách sinh viên ghi danh chính thức trong một lớp học môn học (course-class roster). Bao gồm họ tên, mã sinh viên, email, trạng thái học tập (STUDYING), thời điểm ghi danh. Dùng khi người dùng hỏi: 'Danh sách sinh viên học môn Nhập môn CNTT lớp X', 'Roster lớp môn học'.",
+    "category": "Chỉ số đào tạo & rPoint",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học"
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1791175532919,
+    "updatedAt": 1791175532919
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "rikkei-lms": {
+      "command": "python",
+      "args": [
+        "d:/rekkei_lms/mcp_server.py"
+      ],
+      "env": {
+        "PYTHONUTF8": "1"
+      }
+    }
+  }
+}

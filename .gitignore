@@ -1,0 +1,24 @@
+# Secrets & environment
+.env
+*.env.local
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# App caches & browser profiles
+data/auth_cache/
+data/browser_profile/
+*.log
+
+# Temp files
+_temp_*
+.pytest_cache/

@@ -1,0 +1,286 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "get_my_profile",
+      "description": "Lấy thông tin hồ sơ cá nhân của nhân viên/giảng viên đang đăng nhập. Dùng khi người dùng hỏi: 'Thông tin tài khoản của tôi', 'Tôi có role gì', 'Tôi đang dạy hệ thống nào', 'Họ tên email của tôi là gì'.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_training_systems",
+      "description": "Liệt kê tất cả các hệ thống/chương trình đào tạo hiện có (ví dụ: K26-CNTT, K26-QTKDS). Dùng khi người dùng hỏi: 'Có những chương trình đào tạo nào', 'Hệ thống CNTT là gì', 'Danh sách ngành học', 'Các khóa K26 gồm những gì'.",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_training_system_detail",
+      "description": "Lấy thông tin chi tiết của một hệ thống/chương trình đào tạo theo ID. Dùng sau khi đã biết systemId từ list_training_systems, khi người dùng muốn xem chi tiết về một chương trình cụ thể.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "system_id": {
+            "type": "string",
+            "description": "ID duy nhất của hệ thống đào tạo (MongoDB ObjectId). Ví dụ: '6a868c22c6d890523883e324'"
+          }
+        },
+        "required": [
+          "system_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_classes",
+      "description": "Lấy danh sách tất cả các lớp học mà nhân viên/giảng viên hiện tại có quyền quản lý. Dùng khi người dùng hỏi: 'Tôi đang quản lý những lớp nào', 'Danh sách lớp học', 'Có bao nhiêu lớp', 'Lớp HN-KS26-CNTT1 có tồn tại không'. Hỗ trợ lọc theo tên lớp, phân trang.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "description": "Số lớp tối đa trả về mỗi trang. Mặc định: 20, tối đa: 100.",
+            "default": 20
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+            "default": 0
+          },
+          "search": {
+            "type": "string",
+            "description": "Từ khoá tìm kiếm lớp theo tên hoặc mã lớp (classCode). Ví dụ: 'HN-KS26-CNTT'"
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_class_detail",
+      "description": "Lấy thông tin chi tiết của một lớp học cụ thể theo ID. Trả về mã lớp (classCode), loại hình (FULLTIME/PARTTIME), danh sách ID khoá học (courseIds), ID hệ thống (systemIds). Dùng khi người dùng muốn xem chi tiết về một lớp cụ thể.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "class_id": {
+            "type": "string",
+            "description": "ID duy nhất của lớp học. Ví dụ: '6aac917e6fde2b6e692ed504'"
+          }
+        },
+        "required": [
+          "class_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_courses",
+      "description": "Lấy danh sách tất cả các khoá học/môn học mà nhân viên có quyền xem. Bao gồm: Tiếng Anh (ENG), Tiếng Nhật (JPN), CNTT (IT), Kỹ năng mềm (SSK), Marketing, AI, DA, Project... Dùng khi người dùng hỏi: 'Có những môn học nào', 'Danh sách khoá học', 'Môn IT101 có không', 'Khoá học Orientation là gì'.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "description": "Số khoá học tối đa trả về. Mặc định: 50.",
+            "default": 50
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+            "default": 0
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_course_detail",
+      "description": "Lấy thông tin chi tiết của một khoá học/môn học theo ID. Trả về: tên, mã khoá (courseCode), số buổi học (totalSessions), công thức tính điểm (scoringFormula với trọng số: attendance, quiz, hackathon, finalExam), loại thi (examType: PROJECT/EXAM), phương pháp chấm (scoringMethod). Dùng khi người dùng muốn biết cấu trúc điểm của một môn học.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "string",
+            "description": "ID duy nhất của khoá học. Ví dụ: '6aae5ad27d22545796a8eeaa'"
+          }
+        },
+        "required": [
+          "course_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_students",
+      "description": "Lấy danh sách sinh viên với nhiều bộ lọc linh hoạt. Dùng khi người dùng hỏi: 'Danh sách sinh viên', 'Sinh viên lớp CNTT', 'Có bao nhiêu sinh viên đang học', 'Sinh viên ở Hà Nội', 'Tìm sinh viên tên Nguyễn Văn A'. Có thể lọc theo hệ thống, địa điểm, trạng thái, tên.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "description": "Số sinh viên tối đa trả về mỗi trang. Mặc định: 20.",
+            "default": 20
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+            "default": 0
+          },
+          "system_id": {
+            "type": "string",
+            "description": "Lọc sinh viên theo ID hệ thống đào tạo. K26-CNTT: '6a868c22c6d890523883e324', K26-QTKDS: '6a868c33c6d890523883e335'"
+          },
+          "search": {
+            "type": "string",
+            "description": "Tìm kiếm theo tên hoặc mã sinh viên (studentCode, ví dụ: RE26449)"
+          },
+          "status": {
+            "type": "string",
+            "description": "Lọc theo trạng thái học tập.",
+            "enum": [
+              "ĐANG HỌC",
+              "BẢO LƯU",
+              "ĐÃ TỐT NGHIỆP",
+              "NGHỈ HỌC"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "description": "Lọc theo địa điểm học.",
+            "enum": [
+              "HN",
+              "HCM"
+            ]
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_student_detail",
+      "description": "Lấy thông tin chi tiết đầy đủ của một sinh viên theo ID. Trả về: mã sinh viên, họ tên, email, SĐT, ngày sinh, trạng thái, địa điểm học (HN/HCM), hệ thống đào tạo, tên lớp. Dùng khi cần xem profile cụ thể của một sinh viên.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "student_id": {
+            "type": "string",
+            "description": "ID duy nhất của sinh viên (MongoDB ObjectId). Ví dụ: '6ab0ee764cf535213d26a981'"
+          }
+        },
+        "required": [
+          "student_id"
+        ]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_sent_notifications",
+      "description": "Lấy danh sách các thông báo mà nhân viên/hệ thống đã gửi đi trước đây. Dùng khi người dùng hỏi: 'Tôi đã gửi thông báo gì', 'Lịch sử thông báo', 'Những thông báo nào đã được gửi', 'Kiểm tra thông báo lịch học đã gửi chưa'.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "description": "Số thông báo tối đa trả về. Mặc định: 10.",
+            "default": 10
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+            "default": 0
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_received_notifications",
+      "description": "Lấy danh sách các thông báo mà nhân viên NHẬN ĐƯỢC từ sinh viên hoặc hệ thống. Bao gồm: đơn xin nghỉ phép, thông báo từ sinh viên. Dùng khi người dùng hỏi: 'Tôi có thông báo mới không', 'Có đơn nghỉ phép nào chưa xử lý không', 'Sinh viên nào vừa gửi đơn xin phép'.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "description": "Số thông báo tối đa trả về. Mặc định: 10.",
+            "default": 10
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Số bản ghi bỏ qua để phân trang. Mặc định: 0.",
+            "default": 0
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "send_notification",
+      "description": "Gửi thông báo đến một hoặc nhiều sinh viên cụ thể thông qua hệ thống LMS. Dùng khi người dùng yêu cầu: 'Gửi thông báo cho lớp HN-KS26-CNTT1', 'Nhắc nhở sinh viên RE26449 về lịch nộp bài', 'Thông báo lịch thi cho tất cả sinh viên CNTT'. QUAN TRỌNG: Phải có danh sách targetStudentIds trước khi gọi hàm này. Nếu chưa có, hãy gọi list_students trước để lấy ID sinh viên.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Tiêu đề ngắn gọn của thông báo. Tối đa 100 ký tự. Ví dụ: 'Thông báo lịch thi cuối kỳ'"
+          },
+          "message": {
+            "type": "string",
+            "description": "Nội dung thông báo chính. Ví dụ: 'Lịch thi môn IT101 sẽ diễn ra vào ngày 30/09/2026'"
+          },
+          "target_student_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Danh sách ID của các sinh viên sẽ nhận thông báo. Đây là MongoDB ObjectId của sinh viên. Ví dụ: ['6ab0ee764cf535213d26a981', '6aae50fc7d22545796a8dbdb']"
+          },
+          "body": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Danh sách các dòng nội dung chi tiết bổ sung (tuỳ chọn). Ví dụ: ['Phòng thi: A301', 'Thời gian: 8:00 - 10:00', 'Mang theo CMND/CCCD']"
+          }
+        },
+        "required": [
+          "title",
+          "message",
+          "target_student_ids"
+        ]
+      }
+    }
+  }
+]

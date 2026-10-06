@@ -1,0 +1,164 @@
+[
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504",
+    "description": "Chi tiết lớp học",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'id': '6aac917e6fde2b6e692ed504', 'name': 'HCM-K26-QTKD1', 'classCode': 'HCM-K26-QTKD1', 'type': 'FULLTIME', 'userIds': [], 'courseIds': ['6aae5ad27d22545796a8eeaa', '6aad0918f00919310d3f102b'], 'systemIds': [], 'createdAt': '2026-09-18T01:18:54.978Z'}}"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/students",
+    "description": "Sinh viên trong lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/students?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/students?limit=3'], 'timestamp': '2026-09-22T04:14:02.700Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/s"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/courses",
+    "description": "Khoá học trong lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/courses?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/courses?limit=3'], 'timestamp': '2026-09-22T04:14:03.019Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/cou"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/sessions",
+    "description": "Buổi học của lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/sessions?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/sessions?limit=3'], 'timestamp': '2026-09-22T04:14:03.319Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/s"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/attendances",
+    "description": "Điểm danh của lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/attendances?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/attendances?limit=3'], 'timestamp': '2026-09-22T04:14:03.604Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692e"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/scores",
+    "description": "Điểm số của lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/scores?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/scores?limit=3'], 'timestamp': '2026-09-22T04:14:03.891Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/score"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/grades",
+    "description": "Kết quả học tập",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/grades?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/grades?limit=3'], 'timestamp': '2026-09-22T04:14:04.214Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/grade"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/leaves",
+    "description": "Đơn nghỉ phép",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/leaves?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/leaves?limit=3'], 'timestamp': '2026-09-22T04:14:04.472Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/leave"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/notifications",
+    "description": "Thông báo lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/notifications?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/notifications?limit=3'], 'timestamp': '2026-09-22T04:14:04.673Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e"
+  },
+  {
+    "path": "/api/staff/classes/6aac917e6fde2b6e692ed504/schedule",
+    "description": "Lịch học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/schedule?limit=3', 'message': ['translate.Cannot GET /v1/staff/classes/6aac917e6fde2b6e692ed504/schedule?limit=3'], 'timestamp': '2026-09-22T04:14:04.903Z', 'path': '/v1/staff/classes/6aac917e6fde2b6e692ed504/s"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa",
+    "description": "Chi tiết khoá học",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'id': '6aae5ad27d22545796a8eeaa', 'name': 'Định hướng đầu khóa', 'courseCode': 'Orientation', 'position': 0, 'hour': 0, 'totalSessions': 1, 'courseCover': '', 'description': '', 'isVisible': True, 'scoringMethod': 'FULL_PROJECT', 'examType': 'PROJECT', 'whitelist': False"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/sessions",
+    "description": "Buổi học của khoá",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/sessions?limit=3', 'message': ['translate.Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/sessions?limit=3'], 'timestamp': '2026-09-22T04:14:05.414Z', 'path': '/v1/staff/courses/6aae5ad27d22545796a8eeaa/s"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/lessons",
+    "description": "Bài học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/lessons?limit=3', 'message': ['translate.Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/lessons?limit=3'], 'timestamp': '2026-09-22T04:14:05.693Z', 'path': '/v1/staff/courses/6aae5ad27d22545796a8eeaa/les"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/quizzes",
+    "description": "Bài kiểm tra",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/quizzes?limit=3', 'message': ['translate.Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/quizzes?limit=3'], 'timestamp': '2026-09-22T04:14:05.972Z', 'path': '/v1/staff/courses/6aae5ad27d22545796a8eeaa/qui"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/assignments",
+    "description": "Bài tập",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/assignments?limit=3', 'message': ['translate.Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/assignments?limit=3'], 'timestamp': '2026-09-22T04:14:06.269Z', 'path': '/v1/staff/courses/6aae5ad27d22545796a8"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/students",
+    "description": "Sinh viên khoá học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/students?limit=3', 'message': ['translate.Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/students?limit=3'], 'timestamp': '2026-09-22T04:14:06.505Z', 'path': '/v1/staff/courses/6aae5ad27d22545796a8eeaa/s"
+  },
+  {
+    "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/attendances",
+    "description": "Điểm danh khoá học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/attendances?limit=3', 'message': ['translate.Cannot GET /v1/staff/courses/6aae5ad27d22545796a8eeaa/attendances?limit=3'], 'timestamp': '2026-09-22T04:14:06.679Z', 'path': '/v1/staff/courses/6aae5ad27d22545796a8"
+  },
+  {
+    "path": "/api/courses",
+    "description": "Tất cả khoá học (root)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/courses?limit=3', 'message': ['translate.Cannot GET /v1/courses?limit=3'], 'timestamp': '2026-09-22T04:14:06.943Z', 'path': '/v1/courses?limit=3'}"
+  },
+  {
+    "path": "/api/courses/6aae5ad27d22545796a8eeaa",
+    "description": "Chi tiết khoá học (root)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/courses/6aae5ad27d22545796a8eeaa?limit=3', 'message': ['translate.Cannot GET /v1/courses/6aae5ad27d22545796a8eeaa?limit=3'], 'timestamp': '2026-09-22T04:14:07.212Z', 'path': '/v1/courses/6aae5ad27d22545796a8eeaa?limit=3'}"
+  },
+  {
+    "path": "/api/courses/6aae5ad27d22545796a8eeaa/sessions",
+    "description": "Sessions khoá học (root)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/courses/6aae5ad27d22545796a8eeaa/sessions?limit=3', 'message': ['translate.Cannot GET /v1/courses/6aae5ad27d22545796a8eeaa/sessions?limit=3'], 'timestamp': '2026-09-22T04:14:07.479Z', 'path': '/v1/courses/6aae5ad27d22545796a8eeaa/sessions?limit=3'}"
+  },
+  {
+    "path": "/api/specialize",
+    "description": "Chuyên ngành",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/specialize?limit=3', 'message': ['translate.Cannot GET /v1/specialize?limit=3'], 'timestamp': '2026-09-22T04:14:07.811Z', 'path': '/v1/specialize?limit=3'}"
+  },
+  {
+    "path": "/api/specializes",
+    "description": "Chuyên ngành (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/specializes?limit=3', 'message': ['translate.Cannot GET /v1/specializes?limit=3'], 'timestamp': '2026-09-22T04:14:08.153Z', 'path': '/v1/specializes?limit=3'}"
+  },
+  {
+    "path": "/api/locations",
+    "description": "Địa điểm",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/locations?limit=3', 'message': ['translate.Cannot GET /v1/locations?limit=3'], 'timestamp': '2026-09-22T04:14:08.419Z', 'path': '/v1/locations?limit=3'}"
+  },
+  {
+    "path": "/api/location",
+    "description": "Địa điểm (singular)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/location?limit=3', 'message': ['translate.Cannot GET /v1/location?limit=3'], 'timestamp': '2026-09-22T04:14:08.748Z', 'path': '/v1/location?limit=3'}"
+  },
+  {
+    "path": "/api/staff/schedule",
+    "description": "Lịch của nhân viên",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Người dùng không tồn tại', 'message': ['translate.Người dùng không tồn tại'], 'timestamp': '2026-09-22T04:14:09.032Z', 'path': '/v1/staff/schedule?limit=3'}"
+  },
+  {
+    "path": "/api/staff/leaves",
+    "description": "Nghỉ phép nhân viên",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Người dùng không tồn tại', 'message': ['translate.Người dùng không tồn tại'], 'timestamp': '2026-09-22T04:14:09.278Z', 'path': '/v1/staff/leaves?limit=3'}"
+  },
+  {
+    "path": "/api/staff/absences",
+    "description": "Vắng mặt nhân viên",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Người dùng không tồn tại', 'message': ['translate.Người dùng không tồn tại'], 'timestamp': '2026-09-22T04:14:09.547Z', 'path': '/v1/staff/absences?limit=3'}"
+  }
+]

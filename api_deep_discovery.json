@@ -1,0 +1,218 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/students",
+    "description": "Danh sách tất cả sinh viên",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "/api/students/6ab0ee764cf535213d26a981",
+    "description": "Chi tiết một sinh viên",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "/api/students/6ab0ee764cf535213d26a981/attendances",
+    "description": "Điểm danh của sinh viên",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/students/6ab0ee764cf535213d26a981/grades",
+    "description": "Điểm số của sinh viên",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/students/6ab0ee764cf535213d26a981/leaves",
+    "description": "Đơn nghỉ phép của sinh viên",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/systems",
+    "description": "Danh sách hệ thống",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "/api/systems/6a868c33c6d890523883e335",
+    "description": "Chi tiết hệ thống K26-QTKDS",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "/api/systems/6a868c33c6d890523883e335/classes",
+    "description": "Lớp học của hệ thống K26-QTKDS",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/systems/6a868c33c6d890523883e335/students",
+    "description": "Sinh viên của hệ thống K26-QTKDS",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/systems/6a868c22c6d890523883e324/classes",
+    "description": "Lớp học của hệ thống K26-CNTT",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/class",
+    "description": "Danh sách lớp học",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/class-rooms",
+    "description": "Danh sách phòng học",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/class-room",
+    "description": "Danh sách phòng học (alt)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/me",
+    "description": "Profile nhân viên (alt)",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/profile",
+    "description": "Profile nhân viên",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/department",
+    "description": "Phòng ban",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/departments",
+    "description": "Phòng ban (plural)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/roles",
+    "description": "Danh sách role/quyền",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/attendance",
+    "description": "Điểm danh (root)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/attendances",
+    "description": "Điểm danh (plural)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/grade",
+    "description": "Điểm số (root)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/notifications",
+    "description": "Thông báo nhân viên",
+    "status": 200
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/notifications/received",
+    "description": "Thông báo đã nhận",
+    "status": 200
+  },
+  {
+    "method": "POST",
+    "path": "/api/staff/notifications",
+    "description": "Gửi thông báo",
+    "status": 204
+  },
+  {
+    "method": "GET",
+    "path": "/api/leave",
+    "description": "Đơn nghỉ phép (root)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/leaves",
+    "description": "Đơn nghỉ phép (plural)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/leave-requests",
+    "description": "Yêu cầu nghỉ phép",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/subject",
+    "description": "Môn học",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/subjects",
+    "description": "Môn học (plural)",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/schedule",
+    "description": "Lịch học",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/timetable",
+    "description": "Thời khoá biểu",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/assignment",
+    "description": "Bài tập",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/exam",
+    "description": "Kỳ thi",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/quiz",
+    "description": "Bài kiểm tra",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/config",
+    "description": "Cấu hình hệ thống",
+    "status": 404
+  },
+  {
+    "method": "GET",
+    "path": "/api/settings",
+    "description": "Cài đặt",
+    "status": 404
+  }
+]

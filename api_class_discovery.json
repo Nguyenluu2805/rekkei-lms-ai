@@ -1,0 +1,205 @@
+[
+  {
+    "method": "GET",
+    "path": "/api/classes?systemCode=K26-QTKDS",
+    "description": "Classes theo systemCode=K26-QTKDS",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classes?systemCode=K26-QTKDS', 'message': ['translate.Cannot GET /v1/classes?systemCode=K26-QTKDS'], 'timestamp': '2026-09-22T04:13:01.869Z', 'path': '/v1/classes?systemCode=K26-QTKDS'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/class?systemCode=K26-QTKDS",
+    "description": "Class theo systemCode=K26-QTKDS",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/class?systemCode=K26-QTKDS', 'message': ['translate.Cannot GET /v1/class?systemCode=K26-QTKDS'], 'timestamp': '2026-09-22T04:13:02.183Z', 'path': '/v1/class?systemCode=K26-QTKDS'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes?systemCode=K26-CNTT",
+    "description": "Classes theo systemCode=K26-CNTT",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classes?systemCode=K26-CNTT', 'message': ['translate.Cannot GET /v1/classes?systemCode=K26-CNTT'], 'timestamp': '2026-09-22T04:13:02.540Z', 'path': '/v1/classes?systemCode=K26-CNTT'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/class?systemCode=K26-CNTT",
+    "description": "Class theo systemCode=K26-CNTT",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/class?systemCode=K26-CNTT', 'message': ['translate.Cannot GET /v1/class?systemCode=K26-CNTT'], 'timestamp': '2026-09-22T04:13:02.821Z', 'path': '/v1/class?systemCode=K26-CNTT'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes?systemId=6a868c33c6d890523883e335",
+    "description": "Classes theo systemId",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classes?systemId=6a868c33c6d890523883e335', 'message': ['translate.Cannot GET /v1/classes?systemId=6a868c33c6d890523883e335'], 'timestamp': '2026-09-22T04:13:03.108Z', 'path': '/v1/classes?systemId=6a868c33c6d890523883e335'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/students?systemId=6a868c33c6d890523883e335",
+    "description": "Students theo systemId",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6aae50fc7d22545796a8dbdb', 'studentCode': 'RE26438', 'fullName': 'Trần Anh Vũ', 'email': 'vuanhtran208@gmail.com', 'phone': '123', 'dateOfBirth': '2008-08-25T00:00:00.000Z', 'status': 'ĐANG HỌC', 'role': 'student', 'location': 'HN', 'avatar': 'https://f"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes?systemId=6a868c22c6d890523883e324",
+    "description": "Classes theo systemId",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classes?systemId=6a868c22c6d890523883e324', 'message': ['translate.Cannot GET /v1/classes?systemId=6a868c22c6d890523883e324'], 'timestamp': '2026-09-22T04:13:03.579Z', 'path': '/v1/classes?systemId=6a868c22c6d890523883e324'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/students?systemId=6a868c22c6d890523883e324",
+    "description": "Students theo systemId",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6ab0ee764cf535213d26a981', 'studentCode': 'RE26449', 'fullName': 'Trần Thị Mỹ Phước', 'email': 'phuocttm@rikkeieducation.id.vn', 'phone': '123', 'dateOfBirth': '2006-09-01T00:00:00.000Z', 'status': 'ĐANG HỌC', 'role': 'student', 'location': 'HN', 'avata"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classes",
+    "description": "Lớp học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classes?limit=3', 'message': ['translate.Cannot GET /v1/classes?limit=3'], 'timestamp': '2026-09-22T04:13:04.205Z', 'path': '/v1/classes?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/class-groups",
+    "description": "Nhóm lớp",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/class-groups?limit=3', 'message': ['translate.Cannot GET /v1/class-groups?limit=3'], 'timestamp': '2026-09-22T04:13:04.505Z', 'path': '/v1/class-groups?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/learning-classes",
+    "description": "Lớp học (learning)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/learning-classes?limit=3', 'message': ['translate.Cannot GET /v1/learning-classes?limit=3'], 'timestamp': '2026-09-22T04:13:04.749Z', 'path': '/v1/learning-classes?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/course-classes",
+    "description": "Lớp khoá học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/course-classes?limit=3', 'message': ['translate.Cannot GET /v1/course-classes?limit=3'], 'timestamp': '2026-09-22T04:13:04.978Z', 'path': '/v1/course-classes?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/classes",
+    "description": "Lớp của nhân viên",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6aac917e6fde2b6e692ed504', 'name': 'HCM-K26-QTKD1', 'classCode': 'HCM-K26-QTKD1', 'type': 'FULLTIME', 'userIds': [], 'courseIds': ['6aae5ad27d22545796a8eeaa', '6aad0918f00919310d3f102b'], 'systemIds': [], 'createdAt': '2026-09-18T01:18:54.978Z'}, {'id': '6aac91786fde2b6e692ed4fd', 'name': 'HCM-KS26-CNTT2', 'classCode': 'HCM-KS26-CNTT2', 'type': 'FULLT"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/profile/me",
+    "description": "Profile nhân viên",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'id': '6a5840dfcb86a0edcb952274', 'fullName': 'Lưu Xuân Hoàng Nguyên', 'email': 'nguyenlxh@rikkeieducation.com', 'phone': '0987273547', 'address': 'HCM', 'avatar': None, 'gender': 'MALE', 'status': 'ACTIVE', 'whitelist': False, 'systemIds': [], 'roles': [{'_id': '6ab200511f298b38a3f4fff9', 'name': 'TEACHER', 'weight': 2}, {'_id': '6ab200511f298b38a3f4fffa', 'name': 'TE"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/courses",
+    "description": "Khoá học của nhân viên",
+    "status": 200,
+    "preview": "{'statusCode': 200, 'data': {'items': [{'id': '6aae5ad27d22545796a8eeaa', 'name': 'Định hướng đầu khóa', 'courseCode': 'Orientation', 'position': 0, 'hour': 0, 'totalSessions': 1, 'courseCover': '', 'description': '', 'isVisible': True, 'scoringMethod': 'FULL_PROJECT', 'examType': 'PROJECT', 'whitelist': False, 'accessMode': 'SEQUENTIAL', 'scoringFormula': {'weights': {'attendance': 0.1, 'quiz': 0"
+  },
+  {
+    "method": "GET",
+    "path": "/api/staff/students",
+    "description": "Sinh viên của nhân viên",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Người dùng không tồn tại', 'message': ['translate.Người dùng không tồn tại'], 'timestamp': '2026-09-22T04:13:06.109Z', 'path': '/v1/staff/students?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/student-classes",
+    "description": "Lớp của sinh viên",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/student-classes?limit=3', 'message': ['translate.Cannot GET /v1/student-classes?limit=3'], 'timestamp': '2026-09-22T04:13:06.413Z', 'path': '/v1/student-classes?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classroom",
+    "description": "Phòng học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classroom?limit=3', 'message': ['translate.Cannot GET /v1/classroom?limit=3'], 'timestamp': '2026-09-22T04:13:07.039Z', 'path': '/v1/classroom?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/classrooms",
+    "description": "Phòng học (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/classrooms?limit=3', 'message': ['translate.Cannot GET /v1/classrooms?limit=3'], 'timestamp': '2026-09-22T04:13:07.375Z', 'path': '/v1/classrooms?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/session",
+    "description": "Buổi học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/session?limit=3', 'message': ['translate.Cannot GET /v1/session?limit=3'], 'timestamp': '2026-09-22T04:13:07.638Z', 'path': '/v1/session?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/sessions",
+    "description": "Buổi học (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/sessions?limit=3', 'message': ['translate.Cannot GET /v1/sessions?limit=3'], 'timestamp': '2026-09-22T04:13:07.941Z', 'path': '/v1/sessions?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/lesson",
+    "description": "Bài học",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/lesson?limit=3', 'message': ['translate.Cannot GET /v1/lesson?limit=3'], 'timestamp': '2026-09-22T04:13:08.211Z', 'path': '/v1/lesson?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/lessons",
+    "description": "Bài học (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/lessons?limit=3', 'message': ['translate.Cannot GET /v1/lessons?limit=3'], 'timestamp': '2026-09-22T04:13:08.397Z', 'path': '/v1/lessons?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/absence",
+    "description": "Vắng mặt",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/absence?limit=3', 'message': ['translate.Cannot GET /v1/absence?limit=3'], 'timestamp': '2026-09-22T04:13:08.667Z', 'path': '/v1/absence?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/absences",
+    "description": "Vắng mặt (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/absences?limit=3', 'message': ['translate.Cannot GET /v1/absences?limit=3'], 'timestamp': '2026-09-22T04:13:08.934Z', 'path': '/v1/absences?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/score",
+    "description": "Điểm",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/score?limit=3', 'message': ['translate.Cannot GET /v1/score?limit=3'], 'timestamp': '2026-09-22T04:13:09.221Z', 'path': '/v1/score?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/scores",
+    "description": "Điểm (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/scores?limit=3', 'message': ['translate.Cannot GET /v1/scores?limit=3'], 'timestamp': '2026-09-22T04:13:09.471Z', 'path': '/v1/scores?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/rubric",
+    "description": "Rubric",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/rubric?limit=3', 'message': ['translate.Cannot GET /v1/rubric?limit=3'], 'timestamp': '2026-09-22T04:13:09.700Z', 'path': '/v1/rubric?limit=3'}"
+  },
+  {
+    "method": "GET",
+    "path": "/api/rubrics",
+    "description": "Rubric (plural)",
+    "status": 404,
+    "preview": "{'statusCode': 404, 'messageCode': 'Cannot GET /v1/rubrics?limit=3', 'message': ['translate.Cannot GET /v1/rubrics?limit=3'], 'timestamp': '2026-09-22T04:13:10.023Z', 'path': '/v1/rubrics?limit=3'}"
+  }
+]

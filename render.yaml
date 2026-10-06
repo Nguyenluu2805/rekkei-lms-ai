@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: rika-lms-agent
+    runtime: python
+    region: singapore
+    plan: free
+    buildCommand: "pip install -r requirements.txt && playwright install chromium --with-deps"
+    startCommand: "uvicorn server:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHONUTF8
+        value: "1"
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: LMS_TOKEN
+        sync: false
+      - key: RIKKEI_USERNAME
+        sync: false
+      - key: RIKKEI_PASSWORD
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_APP_PASSWORD
+        sync: false
