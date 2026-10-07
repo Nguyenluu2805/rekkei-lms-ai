@@ -128,9 +128,34 @@ def get_otp_from_email(since_id):
         print(f"Lỗi đọc email: {e}")
     return None
 
+def _ensure_nocaptcha_extension():
+    """Đảm bảo extension NoCaptcha AI được cấu hình API Key chính xác trước khi mở trình duyệt."""
+    if not os.path.exists(config.NOCAPTCHA_EXT_DIR):
+        return []
+    cfg_path = os.path.join(config.NOCAPTCHA_EXT_DIR, "defaultConfig.json")
+    if os.path.exists(cfg_path):
+        try:
+            with open(cfg_path, "r", encoding="utf-8") as f:
+                c = json.load(f)
+            c["APIKEY"] = config.NOCAPTCHA_API_KEY
+            c["enabled"] = True
+            if "options" in c and "ReCaptcha" in c["options"]:
+                c["options"]["ReCaptcha"]["active"] = True
+                c["options"]["ReCaptcha"]["autoOpen"] = True
+                c["options"]["ReCaptcha"]["autoSolve"] = True
+            with open(cfg_path, "w", encoding="utf-8") as f:
+                json.dump(c, f, indent=2)
+        except Exception as e:
+            print(f"Lỗi cập nhật config extension NoCaptcha: {e}")
+    return [
+        f"--disable-extensions-except={config.NOCAPTCHA_EXT_DIR}",
+        f"--load-extension={config.NOCAPTCHA_EXT_DIR}"
+    ]
+
 def login_and_fetch_token():
     """Khởi chạy Trình duyệt giả lập Playwright để đăng nhập và lấy token."""
     print("Khởi chạy Playwright...")
+    ext_args = _ensure_nocaptcha_extension()
     with sync_playwright() as p:
         # Sử dụng persistent context
         # Tự động bật headless nếu chạy trên Linux/Render hoặc biến môi trường HEADLESS=true
@@ -144,7 +169,7 @@ def login_and_fetch_token():
                 "--disable-setuid-sandbox",
                 "--disable-dev-shm-usage",
                 "--disable-gpu"
-            ],
+            ] + ext_args,
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
         )
         page = context.new_page()
@@ -208,20 +233,21 @@ def login_and_fetch_token():
                     inputs[0].fill(config.RIKKEI_USERNAME)
                     inputs[1].fill(config.RIKKEI_PASSWORD)
                 
-                # 2. Xử lý reCAPTCHA
-                print("Đang chờ reCAPTCHA...")
+                # 2. Xử lý reCAPTCHA với NoCaptcha AI
+                print("Đang kích hoạt reCAPTCHA (NoCaptcha AI tự động giải)...")
                 try:
                     recaptcha_frame = page.frame_locator('iframe[title="reCAPTCHA"]')
-                    recaptcha_frame.locator('#recaptcha-anchor').click(timeout=10000)
+                    anchor = recaptcha_frame.locator('#recaptcha-anchor')
+                    if anchor.count() > 0:
+                        anchor.click(timeout=10000)
                     
-                    print("Đang chờ xác nhận reCAPTCHA (tối đa 45s)...")
-                    # Vòng lặp kiểm tra Captcha Token
+                    print("Đang chờ NoCaptcha AI giải mã reCAPTCHA (tối đa 30s)...")
                     token_found = False
-                    for _ in range(45):
+                    for _ in range(30):
                         try:
-                            is_checked = recaptcha_frame.locator('#recaptcha-anchor').get_attribute('aria-checked')
+                            is_checked = anchor.get_attribute('aria-checked')
                             if is_checked == "true":
-                                print("[Browser] ✅ reCAPTCHA đã xác thực thành công (Green Tick)!")
+                                print("[NoCaptcha AI] ✅ reCAPTCHA đã giải thành công (Tick xanh)!")
                                 token_found = True
                                 break
                         except Exception:
@@ -229,8 +255,7 @@ def login_and_fetch_token():
                         page.wait_for_timeout(1000)
                     
                     if not token_found:
-                        print("Không lấy được token reCAPTCHA kịp thời, tiếp tục submit thử...")
-                        
+                        print("Hết thời gian chờ reCAPTCHA, tiếp tục submit...")
                 except Exception as e:
                     print(f"Lỗi khi xử lý reCAPTCHA: {e}, tiếp tục...")
     

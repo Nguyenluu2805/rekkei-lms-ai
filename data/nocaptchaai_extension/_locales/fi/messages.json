@@ -1,0 +1,133 @@
+{
+  "CaptchaList": {
+    "message": "Tuotteet",
+    "title": "Tuotteet"
+  },
+  "Save": {
+    "message": "Tallenna",
+    "title": "Tallenna"
+  },
+  "Edit": {
+    "message": "Muokkaa",
+    "title": "Muokkaa"
+  },
+  "Remove": {
+    "message": "Poista",
+    "title": "Poista"
+  },
+  "Copy": {
+    "message": "Kopioi",
+    "title": "Kopioi"
+  },
+  "Reset": {
+    "message": "Nollaa",
+    "title": "Nollaa"
+  },
+  "Expired": {
+    "message": "Vanhenemassa",
+    "title": "Vanhenemassa"
+  },
+  "Blacklist": {
+    "message": "Estetty",
+    "title": "Estetty"
+  },
+  "Show": {
+    "message": "Näytä",
+    "title": "Näytä"
+  },
+  "Hide": {
+    "message": "Piilota",
+    "title": "Piilota"
+  },
+  "Terms": {
+    "message": "Ehdot",
+    "title": "Ehdot"
+  },
+  "PrivacyPolicy": {
+    "message": "Tietosuoja",
+    "title": "Tietosuoja"
+  },
+  "Upcoming": {
+    "message": "Tulevat",
+    "title": "Tulevat"
+  },
+  "Settings": {
+    "message": "Asetukset",
+    "title": "Asetukset"
+  },
+  "Invalid_API_Key": {
+    "message": "Virheellinen API-avain",
+    "title": "Virheellinen API-avain"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Anna kelvollinen API-avain jatkaaksesi",
+    "title": "Anna kelvollinen API-avain jatkaaksesi"
+  },
+  "Get_API_Key": {
+    "message": "Hae avain",
+    "title": "Hae avain"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Riittämätön API-avaimen saldo",
+    "title": "Riittämätön API-avaimen saldo"
+  },
+  "Balance": {
+    "message": "Saldo",
+    "title": "Saldo"
+  },
+  "Add_Credit": {
+    "message": "Lisää saldoa",
+    "title": "Lisää saldoa"
+  },
+  "Access_this_feature": {
+    "message": "Lisää API-avain päästäksesi.",
+    "title": "Lisää API-avain päästäksesi."
+  },
+  "API_Key_Required": {
+    "message": "API-avain vaaditaan pääsyyn",
+    "title": "API-avain vaaditaan pääsyyn"
+  },
+  "Export_json": {
+    "message": "Vie JSON",
+    "title": "Vie JSON"
+  },
+  "Support": { "message": "tuki", "title": "tuki" },
+  "Toggle": { "message": "päälle/pois", "title": "päälle/pois" },
+  "Menu": { "message": "valikko", "title": "valikko" },
+  "Method_Switch": {
+    "message": "menetelmän vaihto",
+    "title": "menetelmän vaihto"
+  },
+  "Social": {
+    "message": "Sosiaalinen",
+    "title": "Sosiaalinen"
+  },
+  "Support_Nocap": {
+    "message": "Tuki",
+    "title": "Tuki"
+  },
+  "Products": {
+    "message": "Tuotteet",
+    "title": "Tuotteet"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "Näytä tiedot",
+    "title": "Näytä tiedot"
+  },
+  "Dashboard": { "message": "Hallintapaneeli", "title": "Hallintapaneeli" },
+    "Proxy": { "message": "Proxy", "title": "Proxy" },
+    "Active": { "message": "Aktiivinen", "title": "Aktiivinen" },
+    "Random": { "message": "Satunnainen", "title": "Satunnainen" },
+    "Total_proxy": { "message": "Proxy yhteensä", "title": "Proxy yhteensä" },
+    "valid": { "message": "Voimassa", "title": "Voimassa" },
+    "Proxy_List": { "message": "Proxy-lista", "title": "Proxy-lista" },
+    "Add_Proxy": { "message": "Lisää Proxy", "title": "Lisää Proxy" },
+    "Select_All": { "message": "Valitse kaikki", "title": "Valitse kaikki" },
+    "Delete": { "message": "Poista", "title": "Poista" },
+    "Filter": { "message": "Suodatin", "title": "Suodatin" },
+    "Recheck_All": { "message": "Tarkista kaikki", "title": "Tarkista kaikki" }
+}

@@ -1,0 +1,191 @@
+{
+  "CaptchaList": {
+    "message": "المنتجات",
+    "title": "المنتجات"
+  },
+  "Save": {
+    "message": "حفظ",
+    "title": "حفظ"
+  },
+  "Edit": {
+    "message": "تعديل",
+    "title": "تعديل"
+  },
+  "Remove": {
+    "message": "إزالة",
+    "title": "إزالة"
+  },
+  "Copy": {
+    "message": "نسخ",
+    "title": "نسخ"
+  },
+  "Reset": {
+    "message": "إعادة تعيين",
+    "title": "إعادة تعيين"
+  },
+  "Expired": {
+    "message": "منتهي الصلاحية",
+    "title": "منتهي الصلاحية"
+  },
+  "Blacklist": {
+    "message": "القائمة السوداء",
+    "title": "القائمة السوداء"
+  },
+  "Show": {
+    "message": "عرض",
+    "title": "عرض"
+  },
+  "Hide": {
+    "message": "إخفاء",
+    "title": "إخفاء"
+  },
+  "Terms": {
+    "message": "الشروط",
+    "title": "الشروط"
+  },
+  "PrivacyPolicy": {
+    "message": "الخصوصية",
+    "title": "الخصوصية"
+  },
+  "Upcoming": {
+    "message": "القادم",
+    "title": "القادم"
+  },
+  "Settings": {
+    "message": "الإعدادات",
+    "title": "الإعدادات"
+  },
+  "Invalid_API_Key": {
+    "message": "مفتاح API غير صالح",
+    "title": "مفتاح API غير صالح"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "يرجى تقديم مفتاح API صالح للمتابعة",
+    "title": "يرجى تقديم مفتاح API صالح للمتابعة"
+  },
+  "Get_API_Key": {
+    "message": "احصل على المفتاح",
+    "title": "احصل على المفتاح"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "رصيد مفتاح API غير كافٍ",
+    "title": "رصيد مفتاح API غير كافٍ"
+  },
+  "Balance": {
+    "message": "الرصيد",
+    "title": "الرصيد"
+  },
+  "Add_Credit": {
+    "message": "إضافة رصيد",
+    "title": "إضافة رصيد"
+  },
+  "Access_this_feature": {
+    "message": "للاستخدام، أدخل مفتاح API.",
+    "title": "للاستخدام، أدخل مفتاح API."
+  },
+  "API_Key_Required": {
+    "message": "مفتاح API مطلوب للوصول",
+    "title": "مفتاح API مطلوب للوصول"
+  },
+  "Export_json": {
+    "message": "تصدير JSON",
+    "title": "تصدير JSON"
+  },
+  "Support": { "message": "الدعم", "title": "الدعم" },
+  "Toggle": { "message": "تشغيل/إيقاف", "title": "تشغيل/إيقاف" },
+  "Menu": { "message": "القائمة", "title": "القائمة" },
+  "Method_Switch": { "message": "تبديل الطريقة", "title": "تبديل الطريقة" },
+  "Join_community": {
+    "message": "انضم إلى مجتمعنا",
+    "title": "انضم إلى مجتمعنا"
+  },
+  "Support_Option": { "message": "خيارات الدعم", "title": "خيارات الدعم" },
+  "Email_Support": {
+    "message": "دعم البريد الإلكتروني",
+    "title": "دعم البريد الإلكتروني"
+  },
+  "Team_help": {
+    "message": "احصل على مساعدة مباشرة من فريقنا",
+    "title": "احصل على مساعدة مباشرة من فريقنا"
+  },
+  "Live_chat": { "message": "الدردشة الحية", "title": "الدردشة الحية" },
+  "Availability": {
+    "message": "متاح من الإثنين إلى الجمعة، 9 صباحًا - 5 مساءً بتوقيت EST",
+    "title": "متاح من الإثنين إلى الجمعة، 9 صباحًا - 5 مساءً بتوقيت EST"
+  },
+  "Start_chat": { "message": "ابدأ الدردشة", "title": "ابدأ الدردشة" },
+  "Documentation": { "message": "التوثيق", "title": "التوثيق" },
+  "Guidence": { "message": "الأدلة ومراجع API", "title": "الأدلة ومراجع API" },
+  "Our_products": { "message": "منتجاتنا", "title": "منتجاتنا" },
+  "Nocaptcha_OCR_Title": {
+    "message": "حل متقدم مدعوم بالذكاء الاصطناعي لكابتشا",
+    "title": "حل متقدم مدعوم بالذكاء الاصطناعي لكابتشا"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "محلل متخصص لتحديات BLS",
+    "title": "محلل متخصص لتحديات BLS"
+  },
+  "Docs": { "message": "الوثائق", "title": "الوثائق" },
+  "API": { "message": "API", "title": "API" },
+  "Pricing": { "message": "التسعير", "title": "التسعير" },
+  "API_Docs": { "message": "توثيق API/SDK", "title": "توثيق API/SDK" },
+  "Captcha_Docs": {
+    "message": "وثائق شاملة لجميع أنواع الكابتشا",
+    "title": "وثائق شاملة لجميع أنواع الكابتشا"
+  },
+  "Social": {
+    "message": "اجتماعي",
+    "title": "اجتماعي"
+  },
+  "Support_Nocap": {
+    "message": "الدعم",
+    "title": "الدعم"
+  },
+  "Products": {
+    "message": "المنتجات",
+    "title": "المنتجات"
+  },
+  "API_SDK": {
+    "message": "واجهة برمجة التطبيقات / SDK",
+    "title": "واجهة برمجة التطبيقات / SDK"
+  },
+  "View_Details": {
+    "message": "عرض التفاصيل",
+    "title": "عرض التفاصيل"
+  },
+  "Dashboard": { "message": "لوحة", "title": "لوحة" },
+  "Proxy": { "message": "وكيل", "title": "وكيل" },
+  "Active": { "message": "نشط", "title": "نشط" },
+  "Random": { "message": "عشوائي", "title": "عشوائي" },
+  "Total_proxy": { "message": "إجمالي الوكلاء", "title": "إجمالي الوكلاء" },
+  "valid": { "message": "صحيح", "title": "صحيح" },
+  "Proxy_List": { "message": "قائمة الوكلاء", "title": "قائمة الوكلاء" },
+  "Add_Proxy": { "message": "إضافة وكيل", "title": "إضافة وكيل" },
+  "Select_All": { "message": "اختر الكل", "title": "اختر الكل" },
+  "Delete": { "message": "حذف", "title": "حذف" },
+  "Filter": { "message": "تصفية", "title": "تصفية" },
+  "Recheck_All": {
+    "message": "أعد التحقق للجميع",
+    "title": "أعد التحقق للجميع"
+  },
+  "protocol": {
+    "message": "اختر بروتوكول الوكيل",
+    "title": "اختر بروتوكول الوكيل"
+  },
+  "UA_changer": {
+    "message": "مغير UA",
+    "title": "مغير UA"
+  },
+  "OS": {
+    "message": "نظام التشغيل",
+    "title": "نظام التشغيل"
+  },
+  "Browser": {
+    "message": "المتصفح",
+    "title": "المتصفح"
+  },
+  "ApplyUA": {
+    "message": "تطبيق UA",
+    "title": "تطبيق وكيل المستخدم"
+  }
+}

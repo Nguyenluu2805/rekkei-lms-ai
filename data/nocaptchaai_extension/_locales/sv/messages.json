@@ -1,0 +1,218 @@
+{
+  "CaptchaList": {
+    "message": "Produkter",
+    "title": "Produkter"
+  },
+  "Save": {
+    "message": "Spara",
+    "title": "Spara"
+  },
+  "Edit": {
+    "message": "Redigera",
+    "title": "Redigera"
+  },
+  "Remove": {
+    "message": "Ta bort",
+    "title": "Ta bort"
+  },
+  "Copy": {
+    "message": "Kopiera",
+    "title": "Kopiera"
+  },
+  "Reset": {
+    "message": "Återställ",
+    "title": "Återställ"
+  },
+  "Expired": {
+    "message": "Utgått",
+    "title": "Utgått"
+  },
+  "Blacklist": {
+    "message": "Svartlista",
+    "title": "Svartlista"
+  },
+  "Show": {
+    "message": "Visa",
+    "title": "Visa"
+  },
+  "Hide": {
+    "message": "Dölj",
+    "title": "Dölj"
+  },
+  "Terms": {
+    "message": "Villkor",
+    "title": "Villkor"
+  },
+  "PrivacyPolicy": {
+    "message": "Integritetspolicy",
+    "title": "Integritetspolicy"
+  },
+  "Upcoming": {
+    "message": "Kommande",
+    "title": "Kommande"
+  },
+  "Settings": {
+    "message": "Inställningar",
+    "title": "Inställningar"
+  },
+  "Invalid_API_Key": {
+    "message": "Ogiltig API-nyckel",
+    "title": "Ogiltig API-nyckel"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Ange en giltig API-nyckel för att fortsätta.",
+    "title": "Ange en giltig API-nyckel för att fortsätta."
+  },
+  "Get_API_Key": {
+    "message": "Hämta nyckel",
+    "title": "Hämta nyckel"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Otillräcklig API-nyckelsaldo",
+    "title": "Otillräcklig API-nyckelsaldo"
+  },
+  "Balance": {
+    "message": "Saldo",
+    "title": "Saldo"
+  },
+  "Add_Credit": {
+    "message": "Lägg till kredit",
+    "title": "Lägg till kredit"
+  },
+  "Access_this_feature": {
+    "message": " För att använda, ange API-nyckel.",
+    "title": " För att använda, ange API-nyckel."
+  },
+  "API_Key_Required": {
+    "message": "API-nyckel krävs för åtkomst",
+    "title": "API-nyckel krävs för åtkomst"
+  },
+  "Export_json": {
+    "message": "Exportera JSON",
+    "title": "Exportera JSON"
+  },
+  "Support": { "message": "support", "title": "support" },
+  "Toggle": { "message": "på/av", "title": "på/av" },
+  "Menu": { "message": "meny", "title": "meny" },
+  "Method_Switch": { "message": "metodbyte", "title": "metodbyte" },
+  "Join_community": {
+    "message": "Gå med i vårt community",
+    "title": "Gå med i vårt community"
+  },
+  "Support_Option": {
+    "message": "Supportalternativ",
+    "title": "Supportalternativ"
+  },
+  "Email_Support": {
+    "message": "E-postsupport",
+    "title": "E-postsupport"
+  },
+  "Team_help": {
+    "message": "Få direkt hjälp från vårt team",
+    "title": "Få direkt hjälp från vårt team"
+  },
+  "Live_chat": {
+    "message": "Livechatt",
+    "title": "Livechatt"
+  },
+  "Availability": {
+    "message": "Tillgänglig mån–fre, 09:00–17:00 EST",
+    "title": "Tillgänglig mån–fre, 09:00–17:00 EST"
+  },
+  "Start_chat": {
+    "message": "Starta chatt",
+    "title": "Starta chatt"
+  },
+  "Documentation": {
+    "message": "Dokumentation",
+    "title": "Dokumentation"
+  },
+  "Guidence": {
+    "message": "Guider och API-referenser",
+    "title": "Guider och API-referenser"
+  },
+  "Our_products": {
+    "message": "Våra produkter",
+    "title": "Våra produkter"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "Avancerad AI-driven CAPTCHA-lösning",
+    "title": "Avancerad AI-driven CAPTCHA-lösning"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Speciallösning för BLS-utmaningar",
+    "title": "Speciallösning för BLS-utmaningar"
+  },
+  "Docs": {
+    "message": "Dokument",
+    "title": "Dokument"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "Priser",
+    "title": "Priser"
+  },
+  "API_Docs": {
+    "message": "API-/SDK-dokumentation",
+    "title": "API-/SDK-dokumentation"
+  },
+  "Captcha_Docs": {
+    "message": "Omfattande dokumentation för alla CAPTCHA-typer",
+    "title": "Omfattande dokumentation för alla CAPTCHA-typer"
+  },
+  "Social": {
+    "message": "Social",
+    "title": "Social"
+  },
+  "Support_Nocap": {
+    "message": "Support",
+    "title": "Support"
+  },
+  "Products": {
+    "message": "Produkter",
+    "title": "Produkter"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details":{
+    "message": "Visa detaljer",
+    "title": "Visa detaljer"
+  },
+   "Dashboard": { "message": "Instrumentbräda", "title": "Instrumentbräda" },
+    "Proxy": { "message": "Proxy", "title": "Proxy" },
+    "Active": { "message": "Aktiv", "title": "Aktiv" },
+    "Random": { "message": "Slump", "title": "Slump" },
+    "Total_proxy": { "message": "Totalt Proxy", "title": "Totalt Proxy" },
+    "valid": { "message": "Giltig", "title": "Giltig" },
+    "Proxy_List": { "message": "Proxy-lista", "title": "Proxy-lista" },
+    "Add_Proxy": { "message": "Lägg till Proxy", "title": "Lägg till Proxy" },
+    "Select_All": { "message": "Markera alla", "title": "Markera alla" },
+    "Delete": { "message": "Ta bort", "title": "Ta bort" },
+    "Filter": { "message": "Filter", "title": "Filter" },
+    "Recheck_All": { "message": "Kontrollera alla", "title": "Kontrollera alla" },
+    "protocol": {
+    "message": "Välj din proxyprotokoll",
+    "title": "Välj din proxyprotokoll"
+  },
+  "UA_changer": {
+    "message": "UA_byttare",
+    "title": "UA Byttare"
+  },
+  "OS": {
+    "message": "Operativsystem",
+    "title": "Operativsystem"
+  },
+  "Browser": {
+    "message": "Webbläsare",
+    "title": "Webbläsare"
+  },
+  "ApplyUA": {
+    "message": "AnvändUA",
+    "title": "Använd User Agent"
+  }
+}

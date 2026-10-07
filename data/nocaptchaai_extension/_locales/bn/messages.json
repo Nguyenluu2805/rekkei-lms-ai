@@ -1,0 +1,227 @@
+{
+  "CaptchaList": {
+    "message": "পণ্যসমূহ",
+    "title": "পণ্যসমূহ"
+  },
+  "Save": {
+    "message": "সংরক্ষণ",
+    "title": "সংরক্ষণ"
+  },
+  "Dashboard": {
+    "message": "ড্যাশবোর্ড",
+    "title": "ড্যাশবোর্ড"
+  },
+  "Edit": {
+    "message": "সম্পাদনা",
+    "title": "সম্পাদনা"
+  },
+  "Remove": {
+    "message": "অপসারণ",
+    "title": "অপসারণ"
+  },
+  "Copy": {
+    "message": "কপি",
+    "title": "কপি"
+  },
+  "Reset": {
+    "message": "পুনরায়",
+    "title": "পুনরায়"
+  },
+  "Expired": {
+    "message": "মেয়াদ উত্তীর্ণ",
+    "title": "মেয়াদ উত্তীর্ণ"
+  },
+  "Blacklist": {
+    "message": "বাঁধা",
+    "title": "বাঁধা"
+  },
+  "Show": {
+    "message": "দেখান",
+    "title": "দেখান"
+  },
+  "Hide": {
+    "message": "লুকান",
+    "title": "লুকান"
+  },
+  "Terms": {
+    "message": "শর্তাবলী",
+    "title": "শর্তাবলী"
+  },
+  "PrivacyPolicy": {
+    "message": "গোপনীয়তা",
+    "title": "গোপনীয়তা"
+  },
+  "Upcoming": {
+    "message": "আসন্ন",
+    "title": "আসন্ন"
+  },
+  "Settings": {
+    "message": "সেটিংস",
+    "title": "সেটিংস"
+  },
+  "Invalid_API_Key": {
+    "message": "অবৈধ API কী",
+    "title": "অবৈধ API কী"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "দয়া করে একটি বৈধ API কী প্রদান করুন",
+    "title": "দয়া করে একটি বৈধ API কী প্রদান করুন"
+  },
+  "Get_API_Key": {
+    "message": "API কী পান",
+    "title": "API কী পান"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "অপর্যাপ্ত API কী ব্যালেন্স",
+    "title": "অপর্যাপ্ত API কী ব্যালেন্স"
+  },
+  "Balance": {
+    "message": "ব্যালেন্স",
+    "title": "ব্যালেন্স"
+  },
+  "Add_Credit": {
+    "message": "ক্রেডিট যোগ করুন",
+    "title": "ক্রেডিট যোগ করুন"
+  },
+  "Access_this_feature": {
+    "message": "ব্যবহার করতে, এপিআই কী দিন।",
+    "title": "ব্যবহার করতে, এপিআই কী দিন।"
+  },
+  "API_Key_Required": {
+    "message": "অ্যাক্সেসের জন্য API কী প্রয়োজন",
+    "title": "অ্যাক্সেসের জন্য API কী প্রয়োজন"
+  },
+  "Export_json": {
+    "message": "json এক্সপোর্ট",
+    "title": "json এক্সপোর্ট"
+  },
+  "Support": { "message": "সহায়তা", "title": "সহায়তা" },
+  "Toggle": { "message": "চালু/বন্ধ", "title": "চালু/বন্ধ" },
+  "Menu": { "message": "মেনু", "title": "মেনু" },
+  "Method_Switch": { "message": "পদ্ধতি পরিবর্তন", "title": "পদ্ধতি পরিবর্তন" },
+  "Join_community": {
+    "message": "আমাদের কমিউনিটিতে যোগ দিন",
+    "title": "আমাদের কমিউনিটিতে যোগ দিন"
+  },
+  "Support_Option": { "message": "সাপোর্ট অপশন", "title": "সাপোর্ট অপশন" },
+  "Email_Support": { "message": "ইমেইল সাপোর্ট", "title": "ইমেইল সাপোর্ট" },
+  "Team_help": {
+    "message": "আমাদের টিম থেকে সরাসরি সাহায্য পান",
+    "title": "আমাদের টিম থেকে সরাসরি সাহায্য পান"
+  },
+  "Live_chat": { "message": "লাইভ চ্যাট", "title": "লাইভ চ্যাট" },
+  "Availability": {
+    "message": "সোম-শুক্র, সকাল ৯টা-৫টা EST",
+    "title": "সোম-শুক্র, সকাল ৯টা-৫টা EST"
+  },
+  "Start_chat": { "message": "চ্যাট শুরু করুন", "title": "চ্যাট শুরু করুন" },
+  "Documentation": { "message": "ডকুমেন্টেশন", "title": "ডকুমেন্টেশন" },
+  "Guidence": {
+    "message": "গাইড ও API রেফারেন্স",
+    "title": "গাইড ও API রেফারেন্স"
+  },
+  "Our_products": { "message": "আমাদের পণ্যসমূহ", "title": "আমাদের পণ্যসমূহ" },
+  "Nocaptcha_OCR_Title": {
+    "message": "উন্নত AI চালিত ক্যাপচা সমাধান",
+    "title": "উন্নত AI চালিত ক্যাপচা সমাধান"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "BLS চ্যালেঞ্জের জন্য বিশেষ সলভার",
+    "title": "BLS চ্যালেঞ্জের জন্য বিশেষ সলভার"
+  },
+  "Docs": { "message": "ডকস", "title": "ডকস" },
+  "API": { "message": "API", "title": "API" },
+  "Pricing": { "message": "মূল্য নির্ধারণ", "title": "মূল্য নির্ধারণ" },
+  "API_Docs": {
+    "message": "API/SDK ডকুমেন্টেশন",
+    "title": "API/SDK ডকুমেন্টেশন"
+  },
+  "Captcha_Docs": {
+    "message": "সব ধরনের ক্যাপচা জন্য সম্পূর্ণ ডকস",
+    "title": "সব ধরনের ক্যাপচা জন্য সম্পূর্ণ ডকস"
+  },
+  "Social": {
+    "message": "সামাজিক",
+    "title": "সামাজিক"
+  },
+  "Support_Nocap": {
+    "message": "সহায়তা",
+    "title": "সহায়তা"
+  },
+  "Products": {
+    "message": "পণ্যসমূহ",
+    "title": "পণ্যসমূহ"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "বিস্তারিত দেখুন",
+    "title": "বিস্তারিত দেখুন"
+  },
+  "Proxy": {
+    "message": "প্রক্সি",
+    "title": "প্রক্সি"
+  },
+  "Active": {
+    "message": "সক্রিয়",
+    "title": "সক্রিয়"
+  },
+  "Random": {
+    "message": "র‌্যান্ডম",
+    "title": "র‌্যান্ডম"
+  },
+  "Total_proxy": {
+    "message": "মোট প্রোক্সি",
+    "title": "মোট প্রোক্সি"
+  },
+  "valid": {
+    "message": "বৈধ",
+    "title": "বৈধ"
+  },
+  "Proxy_List": {
+    "message": "প্রক্সি তালিকা",
+    "title": "প্রক্সি তালিকা"
+  },
+  "Add_Proxy": {
+    "message": "প্রক্সি যোগ করুন",
+    "title": "প্রক্সি যোগ করুন"
+  },
+  "Select_All": {
+    "message": "সব নির্বাচন করুন",
+    "title": "নির্বাচন করুন"
+  },
+  "Delete": {
+    "message": "মুছুন",
+    "title": "মুছুন"
+  },
+  "Filter": {
+    "message": "ফিল্টার",
+    "title": "ফিল্টার"
+  },
+  "Recheck_All": {
+    "message": "সব আবার পরীক্ষা করুন",
+    "title": "সব আবার পরীক্ষা করুন"
+  },
+  "protocol": {
+    "message": "আপনার প্রক্সি প্রোটোকল বেছে নিন",
+    "title": "প্রক্সি প্রোটোকল বেছে নিন"
+  },
+  "UA_changer": {
+    "message": "ইউএ_চেঞ্জার",
+    "title": "ইউএ চেঞ্জার"
+  },
+  "OS": {
+    "message": "অপারেটিং সিস্টেম",
+    "title": "অপারেটিং সিস্টেম"
+  },
+  "Browser": {
+    "message": "ব্রাউজার",
+    "title": "ব্রাউজার"
+  },
+  "ApplyUA": {
+    "message": "ইউএ_প্রয়োগ",
+    "title": "ইউজার এজেন্ট প্রয়োগ করুন"
+  }
+}

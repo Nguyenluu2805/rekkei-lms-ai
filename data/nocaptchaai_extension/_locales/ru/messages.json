@@ -1,0 +1,218 @@
+{
+  "CaptchaList": {
+    "message": "Продукты",
+    "title": "Продукты"
+  },
+  "Save": {
+    "message": "Сохранить",
+    "title": "Сохранить"
+  },
+  "Edit": {
+    "message": "Редактировать",
+    "title": "Редактировать"
+  },
+  "Remove": {
+    "message": "Удалить",
+    "title": "Удалить"
+  },
+  "Copy": {
+    "message": "Копировать",
+    "title": "Копировать"
+  },
+  "Reset": {
+    "message": "Сбросить",
+    "title": "Сбросить"
+  },
+  "Expired": {
+    "message": "Истекло",
+    "title": "Истекло"
+  },
+  "Blacklist": {
+    "message": "Черный список",
+    "title": "Черный список"
+  },
+  "Show": {
+    "message": "Показать",
+    "title": "Показать"
+  },
+  "Hide": {
+    "message": "Скрыть",
+    "title": "Скрыть"
+  },
+  "Terms": {
+    "message": "Условия",
+    "title": "Условия"
+  },
+  "PrivacyPolicy": {
+    "message": "Конфиденциальность",
+    "title": "Конфиденциальность"
+  },
+  "Upcoming": {
+    "message": "Предстоящие",
+    "title": "Предстоящие"
+  },
+  "Settings": {
+    "message": "Настройки",
+    "title": "Настройки"
+  },
+  "Invalid_API_Key": {
+    "message": "Неверный API ключ",
+    "title": "Неверный API ключ"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Укажите действующий API ключ",
+    "title": "Укажите действующий API ключ"
+  },
+  "Get_API_Key": {
+    "message": "Получить ключ",
+    "title": "Получить ключ"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Недостаточно средств на API ключе",
+    "title": "Недостаточно средств на API ключе"
+  },
+  "Balance": {
+    "message": "Баланс",
+    "title": "Баланс"
+  },
+  "Add_Credit": {
+    "message": "Пополнить",
+    "title": "Пополнить"
+  },
+  "Access_this_feature": {
+    "message": "Добавьте API ключ для доступа.",
+    "title": "Добавьте API ключ для доступа."
+  },
+  "API_Key_Required": {
+    "message": "Требуется API ключ для доступа",
+    "title": "Требуется API ключ для доступа"
+  },
+  "Export_json": {
+    "message": "Экспортировать JSON",
+    "title": "Экспортировать JSON"
+  },
+  "Support": { "message": "поддержка", "title": "поддержка" },
+  "Toggle": { "message": "включить/выключить", "title": "включить/выключить" },
+  "Menu": { "message": "меню", "title": "меню" },
+  "Method_Switch": { "message": "смена метода", "title": "смена метода" },
+  "Join_community": {
+    "message": "Присоединяйтесь к нашему сообществу",
+    "title": "Присоединяйтесь к нашему сообществу"
+  },
+  "Support_Option": {
+    "message": "Варианты поддержки",
+    "title": "Варианты поддержки"
+  },
+  "Email_Support": {
+    "message": "Поддержка по электронной почте",
+    "title": "Поддержка по электронной почте"
+  },
+  "Team_help": {
+    "message": "Получите прямую помощь от нашей команды",
+    "title": "Получите прямую помощь от нашей команды"
+  },
+  "Live_chat": {
+    "message": "Онлайн-чат",
+    "title": "Онлайн-чат"
+  },
+  "Availability": {
+    "message": "Доступно с понедельника по пятницу, с 9:00 до 17:00 EST",
+    "title": "Доступно с понедельника по пятницу, с 9:00 до 17:00 EST"
+  },
+  "Start_chat": {
+    "message": "Начать чат",
+    "title": "Начать чат"
+  },
+  "Documentation": {
+    "message": "Документация",
+    "title": "Документация"
+  },
+  "Guidence": {
+    "message": "Руководства и ссылки на API",
+    "title": "Руководства и ссылки на API"
+  },
+  "Our_products": {
+    "message": "Наши продукты",
+    "title": "Наши продукты"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "Продвинутое решение CAPTCHA на основе ИИ",
+    "title": "Продвинутое решение CAPTCHA на основе ИИ"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Специализированное решение для задач BLS",
+    "title": "Специализированное решение для задач BLS"
+  },
+  "Docs": {
+    "message": "Документы",
+    "title": "Документы"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "Цены",
+    "title": "Цены"
+  },
+  "API_Docs": {
+    "message": "Документация API/SDK",
+    "title": "Документация API/SDK"
+  },
+  "Captcha_Docs": {
+    "message": "Полная документация для всех типов CAPTCHA",
+    "title": "Полная документация для всех типов CAPTCHA"
+  },
+  "Social": {
+    "message": "Социальный",
+    "title": "Социальный"
+  },
+  "Support_Nocap": {
+    "message": "Поддержка",
+    "title": "Поддержка"
+  },
+  "Products": {
+    "message": "Продукты",
+    "title": "Продукты"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "Просмотреть детали",
+    "title": "Просмотреть детали"
+  },
+  "Dashboard": { "message": "Панель", "title": "Панель" },
+  "Proxy": { "message": "Прокси", "title": "Прокси" },
+  "Active": { "message": "Активный", "title": "Активный" },
+  "Random": { "message": "Случайно", "title": "Случайно" },
+  "Total_proxy": { "message": "Всего Прокси", "title": "Всего Прокси" },
+  "valid": { "message": "Действительный", "title": "Действительный" },
+  "Proxy_List": { "message": "Список Прокси", "title": "Список Прокси" },
+  "Add_Proxy": { "message": "Добавить Прокси", "title": "Добавить Прокси" },
+  "Select_All": { "message": "Выбрать все", "title": "Выбрать все" },
+  "Delete": { "message": "Удалить", "title": "Удалить" },
+  "Filter": { "message": "Фильтр", "title": "Фильтр" },
+  "Recheck_All": { "message": "Проверить снова", "title": "Проверить снова" },
+  "protocol": {
+    "message": "Выбери протокол прокси",
+    "title": "Выбери протокол прокси"
+  },
+  "UA_changer": {
+    "message": "UA_смена",
+    "title": "UA Смена"
+  },
+  "OS": {
+    "message": "Операционная система",
+    "title": "Операционная система"
+  },
+  "Browser": {
+    "message": "Браузер",
+    "title": "Браузер"
+  },
+  "ApplyUA": {
+    "message": "ПрименитьUA",
+    "title": "Применить User Agent"
+  }
+}

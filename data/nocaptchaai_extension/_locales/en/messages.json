@@ -1,0 +1,269 @@
+{
+  "CaptchaList": {
+    "message": "Products",
+    "title": "Products"
+  },
+  "Save": {
+    "message": "Save",
+    "title": "Save"
+  },
+  
+  "Edit": {
+    "message": "Edit",
+    "title": "Edit"
+  },
+  "Remove": {
+    "message": "Remove",
+    "title": "Remove"
+  },
+  "Copy": {
+    "message": "Copy",
+    "title": "Copy"
+  },
+  "Reset": {
+    "message": "Reset",
+    "title": "Reset"
+  },
+  "Expired": {
+    "message": "Expired",
+    "title": "Expired"
+  },
+  "Blacklist": {
+    "message": "Blacklist",
+    "title": "Blacklist"
+  },
+  "Show": {
+    "message": "Show",
+    "title": "Show"
+  },
+  "Hide": {
+    "message": "Hide",
+    "title": "Hide"
+  },
+  "Terms": {
+    "message": "Terms",
+    "title": "Terms"
+  },
+  "PrivacyPolicy": {
+    "message": "Privacy",
+    "title": "Privacy"
+  },
+  "Upcoming": {
+    "message": "upcoming",
+    "title": "upcoming"
+  },
+  "Settings": {
+    "message": "Settings",
+    "title": "Settings"
+  },
+  "Invalid_API_Key": {
+    "message": "Invalid APIKEY",
+    "title": "Invalid APIKEY"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Please provide a valid APIKEY to continue",
+    "title": "Please provide a valid APIKEY to continue"
+  },
+  "Get_API_Key": {
+    "message": "Get APIKEY",
+    "title": "Get APIKEY"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Insufficient Balance",
+    "title": "Insufficient Balance"
+  },
+  "Balance": {
+    "message": "Balance",
+    "title": "Balance"
+  },
+  "Add_Credit": {
+    "message": "Add Credit",
+    "title": "Add Credit"
+  },
+  "Access_this_feature": {
+    "message": "For access, add APIKEY.",
+    "title": "For access, add APIKEY."
+  },
+  "API_Key_Required": {
+    "message": "APIKEY required for access",
+    "title": "APIKEY required for access"
+  },
+  "Export_json": {
+    "message": "Export json",
+    "title": "Export json"
+  },
+
+  "Support": {
+    "message": "Support",
+    "title": "Support"
+  },
+  "Toggle": {
+    "message": "Turn on/off",
+    "title": "Turn on/off"
+  },
+  "Menu": {
+    "message": "Menu",
+    "title": "Menu"
+  },
+  "Method_Switch": {
+    "message": "method switch",
+    "title": "method switch"
+  },
+
+  "Join_community": {
+    "message": "Join Our Community",
+    "title": "Join Our Community"
+  },
+  "Support_Option": {
+    "message": "Support Options",
+    "title": "Support Options"
+  },
+  "Email_Support": {
+    "message": "Email Support",
+    "title": "Email Support"
+  },
+  "Team_help": {
+    "message": "Get direct help from out team",
+    "title": "Get direct help from out team"
+  },
+  "Live_chat": {
+    "message": "Live Chat",
+    "title": "Live Chat"
+  },
+  "Availability": {
+    "message": "Available Mon-Fri, 9am-5pm EST",
+    "title": "Available Mon-Fri, 9am-5pm EST"
+  },
+  "Start_chat": {
+    "message": "Start Chat",
+    "title": "Start Chat"
+  },
+  "Documentation": {
+    "message": "Documentation",
+    "title": "Documentation"
+  },
+  "Guidence": {
+    "message": "Guides and API references",
+    "title": "Guides and API references"
+  },
+  "Our_products": {
+    "message": "Our Products",
+    "title": "Our Products"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "Advanced AI-powered captcha solving",
+    "title": "Advanced AI-powered captcha solving"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Specialized solver for BLS challenges",
+    "title": "Specialized solver for BLS challenges"
+  },
+  "Docs": {
+    "message": "Docs",
+    "title": "Docs"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "Pricing",
+    "title": "Pricing"
+  },
+  "API_Docs": {
+    "message": "API/SDK Documentation",
+    "title": "API/SDK Documentation"
+  },
+  "Captcha_Docs": {
+    "message": "Comprehensive docs for all captcha types",
+    "title": "Comprehensive docs for all captcha types"
+  },
+  "Social": {
+    "message": "Social",
+    "title": "Social"
+  },
+  "Support_Nocap": {
+    "message": "Support",
+    "title": "Support"
+  },
+  "Products": {
+    "message": "Products",
+    "title": "Products"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "View details",
+    "title": "View details"
+  },
+  "Dashboard": {
+    "message": "Dashboard",
+    "title": "Dashboard"
+  },
+  "Proxy": {
+    "message": "Proxy Manager",
+    "title": "Proxy Manager"
+  },
+  "Active": {
+    "message": "active",
+    "title": "Active"
+  },
+  "Random":{
+    "message":"Random",
+    "title":"Random"
+  },
+  "Total_proxy":{
+    "message":"Total Proxy",
+    "title":"Total Proxy"
+  },
+  "valid":{
+    "message":"Valid",
+    "title":"Valid"
+  },
+  "Proxy_List":{
+    "message":"Proxy List",
+    "title":"Proxy List"
+  },
+  "Add_Proxy":{
+    "message":"Add_Proxy",
+    "title":"Add Proxy"
+  },
+  "Select_All":{
+    "message":"Select All",
+    "title":"Select All"
+  },
+  "Delete":{
+    "message":"Delete",
+    "title":"Delete"
+  },
+  "Filter":{
+    "message":"Filter",
+    "title":"Filter"
+  },
+  "Recheck_All":{
+    "message":"Recheck All",
+    "title":"Recheck All"
+  },
+  "protocol":{
+    "message":"Select your proxy protocol",
+    "title":"Select your proxy protocol"
+  },
+  "UA_changer":{
+    "message":"UA_changer",
+    "title":"UA Changer"
+  },
+  "OS":{
+    "message":"OS",
+    "title":"OS"
+  },
+  "Browser":{
+    "message":"Browser",
+    "title":"Browser"
+  },
+  "ApplyUA":{
+    "message":"ApplyUA",
+    "title":"Apply User Agent"
+  }
+}

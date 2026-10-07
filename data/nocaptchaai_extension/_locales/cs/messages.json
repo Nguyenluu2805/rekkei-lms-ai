@@ -1,0 +1,197 @@
+{
+  "CaptchaList": {
+    "message": "Produkty",
+    "title": "Produkty"
+  },
+  "Save": {
+    "message": "Uložit",
+    "title": "Uložit"
+  },
+  "Edit": {
+    "message": "Upravit",
+    "title": "Upravit"
+  },
+  "Remove": {
+    "message": "Odstranit",
+    "title": "Odstranit"
+  },
+  "Copy": {
+    "message": "Kopírovat",
+    "title": "Kopírovat"
+  },
+  "Reset": {
+    "message": "Obnovit",
+    "title": "Obnovit"
+  },
+  "Expired": {
+    "message": "Platnost vypršela",
+    "title": "Platnost vypršela"
+  },
+  "Blacklist": {
+    "message": "Černá listina",
+    "title": "Černá listina"
+  },
+  "Show": {
+    "message": "Zobrazit",
+    "title": "Zobrazit"
+  },
+  "Hide": {
+    "message": "Skrýt",
+    "title": "Skrýt"
+  },
+  "Terms": {
+    "message": "Podmínky",
+    "title": "Podmínky"
+  },
+  "PrivacyPolicy": {
+    "message": "Soukromí",
+    "title": "Soukromí"
+  },
+  "Upcoming": {
+    "message": "Připravované",
+    "title": "Připravované"
+  },
+  "Settings": {
+    "message": "Nastavení",
+    "title": "Nastavení"
+  },
+  "Invalid_API_Key": {
+    "message": "Neplatný API klíč",
+    "title": "Neplatný API klíč"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Zadejte prosím platný API klíč",
+    "title": "Zadejte prosím platný API klíč"
+  },
+  "Get_API_Key": {
+    "message": "Získat klíč",
+    "title": "Získat klíč"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Nedostatečný zůstatek API klíče",
+    "title": "Nedostatečný zůstatek API klíče"
+  },
+  "Balance": {
+    "message": "Zůstatek",
+    "title": "Zůstatek"
+  },
+  "Add_Credit": {
+    "message": "Přidat kredit",
+    "title": "Přidat kredit"
+  },
+  "Access_this_feature": {
+    "message": "Pro použití zadejte API klíč.",
+    "title": "Pro použití zadejte API klíč."
+  },
+  "API_Key_Required": {
+    "message": "Pro přístup je vyžadován klíč API",
+    "title": "Pro přístup je vyžadován klíč API"
+  },
+  "Export_json": {
+    "message": "Exportovat JSON",
+    "title": "Exportovat JSON"
+  },
+  "Support": { "message": "podpora", "title": "podpora" },
+  "Toggle": { "message": "zapnout/vypnout", "title": "zapnout/vypnout" },
+  "Menu": { "message": "menu", "title": "menu" },
+  "Method_Switch": { "message": "přepnutí metody", "title": "přepnutí metody" },
+  "Join_community": {
+    "message": "Připojte se k naší komunitě",
+    "title": "Připojte se k naší komunitě"
+  },
+  "Support_Option": {
+    "message": "Možnosti podpory",
+    "title": "Možnosti podpory"
+  },
+  "Email_Support": {
+    "message": "Podpora e-mailem",
+    "title": "Podpora e-mailem"
+  },
+  "Team_help": {
+    "message": "Získejte přímou pomoc od našeho týmu",
+    "title": "Získejte přímou pomoc od našeho týmu"
+  },
+  "Live_chat": { "message": "Živý chat", "title": "Živý chat" },
+  "Availability": {
+    "message": "K dispozici Po-Pá, 9:00–17:00 EST",
+    "title": "K dispozici Po-Pá, 9:00–17:00 EST"
+  },
+  "Start_chat": { "message": "Začít chat", "title": "Začít chat" },
+  "Documentation": { "message": "Dokumentace", "title": "Dokumentace" },
+  "Guidence": {
+    "message": "Průvodce a reference API",
+    "title": "Průvodce a reference API"
+  },
+  "Our_products": { "message": "Naše produkty", "title": "Naše produkty" },
+  "Nocaptcha_OCR_Title": {
+    "message": "Pokročilé řešení captcha poháněné AI",
+    "title": "Pokročilé řešení captcha poháněné AI"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Specializovaný řešič pro BLS výzvy",
+    "title": "Specializovaný řešič pro BLS výzvy"
+  },
+  "Docs": { "message": "Dokumenty", "title": "Dokumenty" },
+  "API": { "message": "API", "title": "API" },
+  "Pricing": { "message": "Ceník", "title": "Ceník" },
+  "API_Docs": {
+    "message": "Dokumentace API/SDK",
+    "title": "Dokumentace API/SDK"
+  },
+  "Captcha_Docs": {
+    "message": "Komplexní dokumentace pro všechny typy captcha",
+    "title": "Komplexní dokumentace pro všechny typy captcha"
+  },
+  "Social": {
+    "message": "Sociální",
+    "title": "Sociální"
+  },
+  "Support_Nocap": {
+    "message": "Podpora",
+    "title": "Podpora"
+  },
+  "Products": {
+    "message": "Produkty",
+    "title": "Produkty"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "Zobrazit podrobnosti",
+    "title": "Zobrazit podrobnosti"
+  },
+  "Dashboard": { "message": "Přehled", "title": "Přehled" },
+  "Proxy": { "message": "Proxy", "title": "Proxy" },
+  "Active": { "message": "Aktivní", "title": "Aktivní" },
+  "Random": { "message": "Náhodný", "title": "Náhodný" },
+  "Total_proxy": { "message": "Celkem Proxy", "title": "Celkem Proxy" },
+  "valid": { "message": "Platný", "title": "Platný" },
+  "Proxy_List": { "message": "Seznam Proxy", "title": "Seznam Proxy" },
+  "Add_Proxy": { "message": "Přidat Proxy", "title": "Přidat Proxy" },
+  "Select_All": { "message": "Vybrat vše", "title": "Vybrat vše" },
+  "Delete": { "message": "Smazat", "title": "Smazat" },
+  "Filter": { "message": "Filtr", "title": "Filtr" },
+  "Recheck_All": { "message": "Znovu ověřit vše", "title": "Znovu ověřit vše" },
+  "protocol": {
+    "message": "Vyber svůj proxy protokol",
+    "title": "Vyber svůj proxy protokol"
+  },
+  "UA_changer": {
+    "message": "UA_měnič",
+    "title": "UA Měnič"
+  },
+  "OS": {
+    "message": "Operační systém",
+    "title": "Operační systém"
+  },
+  "Browser": {
+    "message": "Prohlížeč",
+    "title": "Prohlížeč"
+  },
+  "ApplyUA": {
+    "message": "PoužítUA",
+    "title": "Použít User Agent"
+  }
+}

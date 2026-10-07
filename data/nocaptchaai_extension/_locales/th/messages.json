@@ -1,0 +1,218 @@
+{
+  "CaptchaList": {
+    "message": "ผลิตภัณฑ์",
+    "title": "ผลิตภัณฑ์"
+  },
+  "Save": {
+    "message": "บันทึก",
+    "title": "บันทึก"
+  },
+  "Edit": {
+    "message": "แก้ไข",
+    "title": "แก้ไข"
+  },
+  "Remove": {
+    "message": "ลบ",
+    "title": "ลบ"
+  },
+  "Copy": {
+    "message": "คัดลอก",
+    "title": "คัดลอก"
+  },
+  "Reset": {
+    "message": "รีเซ็ต",
+    "title": "รีเซ็ต"
+  },
+  "Expired": {
+    "message": "หมดอายุ",
+    "title": "หมดอายุ"
+  },
+  "Blacklist": {
+    "message": "รายชื่อดำ",
+    "title": "รายชื่อดำ"
+  },
+  "Show": {
+    "message": "แสดง",
+    "title": "แสดง"
+  },
+  "Hide": {
+    "message": "ซ่อน",
+    "title": "ซ่อน"
+  },
+  "Terms": {
+    "message": "ข้อกำหนด",
+    "title": "ข้อกำหนด"
+  },
+  "PrivacyPolicy": {
+    "message": "นโยบายความเป็นส่วนตัว",
+    "title": "นโยบายความเป็นส่วนตัว"
+  },
+  "Upcoming": {
+    "message": "ที่จะมาถึง",
+    "title": "ที่จะมาถึง"
+  },
+  "Settings": {
+    "message": "การตั้งค่า",
+    "title": "การตั้งค่า"
+  },
+  "Invalid_API_Key": {
+    "message": "คีย์ API ไม่ถูกต้อง",
+    "title": "คีย์ API ไม่ถูกต้อง"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "กรุณาให้คีย์ API ที่ถูกต้องเพื่อดำเนินการต่อ",
+    "title": "กรุณาให้คีย์ API ที่ถูกต้องเพื่อดำเนินการต่อ"
+  },
+  "Get_API_Key": {
+    "message": "ขอคีย์ API",
+    "title": "ขอคีย์ API"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "ยอดคงเหลือในคีย์ API ไม่เพียงพอ",
+    "title": "ยอดคงเหลือในคีย์ API ไม่เพียงพอ"
+  },
+  "Balance": {
+    "message": "ยอดคงเหลือ",
+    "title": "ยอดคงเหลือ"
+  },
+  "Add_Credit": {
+    "message": "เพิ่มเครดิต",
+    "title": "เพิ่มเครดิต"
+  },
+  "Access_this_feature": {
+    "message": "ในการเข้าถึงฟีเจอร์นี้ โปรดเพิ่มคีย์ API.",
+    "title": "ในการเข้าถึงฟีเจอร์นี้ โปรดเพิ่มคีย์ API."
+  },
+  "API_Key_Required": {
+    "message": "ต้องการคีย์ API เพื่อเข้าถึง",
+    "title": "ต้องการคีย์ API เพื่อเข้าถึง"
+  },
+  "Export_json": {
+    "message": "ส่งออก JSON",
+    "title": "ส่งออก JSON"
+  },
+  "Support": { "message": "สนับสนุน", "title": "สนับสนุน" },
+  "Toggle": { "message": "เปิด/ปิด", "title": "เปิด/ปิด" },
+  "Menu": { "message": "เมนู", "title": "เมนู" },
+  "Method_Switch": { "message": "สลับวิธี", "title": "สลับวิธี" },
+  "Join_community": {
+    "message": "เข้าร่วมชุมชนของเรา",
+    "title": "เข้าร่วมชุมชนของเรา"
+  },
+  "Support_Option": {
+    "message": "ตัวเลือกการสนับสนุน",
+    "title": "ตัวเลือกการสนับสนุน"
+  },
+  "Email_Support": {
+    "message": "การสนับสนุนทางอีเมล",
+    "title": "การสนับสนุนทางอีเมล"
+  },
+  "Team_help": {
+    "message": "ขอความช่วยเหลือโดยตรงจากทีมของเรา",
+    "title": "ขอความช่วยเหลือโดยตรงจากทีมของเรา"
+  },
+  "Live_chat": {
+    "message": "แชทสด",
+    "title": "แชทสด"
+  },
+  "Availability": {
+    "message": "ให้บริการจันทร์-ศุกร์ 9.00–17.00 น. EST",
+    "title": "ให้บริการจันทร์-ศุกร์ 9.00–17.00 น. EST"
+  },
+  "Start_chat": {
+    "message": "เริ่มแชท",
+    "title": "เริ่มแชท"
+  },
+  "Documentation": {
+    "message": "เอกสาร",
+    "title": "เอกสาร"
+  },
+  "Guidence": {
+    "message": "คู่มือและข้อมูลอ้างอิง API",
+    "title": "คู่มือและข้อมูลอ้างอิง API"
+  },
+  "Our_products": {
+    "message": "ผลิตภัณฑ์ของเรา",
+    "title": "ผลิตภัณฑ์ของเรา"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "การแก้ไข CAPTCHA ด้วย AI ขั้นสูง",
+    "title": "การแก้ไข CAPTCHA ด้วย AI ขั้นสูง"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "ตัวแก้ไขเฉพาะสำหรับความท้าทาย BLS",
+    "title": "ตัวแก้ไขเฉพาะสำหรับความท้าทาย BLS"
+  },
+  "Docs": {
+    "message": "เอกสาร",
+    "title": "เอกสาร"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "ราคา",
+    "title": "ราคา"
+  },
+  "API_Docs": {
+    "message": "เอกสาร API/SDK",
+    "title": "เอกสาร API/SDK"
+  },
+  "Captcha_Docs": {
+    "message": "เอกสารฉบับสมบูรณ์สำหรับ CAPTCHA ทุกประเภท",
+    "title": "เอกสารฉบับสมบูรณ์สำหรับ CAPTCHA ทุกประเภท"
+  },
+  "Social": {
+    "message": "โซเชียล",
+    "title": "โซเชียล"
+  },
+  "Support_Nocap": {
+    "message": "การสนับสนุน",
+    "title": "การสนับสนุน"
+  },
+  "Products": {
+    "message": "ผลิตภัณฑ์",
+    "title": "ผลิตภัณฑ์"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "ดูรายละเอียด",
+    "title": "ดูรายละเอียด"
+  },
+  "Dashboard": { "message": "แดชบอร์ด", "title": "แดชบอร์ด" },
+  "Proxy": { "message": "พร็อกซี", "title": "พร็อกซี" },
+  "Active": { "message": "ใช้งาน", "title": "ใช้งาน" },
+  "Random": { "message": "สุ่ม", "title": "สุ่ม" },
+  "Total_proxy": { "message": "พร็อกซีทั้งหมด", "title": "พร็อกซีทั้งหมด" },
+  "valid": { "message": "ถูกต้อง", "title": "ถูกต้อง" },
+  "Proxy_List": { "message": "รายการพร็อกซี", "title": "รายการพร็อกซี" },
+  "Add_Proxy": { "message": "เพิ่มพร็อกซี", "title": "เพิ่มพร็อกซี" },
+  "Select_All": { "message": "เลือกทั้งหมด", "title": "เลือกทั้งหมด" },
+  "Delete": { "message": "ลบ", "title": "ลบ" },
+  "Filter": { "message": "กรอง", "title": "กรอง" },
+  "Recheck_All": { "message": "ตรวจสอบอีกครั้ง", "title": "ตรวจสอบอีกครั้ง" },
+  "protocol": {
+    "message": "เลือกโปรโตคอลพร็อกซี่",
+    "title": "เลือกโปรโตคอลพร็อกซี่"
+  },
+  "UA_changer": {
+    "message": "เปลี่ยนUA",
+    "title": "เปลี่ยน UA"
+  },
+  "OS": {
+    "message": "ระบบปฏิบัติการ",
+    "title": "ระบบปฏิบัติการ"
+  },
+  "Browser": {
+    "message": "เบราว์เซอร์",
+    "title": "เบราว์เซอร์"
+  },
+  "ApplyUA": {
+    "message": "ใช้UA",
+    "title": "ใช้ User Agent"
+  }
+}

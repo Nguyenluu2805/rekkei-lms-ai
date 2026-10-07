@@ -1,0 +1,188 @@
+{
+  "CaptchaList": {
+    "message": "उत्पाद",
+    "title": "उत्पाद"
+  },
+  "Save": {
+    "message": "सहेजें",
+    "title": "सहेजें"
+  },
+  "Edit": {
+    "message": "संपादित करें",
+    "title": "संपादित करें"
+  },
+  "Remove": {
+    "message": "हटाएं",
+    "title": "हटाएं"
+  },
+  "Copy": {
+    "message": "नकल करें",
+    "title": "नकल करें"
+  },
+  "Reset": {
+    "message": "रीसेट करें",
+    "title": "रीसेट करें"
+  },
+  "Expired": {
+    "message": "समाप्त",
+    "title": "समाप्त"
+  },
+  "Blacklist": {
+    "message": "ब्लैकलिस्ट",
+    "title": "ब्लैकलिस्ट"
+  },
+  "Show": {
+    "message": "दिखाएं",
+    "title": "दिखाएं"
+  },
+  "Hide": {
+    "message": "छिपाएं",
+    "title": "छिपाएं"
+  },
+  "Terms": {
+    "message": "शर्तें",
+    "title": "शर्तें"
+  },
+  "PrivacyPolicy": {
+    "message": "गोपनीयता",
+    "title": "गोपनीयता"
+  },
+  "Upcoming": {
+    "message": "आगामी",
+    "title": "आगामी"
+  },
+  "Settings": {
+    "message": "सेटिंग्स",
+    "title": "सेटिंग्स"
+  },
+  "Invalid_API_Key": {
+    "message": "अमान्य API कुंजी",
+    "title": "अमान्य API कुंजी"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "कृपया जारी रखने के लिए एक मान्य API कुंजी प्रदान करें",
+    "title": "कृपया जारी रखने के लिए एक मान्य API कुंजी प्रदान करें"
+  },
+  "Get_API_Key": {
+    "message": "कुंजी प्राप्त करें",
+    "title": "कुंजी प्राप्त करें"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "API कुंजी शेष राशि अपर्याप्त है",
+    "title": "API कुंजी शेष राशि अपर्याप्त है"
+  },
+  "Balance": {
+    "message": "बैलेंस",
+    "title": "बैलेंस"
+  },
+  "Add_Credit": {
+    "message": "क्रेडिट जोड़ें",
+    "title": "क्रेडिट जोड़ें"
+  },
+  "Access_this_feature": {
+    "message": "उपयोग के लिए, API की डालें।",
+    "title": "उपयोग के लिए, API की डालें।"
+  },
+  "API_Key_Required": {
+    "message": "एक्सेस के लिए API कुंजी की आवश्यकता है",
+    "title": "एक्सेस के लिए API कुंजी की आवश्यकता है"
+  },
+  "Export_json": {
+    "message": "JSON निर्यात करें",
+    "title": "JSON निर्यात करें"
+  },
+  "Support": { "message": "सहायता", "title": "सहायता" },
+  "Toggle": { "message": "चालू/बंद करें", "title": "चालू/बंद करें" },
+  "Menu": { "message": "मेनू", "title": "मेनू" },
+  "Method_Switch": { "message": "विधि स्विच", "title": "विधि स्विच" },
+  "Join_community": {
+    "message": "हमारे समुदाय से जुड़ें",
+    "title": "हमारे समुदाय से जुड़ें"
+  },
+  "Support_Option": { "message": "सहायता विकल्प", "title": "सहायता विकल्प" },
+  "Email_Support": { "message": "ईमेल सहायता", "title": "ईमेल सहायता" },
+  "Team_help": {
+    "message": "हमारी टीम से सीधे मदद प्राप्त करें",
+    "title": "हमारी टीम से सीधे मदद प्राप्त करें"
+  },
+  "Live_chat": { "message": "लाइव चैट", "title": "लाइव चैट" },
+  "Availability": {
+    "message": "उपलब्ध सोम-शुक्र, 9am-5pm EST",
+    "title": "उपलब्ध सोम-शुक्र, 9am-5pm EST"
+  },
+  "Start_chat": { "message": "चैट शुरू करें", "title": "चैट शुरू करें" },
+  "Documentation": { "message": "डॉक्यूमेंटेशन", "title": "डॉक्यूमेंटेशन" },
+  "Guidence": {
+    "message": "गाइड और API संदर्भ",
+    "title": "गाइड और API संदर्भ"
+  },
+  "Our_products": { "message": "हमारे उत्पाद", "title": "हमारे उत्पाद" },
+  "Nocaptcha_OCR_Title": {
+    "message": "एडवांस्ड AI-संचालित कैप्चा समाधान",
+    "title": "एडवांस्ड AI-संचालित कैप्चा समाधान"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "BLS चुनौतियों के लिए विशेषज्ञ सॉल्वर",
+    "title": "BLS चुनौतियों के लिए विशेषज्ञ सॉल्वर"
+  },
+  "Docs": { "message": "दस्तावेज़", "title": "दस्तावेज़" },
+  "API": { "message": "एपीआई", "title": "एपीआई" },
+  "Pricing": { "message": "मूल्य निर्धारण", "title": "मूल्य निर्धारण" },
+  "API_Docs": { "message": "API/SDK दस्तावेज़", "title": "API/SDK दस्तावेज़" },
+  "Captcha_Docs": {
+    "message": "सभी कैप्चा प्रकारों के लिए व्यापक दस्तावेज़",
+    "title": "सभी कैप्चा प्रकारों के लिए व्यापक दस्तावेज़"
+  },
+  "Social": {
+    "message": "सामाजिक",
+    "title": "सामाजिक"
+  },
+  "Support_Nocap": {
+    "message": "सहायता",
+    "title": "सहायता"
+  },
+  "Products": {
+    "message": "उत्पाद",
+    "title": "उत्पाद"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "विवरण देखें",
+    "title": "विवरण देखें"
+  },
+  "Dashboard": { "message": "डैशबोर्ड", "title": "डैशबोर्ड" },
+  "Proxy": { "message": "प्रॉक्सी", "title": "प्रॉक्सी" },
+  "Active": { "message": "सक्रिय", "title": "सक्रिय" },
+  "Random": { "message": "यादृच्छिक", "title": "यादृच्छिक" },
+  "Total_proxy": { "message": "कुल प्रॉक्सी", "title": "कुल प्रॉक्सी" },
+  "valid": { "message": "वैध", "title": "वैध" },
+  "Proxy_List": { "message": "प्रॉक्सी सूची", "title": "प्रॉक्सी सूची" },
+  "Add_Proxy": { "message": "प्रॉक्सी जोड़ें", "title": "प्रॉक्सी जोड़ें" },
+  "Select_All": { "message": "सभी चुनें", "title": "सभी चुनें" },
+  "Delete": { "message": "हटाएं", "title": "हटाएं" },
+  "Filter": { "message": "फ़िल्टर", "title": "फ़िल्टर" },
+  "Recheck_All": { "message": "सब फिर से जांचें", "title": "सब फिर से जांचें" },
+  "protocol": {
+    "message": "प्रॉक्सी प्रोटोकॉल चुनें",
+    "title": "प्रॉक्सी प्रोटोकॉल चुनें"
+  },
+  "UA_changer": {
+    "message": "UA_चेंजर",
+    "title": "UA चेंजर"
+  },
+  "OS": {
+    "message": "ऑपरेटिंग सिस्टम",
+    "title": "ऑपरेटिंग सिस्टम"
+  },
+  "Browser": {
+    "message": "ब्राउज़र",
+    "title": "ब्राउज़र"
+  },
+  "ApplyUA": {
+    "message": "UA लागू करें",
+    "title": "यूज़र एजेंट लागू करें"
+  }
+}

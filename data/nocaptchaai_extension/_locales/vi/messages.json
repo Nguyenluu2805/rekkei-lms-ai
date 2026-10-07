@@ -1,0 +1,221 @@
+{
+  "CaptchaList": {
+    "message": "Sản phẩm",
+    "title": "Sản phẩm"
+  },
+  "Save": {
+    "message": "Lưu",
+    "title": "Lưu"
+  },
+  "Edit": {
+    "message": "Chỉnh sửa",
+    "title": "Chỉnh sửa"
+  },
+  "Remove": {
+    "message": "Xóa",
+    "title": "Xóa"
+  },
+  "Copy": {
+    "message": "Sao chép",
+    "title": "Sao chép"
+  },
+  "Reset": {
+    "message": "Đặt lại",
+    "title": "Đặt lại"
+  },
+  "Expired": {
+    "message": "Hết hạn",
+    "title": "Hết hạn"
+  },
+  "Blacklist": {
+    "message": "Danh sách đen",
+    "title": "Danh sách đen"
+  },
+  "Show": {
+    "message": "Hiển thị",
+    "title": "Hiển thị"
+  },
+  "Hide": {
+    "message": "Ẩn",
+    "title": "Ẩn"
+  },
+  "Terms": {
+    "message": "Điều khoản",
+    "title": "Điều khoản"
+  },
+  "PrivacyPolicy": {
+    "message": "Chính sách bảo mật",
+    "title": "Chính sách bảo mật"
+  },
+  "Upcoming": {
+    "message": "Sắp tới",
+    "title": "Sắp tới"
+  },
+  "Settings": {
+    "message": "Cài đặt",
+    "title": "Cài đặt"
+  },
+  "Invalid_API_Key": {
+    "message": "Khóa API không hợp lệ",
+    "title": "Khóa API không hợp lệ"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Cung cấp khóa API hợp lệ để tiếp tục.",
+    "title": "Cung cấp khóa API hợp lệ để tiếp tục."
+  },
+  "Get_API_Key": {
+    "message": "Lấy key",
+    "title": "Lấy key"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Số dư khóa API không đủ",
+    "title": "Số dư khóa API không đủ"
+  },
+  "Balance": {
+    "message": "Số dư",
+    "title": "Số dư"
+  },
+  "Add_Credit": {
+    "message": "Thêm tín dụng",
+    "title": "Thêm tín dụng"
+  },
+  "Access_this_feature": {
+    "message": "Thêm khóa API để truy cập.",
+    "title": "Thêm khóa API để truy cập."
+  },
+  "API_Key_Required": {
+    "message": "Yêu cầu khóa API để truy cập",
+    "title": "Yêu cầu khóa API để truy cập"
+  },
+  "Export_json": {
+    "message": "Xuất JSON",
+    "title": "Xuất JSON"
+  },
+  "Support": { "message": "hỗ trợ", "title": "hỗ trợ" },
+  "Toggle": { "message": "bật/tắt", "title": "bật/tắt" },
+  "Menu": { "message": "thực đơn", "title": "thực đơn" },
+  "Method_Switch": {
+    "message": "chuyển phương pháp",
+    "title": "chuyển phương pháp"
+  },
+  "Join_community": {
+    "message": "Tham gia cộng đồng của chúng tôi",
+    "title": "Tham gia cộng đồng của chúng tôi"
+  },
+  "Support_Option": {
+    "message": "Tùy chọn hỗ trợ",
+    "title": "Tùy chọn hỗ trợ"
+  },
+  "Email_Support": {
+    "message": "Hỗ trợ qua email",
+    "title": "Hỗ trợ qua email"
+  },
+  "Team_help": {
+    "message": "Nhận hỗ trợ trực tiếp từ đội ngũ của chúng tôi",
+    "title": "Nhận hỗ trợ trực tiếp từ đội ngũ của chúng tôi"
+  },
+  "Live_chat": {
+    "message": "Trò chuyện trực tiếp",
+    "title": "Trò chuyện trực tiếp"
+  },
+  "Availability": {
+    "message": "Có sẵn Thứ Hai–Thứ Sáu, 9h–17h EST",
+    "title": "Có sẵn Thứ Hai–Thứ Sáu, 9h–17h EST"
+  },
+  "Start_chat": {
+    "message": "Bắt đầu trò chuyện",
+    "title": "Bắt đầu trò chuyện"
+  },
+  "Documentation": {
+    "message": "Tài liệu",
+    "title": "Tài liệu"
+  },
+  "Guidence": {
+    "message": "Hướng dẫn và tài liệu API",
+    "title": "Hướng dẫn và tài liệu API"
+  },
+  "Our_products": {
+    "message": "Sản phẩm của chúng tôi",
+    "title": "Sản phẩm của chúng tôi"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "Giải pháp CAPTCHA tiên tiến sử dụng AI",
+    "title": "Giải pháp CAPTCHA tiên tiến sử dụng AI"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Trình giải chuyên biệt cho thử thách BLS",
+    "title": "Trình giải chuyên biệt cho thử thách BLS"
+  },
+  "Docs": {
+    "message": "Tài liệu",
+    "title": "Tài liệu"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "Giá cả",
+    "title": "Giá cả"
+  },
+  "API_Docs": {
+    "message": "Tài liệu API/SDK",
+    "title": "Tài liệu API/SDK"
+  },
+  "Captcha_Docs": {
+    "message": "Tài liệu đầy đủ cho tất cả các loại CAPTCHA",
+    "title": "Tài liệu đầy đủ cho tất cả các loại CAPTCHA"
+  },
+  "Social": {
+    "message": "Xã hội",
+    "title": "Xã hội"
+  },
+  "Support_Nocap": {
+    "message": "Hỗ trợ",
+    "title": "Hỗ trợ"
+  },
+  "Products": {
+    "message": "Sản phẩm",
+    "title": "Sản phẩm"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "Xem chi tiết",
+    "title": "Xem chi tiết"
+  },
+  "Dashboard": { "message": "Bảng điều khiển", "title": "Bảng điều khiển" },
+  "Proxy": { "message": "Proxy", "title": "Proxy" },
+  "Active": { "message": "Hoạt động", "title": "Hoạt động" },
+  "Random": { "message": "Ngẫu nhiên", "title": "Ngẫu nhiên" },
+  "Total_proxy": { "message": "Tổng Proxy", "title": "Tổng Proxy" },
+  "valid": { "message": "Hợp lệ", "title": "Hợp lệ" },
+  "Proxy_List": { "message": "Danh sách Proxy", "title": "Danh sách Proxy" },
+  "Add_Proxy": { "message": "Thêm Proxy", "title": "Thêm Proxy" },
+  "Select_All": { "message": "Chọn tất cả", "title": "Chọn tất cả" },
+  "Delete": { "message": "Xóa", "title": "Xóa" },
+  "Filter": { "message": "Lọc", "title": "Lọc" },
+  "Recheck_All": { "message": "Kiểm tra lại", "title": "Kiểm tra lại" },
+  "protocol": {
+    "message": "Chọn giao thức proxy",
+    "title": "Chọn giao thức proxy"
+  },
+  "UA_changer": {
+    "message": "Đổi_UA",
+    "title": "Đổi UA"
+  },
+  "OS": {
+    "message": "Hệ điều hành",
+    "title": "Hệ điều hành"
+  },
+  "Browser": {
+    "message": "Trình duyệt",
+    "title": "Trình duyệt"
+  },
+  "ApplyUA": {
+    "message": "Áp_dụng_UA",
+    "title": "Áp dụng User Agent"
+  }
+}

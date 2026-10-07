@@ -1,0 +1,221 @@
+{
+  "CaptchaList": {
+    "message": "Ürünler",
+    "title": "Ürünler"
+  },
+  "Save": {
+    "message": "Kaydet",
+    "title": "Kaydet"
+  },
+  "Edit": {
+    "message": "Düzenle",
+    "title": "Düzenle"
+  },
+  "Remove": {
+    "message": "Kaldır",
+    "title": "Kaldır"
+  },
+  "Copy": {
+    "message": "Kopyala",
+    "title": "Kopyala"
+  },
+  "Reset": {
+    "message": "Sıfırla",
+    "title": "Sıfırla"
+  },
+  "Expired": {
+    "message": "Süresi Dolmuş",
+    "title": "Süresi Dolmuş"
+  },
+  "Blacklist": {
+    "message": "Kara Liste",
+    "title": "Kara Liste"
+  },
+  "Show": {
+    "message": "Göster",
+    "title": "Göster"
+  },
+  "Hide": {
+    "message": "Gizle",
+    "title": "Gizle"
+  },
+  "Terms": {
+    "message": "Şartlar",
+    "title": "Şartlar"
+  },
+  "PrivacyPolicy": {
+    "message": "Gizlilik Politikası",
+    "title": "Gizlilik Politikası"
+  },
+  "Upcoming": {
+    "message": "Yaklaşan",
+    "title": "Yaklaşan"
+  },
+  "Settings": {
+    "message": "Ayarlar",
+    "title": "Ayarlar"
+  },
+  "Invalid_API_Key": {
+    "message": "Geçersiz API Anahtarı",
+    "title": "Geçersiz API Anahtarı"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Geçerli bir API anahtarı sağlayın ve devam edin.",
+    "title": "Geçerli bir API anahtarı sağlayın ve devam edin."
+  },
+  "Get_API_Key": {
+    "message": "Anahtar al",
+    "title": "Anahtar al"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "API Anahtarı Yeterli Bakiyesi Yok",
+    "title": "API Anahtarı Yeterli Bakiyesi Yok"
+  },
+  "Balance": {
+    "message": "Bakiye",
+    "title": "Bakiye"
+  },
+  "Add_Credit": {
+    "message": "Kredi Ekle",
+    "title": "Kredi Ekle"
+  },
+  "Access_this_feature": {
+    "message": "API anahtarı ekleyin için erişim.",
+    "title": "API anahtarı ekleyin için erişim."
+  },
+  "API_Key_Required": {
+    "message": "Erişim için API anahtarı gereklidir",
+    "title": "Erişim için API anahtarı gereklidir"
+  },
+  "Export_json": {
+    "message": "JSON Dışa Aktar",
+    "title": "JSON Dışa Aktar"
+  },
+  "Support": { "message": "destek", "title": "destek" },
+  "Toggle": { "message": "aç/kapa", "title": "aç/kapa" },
+  "Menu": { "message": "menü", "title": "menü" },
+  "Method_Switch": { "message": "yöntem değiştir", "title": "yöntem değiştir" },
+  "Join_community": {
+    "message": "Topluluğumuza katılın",
+    "title": "Topluluğumuza katılın"
+  },
+  "Support_Option": {
+    "message": "Destek Seçenekleri",
+    "title": "Destek Seçenekleri"
+  },
+  "Email_Support": {
+    "message": "E-posta Desteği",
+    "title": "E-posta Desteği"
+  },
+  "Team_help": {
+    "message": "Ekibimizden doğrudan yardım alın",
+    "title": "Ekibimizden doğrudan yardım alın"
+  },
+  "Live_chat": {
+    "message": "Canlı Sohbet",
+    "title": "Canlı Sohbet"
+  },
+  "Availability": {
+    "message": "Pzt–Cum, 09:00–17:00 EST arası müsait",
+    "title": "Pzt–Cum, 09:00–17:00 EST arası müsait"
+  },
+  "Start_chat": {
+    "message": "Sohbete Başla",
+    "title": "Sohbete Başla"
+  },
+  "Documentation": {
+    "message": "Dokümantasyon",
+    "title": "Dokümantasyon"
+  },
+  "Guidence": {
+    "message": "Kılavuzlar ve API referansları",
+    "title": "Kılavuzlar ve API referansları"
+  },
+  "Our_products": {
+    "message": "Ürünlerimiz",
+    "title": "Ürünlerimiz"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "Gelişmiş yapay zekâ destekli CAPTCHA çözümü",
+    "title": "Gelişmiş yapay zekâ destekli CAPTCHA çözümü"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "BLS zorlukları için özel çözümleyici",
+    "title": "BLS zorlukları için özel çözümleyici"
+  },
+  "Docs": {
+    "message": "Dökümanlar",
+    "title": "Dökümanlar"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "Fiyatlandırma",
+    "title": "Fiyatlandırma"
+  },
+  "API_Docs": {
+    "message": "API/SDK Dokümantasyonu",
+    "title": "API/SDK Dokümantasyonu"
+  },
+  "Captcha_Docs": {
+    "message": "Tüm CAPTCHA türleri için kapsamlı dokümantasyon",
+    "title": "Tüm CAPTCHA türleri için kapsamlı dokümantasyon"
+  },
+  "Social": {
+    "message": "Sosyal",
+    "title": "Sosyal"
+  },
+  "Support_Nocap": {
+    "message": "Destek",
+    "title": "Destek"
+  },
+  "Products": {
+    "message": "Ürünler",
+    "title": "Ürünler"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "Detayları görüntüle",
+    "title": "Detayları görüntüle"
+  },
+  "Dashboard": { "message": "Kontrol Paneli", "title": "Kontrol Paneli" },
+  "Proxy": { "message": "Vekil", "title": "Vekil" },
+  "Active": { "message": "Aktif", "title": "Aktif" },
+  "Random": { "message": "Rastgele", "title": "Rastgele" },
+  "Total_proxy": { "message": "Toplam Vekil", "title": "Toplam Vekil" },
+  "valid": { "message": "Geçerli", "title": "Geçerli" },
+  "Proxy_List": { "message": "Proxy Listesi", "title": "Proxy Listesi" },
+  "Add_Proxy": { "message": "Proxy Ekle", "title": "Proxy Ekle" },
+  "Select_All": { "message": "Tümünü Seç", "title": "Tümünü Seç" },
+  "Delete": { "message": "Sil", "title": "Sil" },
+  "Filter": { "message": "Filtre", "title": "Filtre" },
+  "Recheck_All": {
+    "message": "Tümünü Yeniden Kontrol Et",
+    "title": "Tümünü Yeniden Kontrol Et"
+  },
+   "protocol": {
+    "message": "Proxy protokolünü seçin",
+    "title": "Proxy protokolünü seçin"
+  },
+  "UA_changer": {
+    "message": "UA_değiştirici",
+    "title": "UA Değiştirici"
+  },
+  "OS": {
+    "message": "İşletim Sistemi",
+    "title": "İşletim Sistemi"
+  },
+  "Browser": {
+    "message": "Tarayıcı",
+    "title": "Tarayıcı"
+  },
+  "ApplyUA": {
+    "message": "UA uygula",
+    "title": "Kullanıcı Aracısı Uygula"
+  }
+}

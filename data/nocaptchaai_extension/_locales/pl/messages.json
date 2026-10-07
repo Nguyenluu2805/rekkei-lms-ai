@@ -1,0 +1,218 @@
+{
+  "CaptchaList": {
+    "message": "Produkty",
+    "title": "Produkty"
+  },
+  "Save": {
+    "message": "Zapisz",
+    "title": "Zapisz"
+  },
+  "Edit": {
+    "message": "Edytuj",
+    "title": "Edytuj"
+  },
+  "Remove": {
+    "message": "Usuń",
+    "title": "Usuń"
+  },
+  "Copy": {
+    "message": "Kopiuj",
+    "title": "Kopiuj"
+  },
+  "Reset": {
+    "message": "Zresetuj",
+    "title": "Zresetuj"
+  },
+  "Expired": {
+    "message": "Wygasło",
+    "title": "Wygasło"
+  },
+  "Blacklist": {
+    "message": "Czarna lista",
+    "title": "Czarna lista"
+  },
+  "Show": {
+    "message": "Pokaż",
+    "title": "Pokaż"
+  },
+  "Hide": {
+    "message": "Ukryj",
+    "title": "Ukryj"
+  },
+  "Terms": {
+    "message": "Warunki",
+    "title": "Warunki"
+  },
+  "PrivacyPolicy": {
+    "message": "Prywatność",
+    "title": "Prywatność"
+  },
+  "Upcoming": {
+    "message": "Nadchodzące",
+    "title": "Nadchodzące"
+  },
+  "Settings": {
+    "message": "Ustawienia",
+    "title": "Ustawienia"
+  },
+  "Invalid_API_Key": {
+    "message": "Nieprawidłowy klucz API",
+    "title": "Nieprawidłowy klucz API"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Podaj prawidłowy klucz API, aby kontynuować.",
+    "title": "Podaj prawidłowy klucz API, aby kontynuować."
+  },
+  "Get_API_Key": {
+    "message": "Pobierz klucz",
+    "title": "Pobierz klucz"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Niewystarczające środki na kluczu API",
+    "title": "Niewystarczające środki na kluczu API"
+  },
+  "Balance": {
+    "message": "Saldo",
+    "title": "Saldo"
+  },
+  "Add_Credit": {
+    "message": "Dodaj kredyt",
+    "title": "Dodaj kredyt"
+  },
+  "Access_this_feature": {
+    "message": "Aby użyć, wprowadź klucz API.",
+    "title": "Aby użyć, wprowadź klucz API."
+  },
+  "API_Key_Required": {
+    "message": "Wymagany klucz API do uzyskania dostępu",
+    "title": "Wymagany klucz API do uzyskania dostępu"
+  },
+  "Export_json": {
+    "message": "Eksportuj JSON",
+    "title": "Eksportuj JSON"
+  },
+  "Support": { "message": "wsparcie", "title": "wsparcie" },
+  "Toggle": { "message": "włącz/wyłącz", "title": "włącz/wyłącz" },
+  "Menu": { "message": "menu", "title": "menu" },
+  "Method_Switch": { "message": "zmiana metody", "title": "zmiana metody" },
+  "Join_community": {
+    "message": "Dołącz do naszej społeczności",
+    "title": "Dołącz do naszej społeczności"
+  },
+  "Support_Option": {
+    "message": "Opcje wsparcia",
+    "title": "Opcje wsparcia"
+  },
+  "Email_Support": {
+    "message": "Wsparcie e-mailowe",
+    "title": "Wsparcie e-mailowe"
+  },
+  "Team_help": {
+    "message": "Uzyskaj bezpośrednią pomoc od naszego zespołu",
+    "title": "Uzyskaj bezpośrednią pomoc od naszego zespołu"
+  },
+  "Live_chat": {
+    "message": "Czat na żywo",
+    "title": "Czat na żywo"
+  },
+  "Availability": {
+    "message": "Dostępne od poniedziałku do piątku, 9:00–17:00 EST",
+    "title": "Dostępne od poniedziałku do piątku, 9:00–17:00 EST"
+  },
+  "Start_chat": {
+    "message": "Rozpocznij czat",
+    "title": "Rozpocznij czat"
+  },
+  "Documentation": {
+    "message": "Dokumentacja",
+    "title": "Dokumentacja"
+  },
+  "Guidence": {
+    "message": "Przewodniki i odniesienia do API",
+    "title": "Przewodniki i odniesienia do API"
+  },
+  "Our_products": {
+    "message": "Nasze produkty",
+    "title": "Nasze produkty"
+  },
+  "Nocaptcha_OCR_Title": {
+    "message": "Zaawansowane rozwiązanie CAPTCHA oparte na AI",
+    "title": "Zaawansowane rozwiązanie CAPTCHA oparte na AI"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Specjalistyczne rozwiązanie dla wyzwań BLS",
+    "title": "Specjalistyczne rozwiązanie dla wyzwań BLS"
+  },
+  "Docs": {
+    "message": "Dokumenty",
+    "title": "Dokumenty"
+  },
+  "API": {
+    "message": "API",
+    "title": "API"
+  },
+  "Pricing": {
+    "message": "Cennik",
+    "title": "Cennik"
+  },
+  "API_Docs": {
+    "message": "Dokumentacja API/SDK",
+    "title": "Dokumentacja API/SDK"
+  },
+  "Captcha_Docs": {
+    "message": "Kompleksowa dokumentacja dla wszystkich typów CAPTCHA",
+    "title": "Kompleksowa dokumentacja dla wszystkich typów CAPTCHA"
+  },
+  "Social": {
+    "message": "Społeczność",
+    "title": "Społeczność"
+  },
+  "Support_Nocap": {
+    "message": "Wsparcie",
+    "title": "Wsparcie"
+  },
+  "Products": {
+    "message": "Produkty",
+    "title": "Produkty"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details":  {
+    "message": "Zobacz szczegóły",
+    "title": "Zobacz szczegóły"
+  },
+  "Dashboard": { "message": "Panel", "title": "Panel" },
+    "Proxy": { "message": "Proxy", "title": "Proxy" },
+    "Active": { "message": "Aktywny", "title": "Aktywny" },
+    "Random": { "message": "Losowy", "title": "Losowy" },
+    "Total_proxy": { "message": "Łącznie Proxy", "title": "Łącznie Proxy" },
+    "valid": { "message": "Poprawny", "title": "Poprawny" },
+    "Proxy_List": { "message": "Lista Proxy", "title": "Lista Proxy" },
+    "Add_Proxy": { "message": "Dodaj Proxy", "title": "Dodaj Proxy" },
+    "Select_All": { "message": "Zaznacz Wszystko", "title": "Zaznacz Wszystko" },
+    "Delete": { "message": "Usuń", "title": "Usuń" },
+    "Filter": { "message": "Filtruj", "title": "Filtruj" },
+    "Recheck_All": { "message": "Sprawdź Wszystko", "title": "Sprawdź Wszystko" },
+    "protocol": {
+    "message": "Wybierz protokół proxy",
+    "title": "Wybierz protokół proxy"
+  },
+  "UA_changer": {
+    "message": "Zmieniacz UA",
+    "title": "Zmieniacz UA"
+  },
+  "OS": {
+    "message": "System operacyjny",
+    "title": "System operacyjny"
+  },
+  "Browser": {
+    "message": "Przeglądarka",
+    "title": "Przeglądarka"
+  },
+  "ApplyUA": {
+    "message": "Zastosuj UA",
+    "title": "Zastosuj user agent"
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "CaptchaList": {
+    "message": "产品",
+    "title": "产品"
+  },
+  "Save": {
+    "message": "保存",
+    "title": "保存"
+  },
+  "Edit": {
+    "message": "编辑",
+    "title": "编辑"
+  },
+  "Remove": {
+    "message": "删除",
+    "title": "删除"
+  },
+  "Copy": {
+    "message": "复制",
+    "title": "复制"
+  },
+  "Reset": {
+    "message": "重置",
+    "title": "重置"
+  },
+  "Expired": {
+    "message": "过期",
+    "title": "过期"
+  },
+  "Blacklist": {
+    "message": "黑名单",
+    "title": "黑名单"
+  },
+  "Show": {
+    "message": "显示",
+    "title": "显示"
+  },
+  "Hide": {
+    "message": "隐藏",
+    "title": "隐藏"
+  },
+  "Terms": {
+    "message": "条款",
+    "title": "条款"
+  },
+  "PrivacyPolicy": {
+    "message": "隐私政策",
+    "title": "隐私政策"
+  },
+  "Upcoming": {
+    "message": "即将到来",
+    "title": "即将到来"
+  },
+  "Settings": {
+    "message": "设置",
+    "title": "设置"
+  },
+  "Invalid_API_Key": {
+    "message": "无效的API密钥",
+    "title": "无效的API密钥"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "请提供有效的API密钥以继续",
+    "title": "请提供有效的API密钥以继续"
+  },
+  "Get_API_Key": {
+    "message": "获取API密钥",
+    "title": "获取API密钥"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "API密钥余额不足",
+    "title": "API密钥余额不足"
+  },
+  "Balance": {
+    "message": "余额",
+    "title": "余额"
+  },
+  "Add_Credit": {
+    "message": "添加信用",
+    "title": "添加信用"
+  },
+  "Access_this_feature": {
+    "message": "要访问此功能，请添加API密钥。",
+    "title": "要访问此功能，请添加API密钥。"
+  },
+  "API_Key_Required": {
+    "message": "访问需要API密钥",
+    "title": "访问需要API密钥"
+  },
+  "Export_json": {
+    "message": "导出JSON",
+    "title": "导出JSON"
+  },
+  "Support": { "message": "支持", "title": "支持" },
+  "Toggle": { "message": "开启/关闭", "title": "开启/关闭" },
+  "Menu": { "message": "菜单", "title": "菜单" },
+  "Method_Switch": { "message": "方法切换", "title": "方法切换" },
+  "Join_community": { "message": "加入我们的社区", "title": "加入我们的社区" },
+  "Support_Option": { "message": "支持选项", "title": "支持选项" },
+  "Email_Support": { "message": "电子邮件支持", "title": "电子邮件支持" },
+  "Team_help": {
+    "message": "获得我们团队的直接帮助",
+    "title": "获得我们团队的直接帮助"
+  },
+  "Live_chat": { "message": "实时聊天", "title": "实时聊天" },
+  "Availability": {
+    "message": "周一至周五，上午9点至下午5点（EST）",
+    "title": "周一至周五，上午9点至下午5点（EST）"
+  },
+  "Start_chat": { "message": "开始聊天", "title": "开始聊天" },
+  "Documentation": { "message": "文档", "title": "文档" },
+  "Guidence": { "message": "指南和API参考", "title": "指南和API参考" },
+  "Our_products": { "message": "我们的产品", "title": "我们的产品" },
+  "Nocaptcha_OCR_Title": {
+    "message": "先进的AI驱动验证码解决方案",
+    "title": "先进的AI驱动验证码解决方案"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "针对BLS挑战的专用解决方案",
+    "title": "针对BLS挑战的专用解决方案"
+  },
+  "Docs": { "message": "文档", "title": "文档" },
+  "API": { "message": "API", "title": "API" },
+  "Pricing": { "message": "价格", "title": "价格" },
+  "API_Docs": { "message": "API/SDK文档", "title": "API/SDK文档" },
+  "Captcha_Docs": {
+    "message": "所有验证码类型的全面文档",
+    "title": "所有验证码类型的全面文档"
+  },
+  "Social": {
+    "message": "社交",
+    "title": "社交"
+  },
+  "Support_Nocap": {
+    "message": "支持",
+    "title": "支持"
+  },
+  "Products": {
+    "message": "产品",
+    "title": "产品"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "查看详情",
+    "title": "查看详情"
+  },
+  "Dashboard": { "message": "仪表板", "title": "仪表板" },
+  "Proxy": { "message": "代理", "title": "代理" },
+  "Active": { "message": "活跃", "title": "活跃" },
+  "Random": { "message": "随机", "title": "随机" },
+  "Total_proxy": { "message": "代理总数", "title": "代理总数" },
+  "valid": { "message": "有效", "title": "有效" },
+  "Proxy_List": { "message": "代理列表", "title": "代理列表" },
+  "Add_Proxy": { "message": "添加代理", "title": "添加代理" },
+  "Select_All": { "message": "全选", "title": "全选" },
+  "Delete": { "message": "删除", "title": "删除" },
+  "Filter": { "message": "筛选", "title": "筛选" },
+  "Recheck_All": { "message": "重新检查", "title": "重新检查" },
+   "protocol": {
+    "message": "选择代理协议",
+    "title": "选择代理协议"
+  },
+  "UA_changer": {
+    "message": "UA更换器",
+    "title": "UA更换器"
+  },
+  "OS": {
+    "message": "操作系统",
+    "title": "操作系统"
+  },
+  "Browser": {
+    "message": "浏览器",
+    "title": "浏览器"
+  },
+  "ApplyUA": {
+    "message": "应用UA",
+    "title": "应用用户代理"
+  }
+}

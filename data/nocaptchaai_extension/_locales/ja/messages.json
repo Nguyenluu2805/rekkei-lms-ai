@@ -1,0 +1,194 @@
+{
+  "CaptchaList": {
+    "message": "製品",
+    "title": "製品"
+  },
+  "Save": {
+    "message": "保存",
+    "title": "保存"
+  },
+  "Edit": {
+    "message": "編集",
+    "title": "編集"
+  },
+  "Remove": {
+    "message": "削除",
+    "title": "削除"
+  },
+  "Copy": {
+    "message": "コピー",
+    "title": "コピー"
+  },
+  "Reset": {
+    "message": "リセット",
+    "title": "リセット"
+  },
+  "Expired": {
+    "message": "期限切れ",
+    "title": "期限切れ"
+  },
+  "Blacklist": {
+    "message": "ブラックリスト",
+    "title": "ブラックリスト"
+  },
+  "Show": {
+    "message": "表示",
+    "title": "表示"
+  },
+  "Hide": {
+    "message": "非表示",
+    "title": "非表示"
+  },
+  "Terms": {
+    "message": "利用規約",
+    "title": "利用規約"
+  },
+  "PrivacyPolicy": {
+    "message": "プライバシー",
+    "title": "プライバシー"
+  },
+  "Upcoming": {
+    "message": "今後",
+    "title": "今後"
+  },
+  "Settings": {
+    "message": "設定",
+    "title": "設定"
+  },
+  "Invalid_API_Key": {
+    "message": "無効なAPIキー",
+    "title": "無効なAPIキー"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "続行するには有効なAPIキーを提供してください",
+    "title": "続行するには有効なAPIキーを提供してください"
+  },
+  "Get_API_Key": {
+    "message": "APIキーを取得",
+    "title": "APIキーを取得"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "APIキーの残高不足",
+    "title": "APIキーの残高不足"
+  },
+  "Balance": {
+    "message": "残高",
+    "title": "残高"
+  },
+  "Add_Credit": {
+    "message": "クレジットを追加",
+    "title": "クレジットを追加"
+  },
+  "Access_this_feature": {
+    "message": "APIキーを追加してください。",
+    "title": "APIキーを追加してください。"
+  },
+  "API_Key_Required": {
+    "message": "アクセスにはAPIキーが必要です",
+    "title": "アクセスにはAPIキーが必要です"
+  },
+  "Export_json": {
+    "message": "JSONをエクスポート",
+    "title": "JSONをエクスポート"
+  },
+  "Support": { "message": "サポート", "title": "サポート" },
+  "Toggle": { "message": "オン/オフ", "title": "オン/オフ" },
+  "Menu": { "message": "メニュー", "title": "メニュー" },
+  "Method_Switch": { "message": "方法切替", "title": "方法切替" },
+  "Join_community": {
+    "message": "コミュニティに参加",
+    "title": "コミュニティに参加"
+  },
+  "Support_Option": {
+    "message": "サポートオプション",
+    "title": "サポートオプション"
+  },
+  "Email_Support": { "message": "メールサポート", "title": "メールサポート" },
+  "Team_help": {
+    "message": "チームから直接サポートを受ける",
+    "title": "チームから直接サポートを受ける"
+  },
+  "Live_chat": { "message": "ライブチャット", "title": "ライブチャット" },
+  "Availability": {
+    "message": "月〜金 9時〜17時 EST対応",
+    "title": "月〜金 9時〜17時 EST対応"
+  },
+  "Start_chat": { "message": "チャットを開始", "title": "チャットを開始" },
+  "Documentation": { "message": "ドキュメント", "title": "ドキュメント" },
+  "Guidence": {
+    "message": "ガイドとAPIリファレンス",
+    "title": "ガイドとAPIリファレンス"
+  },
+  "Our_products": { "message": "私たちの製品", "title": "私たちの製品" },
+  "Nocaptcha_OCR_Title": {
+    "message": "高度なAI駆動のキャプチャ解決",
+    "title": "高度なAI駆動のキャプチャ解決"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "BLSチャレンジ専用ソルバー",
+    "title": "BLSチャレンジ専用ソルバー"
+  },
+  "Docs": { "message": "ドキュメント", "title": "ドキュメント" },
+  "API": { "message": "API", "title": "API" },
+  "Pricing": { "message": "価格", "title": "価格" },
+  "API_Docs": {
+    "message": "API/SDKドキュメント",
+    "title": "API/SDKドキュメント"
+  },
+  "Captcha_Docs": {
+    "message": "すべてのキャプチャタイプの包括的なドキュメント",
+    "title": "すべてのキャプチャタイプの包括的なドキュメント"
+  },
+  "Social": {
+    "message": "ソーシャル",
+    "title": "ソーシャル"
+  },
+  "Support_Nocap": {
+    "message": "サポート",
+    "title": "サポート"
+  },
+  "Products": {
+    "message": "製品",
+    "title": "製品"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "詳細を見る",
+    "title": "詳細を見る"
+  },
+  "Dashboard": { "message": "ダッシュボード", "title": "ダッシュボード" },
+  "Proxy": { "message": "プロキシ", "title": "プロキシ" },
+  "Active": { "message": "アクティブ", "title": "アクティブ" },
+  "Random": { "message": "ランダム", "title": "ランダム" },
+  "Total_proxy": { "message": "合計プロキシ", "title": "合計プロキシ" },
+  "valid": { "message": "有効", "title": "有効" },
+  "Proxy_List": { "message": "プロキシ一覧", "title": "プロキシ一覧" },
+  "Add_Proxy": { "message": "プロキシを追加", "title": "プロキシを追加" },
+  "Select_All": { "message": "すべて選択", "title": "すべて選択" },
+  "Delete": { "message": "削除", "title": "削除" },
+  "Filter": { "message": "フィルター", "title": "フィルター" },
+  "Recheck_All": { "message": "再チェック", "title": "再チェック" },
+  "protocol": {
+    "message": "プロキシプロトコルを選択",
+    "title": "プロキシプロトコルを選択"
+  },
+  "UA_changer": {
+    "message": "UAチェンジャー",
+    "title": "UAチェンジャー"
+  },
+  "OS": {
+    "message": "オペレーティングシステム",
+    "title": "オペレーティングシステム"
+  },
+  "Browser": {
+    "message": "ブラウザ",
+    "title": "ブラウザ"
+  },
+  "ApplyUA": {
+    "message": "UA適用",
+    "title": "ユーザーエージェント適用"
+  }
+}

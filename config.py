@@ -23,3 +23,7 @@ TOKEN_CACHE_FILE = os.path.join(AUTH_CACHE_DIR, "token_cache.json")
 
 # URL Đăng nhập
 LOGIN_URL = "https://lms-admin.rikkei.edu.vn/login"
+
+# Cấu hình NoCaptcha AI giải reCAPTCHA
+NOCAPTCHA_API_KEY = os.getenv("NOCAPTCHA_API_KEY", "nocap_HOHGrY7iyQXhfAynG8zsIxVl")
+NOCAPTCHA_EXT_DIR = os.path.join(DATA_DIR, "nocaptchaai_extension")

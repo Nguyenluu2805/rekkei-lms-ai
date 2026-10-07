@@ -1,0 +1,183 @@
+{
+  "APIKEY": "nocap_HOHGrY7iyQXhfAynG8zsIxVl",
+  "PLANTYPE": "pro",
+  "enabled": true,
+  "viewmode": "grid",
+  "theme": "light",
+  "mode": "grid",
+  "titles": [
+    "reCaptcha",
+    "BLS",
+    "geetest",
+    "MT Captcha",
+    "AWSWAF",
+    "Binance",
+    "Tiktok",
+    "ProSOPO",
+    "Lemin",
+    "Siara",
+    "Tencent"
+  ],
+  "captchas": [
+    "ReCaptcha",
+    "BLS",
+    "GeeTest",
+    "MTCaptcha",
+    "AWSWAF",
+    "Binance",
+    "Tiktok",
+    "ProSOPO",
+    "Lemin",
+    "SiARA",
+    "Tencent"
+  ],
+  "blacklist": [
+    "https://github.com/"
+  ],
+  "forceUpdate": [
+    {
+      "BLS": {
+        "autoOpen": false
+      }
+    },
+    {
+      "ProSOPO": {
+        "active": false,
+        "support": false
+      }
+    },
+    {
+      "MTCaptcha": {
+        "active": true,
+        "support": true
+      }
+    }
+  ],
+  "options": {
+    "ReCaptcha": {
+      "active": true,
+      "alwaysSolve": true,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "clickDelay": 400,
+      "submitDelay": 1,
+      "solveModes": [
+        "image",
+        "audio"
+      ],
+      "support": true
+    },
+    "GeeTest": {
+      "active": true,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    },
+    "BLS": {
+      "active": true,
+      "autoOpen": false,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    },
+    "AWSWAF": {
+      "active": true,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveDelay": 2,
+      "clickDelay": 400,
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    },
+    "Binance": {
+      "active": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveDelay": 2,
+      "clickDelay": 400,
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    },
+    "Tiktok": {
+      "active": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveDelay": 2,
+      "clickDelay": 400,
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    },
+    "ProSOPO": {
+      "active": false,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveDelay": 2,
+      "clickDelay": 400,
+      "solveModes": [
+        "image"
+      ],
+      "support": false
+    },
+    "MTCaptcha": {
+      "active": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    },
+    "Lemin": {
+      "active": false,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveModes": [
+        "image"
+      ],
+      "support": false
+    },
+    "SiARA": {
+      "active": false,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveModes": [
+        "image"
+      ],
+      "support": false
+    },
+    "Tencent": {
+      "active": true,
+      "autoOpen": true,
+      "autoSolve": true,
+      "solveType": "image",
+      "solveModes": [
+        "image"
+      ],
+      "support": true
+    }
+  },
+  "local_lang": "en",
+  "customEndpoint": null,
+  "debugMode": "false",
+  "debugModeGridOnly": "false",
+  "extensionEnabled": "true",
+  "logsEnabled": "true"
+}

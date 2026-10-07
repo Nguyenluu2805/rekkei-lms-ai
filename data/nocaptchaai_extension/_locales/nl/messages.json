@@ -1,0 +1,200 @@
+{
+  "CaptchaList": {
+    "message": "Producten",
+    "title": "Producten"
+  },
+  "Save": {
+    "message": "Opslaan",
+    "title": "Opslaan"
+  },
+  "Edit": {
+    "message": "Bewerken",
+    "title": "Bewerken"
+  },
+  "Remove": {
+    "message": "Verwijderen",
+    "title": "Verwijderen"
+  },
+  "Copy": {
+    "message": "Kopiëren",
+    "title": "Kopiëren"
+  },
+  "Reset": {
+    "message": "Resetten",
+    "title": "Resetten"
+  },
+  "Expired": {
+    "message": "Verlopen",
+    "title": "Verlopen"
+  },
+  "Blacklist": {
+    "message": "Zwarte lijst",
+    "title": "Zwarte lijst"
+  },
+  "Show": {
+    "message": "Toon",
+    "title": "Toon"
+  },
+  "Hide": {
+    "message": "Verbergen",
+    "title": "Verbergen"
+  },
+  "Terms": {
+    "message": "Voorwaarden",
+    "title": "Voorwaarden"
+  },
+  "PrivacyPolicy": {
+    "message": "Privacy",
+    "title": "Privacy"
+  },
+  "Upcoming": {
+    "message": "Aankomend",
+    "title": "Aankomend"
+  },
+  "Settings": {
+    "message": "Instellingen",
+    "title": "Instellingen"
+  },
+  "Invalid_API_Key": {
+    "message": "Ongeldige API-sleutel",
+    "title": "Ongeldige API-sleutel"
+  },
+  "Please_provide_a_valid_API_Key": {
+    "message": "Geef een geldige API-sleutel op om door te gaan",
+    "title": "Geef een geldige API-sleutel op om door te gaan"
+  },
+  "Get_API_Key": {
+    "message": "Sleutel halen",
+    "title": "Sleutel halen"
+  },
+  "Insufficient_API_Key_Balance": {
+    "message": "Onvoldoende API-sleutel saldo",
+    "title": "Onvoldoende API-sleutel saldo"
+  },
+  "Balance": {
+    "message": "Saldo",
+    "title": "Saldo"
+  },
+  "Add_Credit": {
+    "message": "Voeg krediet toe",
+    "title": "Voeg krediet toe"
+  },
+  "Access_this_feature": {
+    "message": "Voor gebruik, voer API-sleutel in.",
+    "title": "Voor gebruik, voer API-sleutel in."
+  },
+  "API_Key_Required": {
+    "message": "API-sleutel vereist voor toegang",
+    "title": "API-sleutel vereist voor toegang"
+  },
+  "Export_json": {
+    "message": "Exporteer JSON",
+    "title": "Exporteer JSON"
+  },
+  "Support": { "message": "ondersteuning", "title": "ondersteuning" },
+  "Toggle": { "message": "aan/uit", "title": "aan/uit" },
+  "Menu": { "message": "menu", "title": "menu" },
+  "Method_Switch": {
+    "message": "methode wisselen",
+    "title": "methode wisselen"
+  },
+  "Join_community": {
+    "message": "Word lid van onze community",
+    "title": "Word lid van onze community"
+  },
+  "Support_Option": {
+    "message": "Ondersteuningsopties",
+    "title": "Ondersteuningsopties"
+  },
+  "Email_Support": {
+    "message": "E-mail ondersteuning",
+    "title": "E-mail ondersteuning"
+  },
+  "Team_help": {
+    "message": "Krijg directe hulp van ons team",
+    "title": "Krijg directe hulp van ons team"
+  },
+  "Live_chat": { "message": "Livechat", "title": "Livechat" },
+  "Availability": {
+    "message": "Beschikbaar ma-vr, 9:00-17:00 EST",
+    "title": "Beschikbaar ma-vr, 9:00-17:00 EST"
+  },
+  "Start_chat": { "message": "Start chat", "title": "Start chat" },
+  "Documentation": { "message": "Documentatie", "title": "Documentatie" },
+  "Guidence": {
+    "message": "Gidsen en API-referenties",
+    "title": "Gidsen en API-referenties"
+  },
+  "Our_products": { "message": "Onze producten", "title": "Onze producten" },
+  "Nocaptcha_OCR_Title": {
+    "message": "Geavanceerde AI-gedreven captcha-oplossing",
+    "title": "Geavanceerde AI-gedreven captcha-oplossing"
+  },
+  "Nocaptcha_BLS_Title": {
+    "message": "Gespecialiseerde solver voor BLS-uitdagingen",
+    "title": "Gespecialiseerde solver voor BLS-uitdagingen"
+  },
+  "Docs": { "message": "Documenten", "title": "Documenten" },
+  "API": { "message": "API", "title": "API" },
+  "Pricing": { "message": "Prijzen", "title": "Prijzen" },
+  "API_Docs": {
+    "message": "API/SDK documentatie",
+    "title": "API/SDK documentatie"
+  },
+  "Captcha_Docs": {
+    "message": "Uitgebreide documentatie voor alle captcha-types",
+    "title": "Uitgebreide documentatie voor alle captcha-types"
+  },
+  "Social": {
+    "message": "Sociaal",
+    "title": "Sociaal"
+  },
+  "Support_Nocap": {
+    "message": "Ondersteuning",
+    "title": "Ondersteuning"
+  },
+  "Products": {
+    "message": "Producten",
+    "title": "Producten"
+  },
+  "API_SDK": {
+    "message": "API/SDK",
+    "title": "API/SDK"
+  },
+  "View_Details": {
+    "message": "Details bekijken",
+    "title": "Details bekijken"
+  },
+  "Dashboard": { "message": "Dashboard", "title": "Dashboard" },
+    "Proxy": { "message": "Proxy", "title": "Proxy" },
+    "Active": { "message": "Actief", "title": "Actief" },
+    "Random": { "message": "Willekeurig", "title": "Willekeurig" },
+    "Total_proxy": { "message": "Totaal Proxy", "title": "Totaal Proxy" },
+    "valid": { "message": "Geldig", "title": "Geldig" },
+    "Proxy_List": { "message": "Proxy-lijst", "title": "Proxy-lijst" },
+    "Add_Proxy": { "message": "Voeg Proxy toe", "title": "Voeg Proxy toe" },
+    "Select_All": { "message": "Alles selecteren", "title": "Alles selecteren" },
+    "Delete": { "message": "Verwijder", "title": "Verwijder" },
+    "Filter": { "message": "Filter", "title": "Filter" },
+    "Recheck_All": { "message": "Alles opnieuw controleren", "title": "Alles opnieuw controleren" },
+    "protocol": {
+    "message": "Kies je proxyprotocol",
+    "title": "Kies je proxyprotocol"
+  },
+  "UA_changer": {
+    "message": "UA_wisselaar",
+    "title": "UA Wisselaar"
+  },
+  "OS": {
+    "message": "Besturingssysteem",
+    "title": "Besturingssysteem"
+  },
+  "Browser": {
+    "message": "Browser",
+    "title": "Browser"
+  },
+  "ApplyUA": {
+    "message": "PasUAtoe",
+    "title": "Pas User Agent toe"
+  }
+}
