@@ -239,7 +239,10 @@ def login_and_fetch_token():
                     recaptcha_frame = page.frame_locator('iframe[title="reCAPTCHA"]')
                     anchor = recaptcha_frame.locator('#recaptcha-anchor')
                     if anchor.count() > 0:
-                        anchor.click(timeout=10000)
+                        try:
+                            anchor.click(force=True, timeout=5000)
+                        except Exception:
+                            anchor.dispatch_event('click')
                     
                     print("Đang chờ NoCaptcha AI giải mã reCAPTCHA (tối đa 30s)...")
                     token_found = False
