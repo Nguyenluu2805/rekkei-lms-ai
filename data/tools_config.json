@@ -496,6 +496,39 @@
     "updatedAt": 1791174487395
   },
   {
+    "name": "get_student_session_homework_detail",
+    "description": "Lấy toàn bộ chi tiết tất cả các bài tập đã nộp của một sinh viên cụ thể trong một buổi học (session). Trả về đầy đủ thông tin buổi học (session), thông tin sinh viên (student), trạng thái hoàn thành (completion) và danh sách chi tiết từng bài tập (items) bao gồm: homeworkId, tiêu đề (title), đề bài (description), submissionId, link githubUrl, nhánh branch, lần nộp (attemptNo), thời gian nộp (submittedAt), kết quả chấm của AI (aiStatus, aiDecision: PASS/FAIL, aiScore, aiMaxScore, aiSummary). Dùng khi người dùng yêu cầu: 'Xem chi tiết các bài tập đã nộp của sinh viên X trong buổi Y', 'Chi tiết bài tập Session 3 của Thi Thành Đạt', 'Xem link nộp bài và nhận xét AI từng bài của sinh viên'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "ID của buổi học (có thể là sessionId giáo trình hoặc attendanceSessionId)."
+        },
+        "student_id": {
+          "type": "string",
+          "description": "ID duy nhất của sinh viên trên LMS (MongoDB ObjectId). Ví dụ: '6aa9f0c2bd4a73a68ce4bd82'."
+        },
+        "student_search": {
+          "type": "string",
+          "description": "Tên hoặc Mã sinh viên nếu chưa biết student_id (Ví dụ: 'Thi Thành Đạt' hoặc 'N26DTCN041')."
+        },
+        "class_id": {
+          "type": "string",
+          "description": "Tùy chọn: ID của lớp học để hỗ trợ tìm kiếm sinh viên chính xác hơn nếu có trùng tên."
+        }
+      },
+      "required": [
+        "session_id"
+      ]
+    },
+    "createdAt": 1791174487395,
+    "updatedAt": 1791174487395
+  },
+  {
     "name": "create_homework",
     "description": "Tạo mới bài tập về nhà cho một buổi học trên hệ thống LMS Rikkei. Có thể truyền session_id của buổi học, tiêu đề, mô tả đề bài, tiêu chí chấm điểm (gradingCriteria), độ khó (EASY, MEDIUM, HARD), thời lượng dự kiến (phút) và số lần tối đa AI chấm bài. Dùng khi người dùng yêu cầu: 'Tạo bài tập về nhà cho buổi 1', 'Thêm bài tập session X', 'Giao bài tập về nhà cho lớp'.",
     "category": "Bài tập về nhà",

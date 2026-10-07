@@ -612,6 +612,43 @@ TOOLS_SCHEMA = [
     {
         "type": "function",
         "function": {
+            "name": "get_student_session_homework_detail",
+            "description": (
+                "Lấy toàn bộ chi tiết tất cả các bài tập đã nộp của một sinh viên cụ thể trong một buổi học (session). "
+                "Trả về đầy đủ thông tin buổi học (session), thông tin sinh viên (student), trạng thái hoàn thành (completion) "
+                "và danh sách chi tiết từng bài tập (items) bao gồm: homeworkId, tiêu đề (title), đề bài (description), "
+                "submissionId, link githubUrl, nhánh branch, lần nộp (attemptNo), thời gian nộp (submittedAt), "
+                "kết quả chấm của AI (aiStatus, aiDecision: PASS/FAIL, aiScore, aiMaxScore, aiSummary). "
+                "Dùng khi người dùng yêu cầu: 'Xem chi tiết các bài tập đã nộp của sinh viên X trong buổi Y', "
+                "'Chi tiết bài tập Session 3 của Thi Thành Đạt', 'Xem link nộp bài và nhận xét AI từng bài của sinh viên'."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "session_id": {
+                        "type": "string",
+                        "description": "ID của buổi học (có thể là sessionId giáo trình hoặc attendanceSessionId)."
+                    },
+                    "student_id": {
+                        "type": "string",
+                        "description": "ID duy nhất của sinh viên trên LMS (MongoDB ObjectId). Ví dụ: '6aa9f0c2bd4a73a68ce4bd82'."
+                    },
+                    "student_search": {
+                        "type": "string",
+                        "description": "Tên hoặc Mã sinh viên nếu chưa biết student_id (Ví dụ: 'Thi Thành Đạt' hoặc 'N26DTCN041')."
+                    },
+                    "class_id": {
+                        "type": "string",
+                        "description": "Tùy chọn: ID của lớp học để hỗ trợ tìm kiếm sinh viên chính xác hơn nếu có trùng tên."
+                    }
+                },
+                "required": ["session_id"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "create_homework",
             "description": (
                 "Tạo mới bài tập về nhà cho một buổi học trên hệ thống LMS Rikkei. "
@@ -1501,6 +1538,52 @@ class LMSFunctionExecutor:
             "results": matched
         }
 
+    def get_student_session_homework_detail(
+        self,
+        session_id: str,
+        student_id: str = None,
+        student_search: str = None,
+        class_id: str = None
+    ) -> dict:
+        """
+        Lấy chi tiết tất cả các bài tập đã nộp của một sinh viên trong một buổi học.
+        Trả về đúng cấu trúc {statusCode: 200, data: {session, student, completion, items}}.
+        """
+        resolved_session_id = self._resolve_syllabus_session_id(session_id)
+
+        target_student_id = student_id
+        if not target_student_id and student_search:
+            stu_params = {"search": student_search.strip(), "limit": 5}
+            if class_id:
+                stu_params["class_id"] = class_id
+            search_res = self.list_students(**stu_params)
+            students = search_res.get("data", {}).get("items", []) if isinstance(search_res, dict) else []
+            if students:
+                target_student_id = students[0].get("id") or students[0].get("_id")
+            else:
+                return {
+                    "statusCode": 404,
+                    "error": f"Không tìm thấy sinh viên nào khớp với từ khóa '{student_search}'."
+                }
+
+        if not target_student_id:
+            return {
+                "statusCode": 400,
+                "error": "Cần cung cấp student_id hoặc student_search (tên hoặc mã sinh viên) để tra cứu."
+            }
+
+        res = self._get(f"/api/homework/completion/session/{resolved_session_id}/student/{target_student_id}")
+
+        if isinstance(res, dict) and res.get("statusCode") == 200 and isinstance(res.get("data"), dict):
+            items = res["data"].get("items", [])
+            for item in items:
+                if item.get("submittedAt"):
+                    item["submittedAt_vn"] = format_vietnam_time(item["submittedAt"])
+                if item.get("updatedAt"):
+                    item["updatedAt_vn"] = format_vietnam_time(item["updatedAt"])
+
+        return res
+
     def _resolve_syllabus_session_id(self, session_id: str) -> str:
         """
         Xác định chính xác sessionId của giáo trình môn học.
@@ -1995,6 +2078,7 @@ class LMSFunctionExecutor:
             "get_homework_session_detail":   self.get_homework_session_detail,
             "list_homework_submissions":     self.list_homework_submissions,
             "get_student_homework_status":   self.get_student_homework_status,
+            "get_student_session_homework_detail": self.get_student_session_homework_detail,
             "create_homework":               self.create_homework,
             "update_homework":               self.update_homework,
             "delete_homework":               self.delete_homework,
