@@ -516,14 +516,28 @@
           "type": "string",
           "description": "Tên hoặc Mã sinh viên nếu chưa biết student_id (Ví dụ: 'Thi Thành Đạt' hoặc 'N26DTCN041')."
         },
+        "session_search": {
+          "type": "string",
+          "description": "Tên hoặc số buổi học (Ví dụ: 'Session 3', 'buổi 3', 'Session 04', 'Terminal'). Tự động tìm buổi học tương ứng."
+        },
         "class_id": {
           "type": "string",
           "description": "Tùy chọn: ID của lớp học để hỗ trợ tìm kiếm sinh viên chính xác hơn nếu có trùng tên."
+        },
+        "class_name": {
+          "type": "string",
+          "description": "Tùy chọn: Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT2') để lọc chính xác sinh viên."
+        },
+        "course_id": {
+          "type": "string",
+          "description": "Tùy chọn: ID môn học (Ví dụ: '6a88fb77a493e63f11a75432')."
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tùy chọn: Tên hoặc mã môn học (Ví dụ: 'IT108' hoặc 'Nhập Môn CNTT') để lọc chính xác buổi học theo môn."
         }
       },
-      "required": [
-        "session_id"
-      ]
+      "required": []
     },
     "createdAt": 1791174487395,
     "updatedAt": 1791174487395

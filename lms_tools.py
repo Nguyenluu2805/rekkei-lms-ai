@@ -637,12 +637,28 @@ TOOLS_SCHEMA = [
                         "type": "string",
                         "description": "Tên hoặc Mã sinh viên nếu chưa biết student_id (Ví dụ: 'Thi Thành Đạt' hoặc 'N26DTCN041')."
                     },
+                    "session_search": {
+                        "type": "string",
+                        "description": "Tên hoặc số buổi học (Ví dụ: 'Session 3', 'buổi 3', 'Session 04', 'Terminal'). Tự động tìm buổi học tương ứng."
+                    },
                     "class_id": {
                         "type": "string",
                         "description": "Tùy chọn: ID của lớp học để hỗ trợ tìm kiếm sinh viên chính xác hơn nếu có trùng tên."
+                    },
+                    "class_name": {
+                        "type": "string",
+                        "description": "Tùy chọn: Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT2') để lọc chính xác sinh viên."
+                    },
+                    "course_id": {
+                        "type": "string",
+                        "description": "Tùy chọn: ID môn học (Ví dụ: '6a88fb77a493e63f11a75432')."
+                    },
+                    "course_name": {
+                        "type": "string",
+                        "description": "Tùy chọn: Tên hoặc mã môn học (Ví dụ: 'IT108' hoặc 'Nhập Môn CNTT') để lọc chính xác buổi học theo môn."
                     }
                 },
-                "required": ["session_id"]
+                "required": []
             }
         }
     },
@@ -1166,7 +1182,18 @@ class LMSFunctionExecutor:
             params["classId"] = class_id
         if course_id:
             params["courseId"] = course_id
-        return self._get("/api/staff/attendance/sessions", params)
+        res = self._get("/api/staff/attendance/sessions", params)
+        if isinstance(res, dict) and isinstance(res.get("data"), list):
+            for item in res["data"]:
+                item["attendance_session_id"] = item.get("_id")
+                s_meta = item.get("sessionId")
+                if isinstance(s_meta, dict):
+                    item["syllabus_session_id"] = s_meta.get("_id")
+                    item["session_name"] = s_meta.get("name")
+                elif isinstance(s_meta, str):
+                    item["syllabus_session_id"] = s_meta
+                    item["session_name"] = f"Session ({s_meta})"
+        return res
 
     def get_session_roster(self, session_id: str) -> dict:
         """Lấy danh sách chi tiết điểm danh của 1 buổi học theo session_id."""
@@ -1438,12 +1465,15 @@ class LMSFunctionExecutor:
 
     def get_homework_session_detail(self, session_id: str) -> dict:
         """Lấy chi tiết đề bài tập về nhà và tiêu chí chấm điểm của buổi học."""
-        return self._get(f"/api/homework/session/{session_id}")
+        resolved_session_id = self._resolve_syllabus_session_id(session_id)
+        return self._get(f"/api/homework/session/{resolved_session_id}")
 
     def list_homework_submissions(self, session_id: str, class_id: str) -> dict:
         """Lấy danh sách nộp bài tập về nhà của lớp theo buổi học và tính toán thống kê chuẩn xác."""
+        resolved_session_id = self._resolve_syllabus_session_id(session_id)
+
         # 1. Kiểm tra đề bài tập được giao trong buổi này
-        hw_detail_res = self.get_homework_session_detail(session_id)
+        hw_detail_res = self.get_homework_session_detail(resolved_session_id)
         assigned_tasks = []
         if isinstance(hw_detail_res, dict) and hw_detail_res.get("statusCode") == 200:
             tasks_data = hw_detail_res.get("data", [])
@@ -1454,7 +1484,7 @@ class LMSFunctionExecutor:
                 ]
 
         # 2. Lấy danh sách submission từ API
-        submissions_raw = self._get(f"/api/homework/completion/session/{session_id}", {"classId": class_id})
+        submissions_raw = self._get(f"/api/homework/completion/session/{resolved_session_id}", {"classId": class_id})
         items = submissions_raw.get("data", []) if isinstance(submissions_raw.get("data"), list) else []
 
         submitted = []
@@ -1490,7 +1520,7 @@ class LMSFunctionExecutor:
                 unsubmitted.append(record)
 
         return {
-            "session_id": session_id,
+            "session_id": resolved_session_id,
             "class_id": class_id,
             "has_assigned_homework": len(assigned_tasks) > 0,
             "assigned_tasks_count": len(assigned_tasks),
@@ -1505,7 +1535,8 @@ class LMSFunctionExecutor:
 
     def get_student_homework_status(self, session_id: str, class_id: str, search: str) -> dict:
         """Kiểm tra tình hình nộp bài tập của 1 sinh viên cụ thể trong buổi học."""
-        submissions_raw = self._get(f"/api/homework/completion/session/{session_id}", {"classId": class_id})
+        resolved_session_id = self._resolve_syllabus_session_id(session_id)
+        submissions_raw = self._get(f"/api/homework/completion/session/{resolved_session_id}", {"classId": class_id})
         items = submissions_raw.get("data", []) if isinstance(submissions_raw.get("data"), list) else []
         
         search_lower = search.lower().strip()
@@ -1532,7 +1563,7 @@ class LMSFunctionExecutor:
         
         return {
             "search": search,
-            "session_id": session_id,
+            "session_id": resolved_session_id,
             "class_id": class_id,
             "found": len(matched),
             "results": matched
@@ -1540,26 +1571,43 @@ class LMSFunctionExecutor:
 
     def get_student_session_homework_detail(
         self,
-        session_id: str,
+        session_id: str = None,
         student_id: str = None,
         student_search: str = None,
-        class_id: str = None
+        session_search: str = None,
+        class_id: str = None,
+        class_name: str = None,
+        course_id: str = None,
+        course_name: str = None
     ) -> dict:
         """
         Lấy chi tiết tất cả các bài tập đã nộp của một sinh viên trong một buổi học.
         Trả về đúng cấu trúc {statusCode: 200, data: {session, student, completion, items}}.
+        Tự động suy luận:
+        - student_id từ student_search
+        - session_id từ session_search (ví dụ: 'buổi 3', 'Session 3', 'Session 03', 'Terminal') hoặc chọn buổi tương ứng của sinh viên.
         """
-        resolved_session_id = self._resolve_syllabus_session_id(session_id)
+        import re
 
         target_student_id = student_id
+        target_student_name = ""
+        student_class_id = class_id
+        student_class_name = class_name
+
+        # 1. Tìm thông tin sinh viên nếu chưa có student_id
         if not target_student_id and student_search:
             stu_params = {"search": student_search.strip(), "limit": 5}
             if class_id:
                 stu_params["class_id"] = class_id
+            if class_name:
+                stu_params["class_name"] = class_name
             search_res = self.list_students(**stu_params)
             students = search_res.get("data", {}).get("items", []) if isinstance(search_res, dict) else []
             if students:
                 target_student_id = students[0].get("id") or students[0].get("_id")
+                target_student_name = students[0].get("fullName")
+                if not student_class_name:
+                    student_class_name = students[0].get("className")
             else:
                 return {
                     "statusCode": 404,
@@ -1570,6 +1618,112 @@ class LMSFunctionExecutor:
             return {
                 "statusCode": 400,
                 "error": "Cần cung cấp student_id hoặc student_search (tên hoặc mã sinh viên) để tra cứu."
+            }
+
+        # 2. Xử lý session_id
+        resolved_session_id = None
+        if session_id:
+            resolved_session_id = self._resolve_syllabus_session_id(session_id)
+        else:
+            # Tra cứu qua lớp học của sinh viên
+            if not student_class_id and student_class_name:
+                c_res = self.list_classes(search=student_class_name, limit=5)
+                c_items = c_res.get("data", {}).get("items", []) if isinstance(c_res, dict) else []
+                if c_items:
+                    student_class_id = c_items[0].get("id")
+
+            if not student_class_id:
+                st_detail = self.get_student_detail(target_student_id)
+                st_data = st_detail.get("data", {}) if isinstance(st_detail, dict) else {}
+                student_class_name = student_class_name or st_data.get("className")
+                if student_class_name:
+                    c_res = self.list_classes(search=student_class_name, limit=5)
+                    c_items = c_res.get("data", {}).get("items", []) if isinstance(c_res, dict) else []
+                    if c_items:
+                        student_class_id = c_items[0].get("id")
+
+            if student_class_id:
+                target_course_id = course_id
+                if not target_course_id and course_name:
+                    c_courses = self.list_courses()
+                    for crs in c_courses.get("data", {}).get("items", []):
+                        if course_name.lower() in (crs.get("courseCode") or "").lower() or course_name.lower() in (crs.get("name") or "").lower():
+                            target_course_id = crs.get("id")
+                            break
+
+                sess_params = {"class_id": student_class_id}
+                if target_course_id:
+                    sess_params["course_id"] = target_course_id
+
+                sessions_res = self.list_attendance_sessions(**sess_params)
+                sess_list = sessions_res.get("data", []) if isinstance(sessions_res, dict) else []
+                
+                available_sessions = []
+                for s in sess_list:
+                    s_meta = s.get("sessionId")
+                    if isinstance(s_meta, dict) and s_meta.get("_id"):
+                        available_sessions.append({
+                            "syllabus_id": s_meta["_id"],
+                            "name": s_meta.get("name", ""),
+                            "position": s_meta.get("position", 0),
+                            "attendance_id": s.get("_id")
+                        })
+                    elif isinstance(s_meta, str):
+                        available_sessions.append({
+                            "syllabus_id": s_meta,
+                            "name": f"Session {s_meta}",
+                            "position": 0,
+                            "attendance_id": s.get("_id")
+                        })
+
+                if session_search and available_sessions:
+                    s_query = session_search.lower().strip()
+                    num_match = re.search(r'\d+', s_query)
+                    target_num = int(num_match.group(0)) if num_match else None
+
+                    matched_sess = None
+
+                    # Ưu tiên 1: Nếu query có 'lesson', tìm đúng 'lesson'
+                    if 'lesson' in s_query and target_num is not None:
+                        for asess in available_sessions:
+                            if f"lesson {target_num}" in asess["name"].lower():
+                                matched_sess = asess
+                                break
+
+                    # Ưu tiên 2: Nếu query có 'session' hoặc 'buổi', tìm đúng 'session XX'
+                    if not matched_sess and target_num is not None:
+                        for asess in available_sessions:
+                            as_name = asess["name"].lower()
+                            if f"session {target_num:02d}" in as_name or f"session {target_num}" in as_name:
+                                matched_sess = asess
+                                break
+
+                    # Ưu tiên 3: Khớp chuỗi tìm kiếm trực tiếp
+                    if not matched_sess:
+                        for asess in available_sessions:
+                            if s_query in asess["name"].lower():
+                                matched_sess = asess
+                                break
+
+                    # Ưu tiên 4: Khớp số thứ tự position hoặc các pattern khác
+                    if not matched_sess and target_num is not None:
+                        for asess in available_sessions:
+                            as_name = asess["name"].lower()
+                            if asess.get("position") == target_num or f"buổi {target_num}" in as_name or f"lesson {target_num}" in as_name:
+                                matched_sess = asess
+                                break
+
+                    if matched_sess:
+                        resolved_session_id = matched_sess["syllabus_id"]
+
+                # Nếu vẫn chưa có session_id, lấy session mới nhất
+                if not resolved_session_id and available_sessions:
+                    resolved_session_id = available_sessions[0]["syllabus_id"]
+
+        if not resolved_session_id:
+            return {
+                "statusCode": 400,
+                "error": "Cần cung cấp session_id hoặc session_search (ví dụ: 'Session 3', 'buổi 3') để tra cứu chi tiết bài nộp."
             }
 
         res = self._get(f"/api/homework/completion/session/{resolved_session_id}/student/{target_student_id}")
