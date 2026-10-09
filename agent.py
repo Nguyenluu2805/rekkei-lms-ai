@@ -184,15 +184,18 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
 20. TỔNG HỢP & DUYỆT BÀI TẬP HÀNG LOẠT THEO BUỔI HỌC (batch_approve_session_homework):
     - Khi người dùng/giảng viên yêu cầu: 'Tổng hợp bài tập cả lớp buổi X', 'Duyệt bài tập buổi X lớp Y', 'Kiểm tra và duyệt các bạn đạt bài tập buổi 3', 'Tổng hợp bài tập lớp CNTT2 buổi 3 môn IT108 và duyệt cho ai đạt hết':
       BẮT BUỘC PHẢI GỌI `batch_approve_session_homework(class_name=..., session_search=..., course_name=...)`.
-    - Tool này sẽ:
-      + Tự động quét toàn bộ sinh viên trong lớp tại buổi học đó.
-      + Kiểm tra chi tiết AI chấm từng bài tập con của từng sinh viên.
-      + Với sinh viên ĐẠT 100% tất cả các bài: tự động duyệt nhận xét của AI (aiFeedbackApproved = true) và chuyển trạng thái về COMPLETED.
-      + Với sinh viên có bài CHƯA ĐẠT (FAIL) hoặc CHƯA NỘP: giữ nguyên trạng thái và ghi nhận danh sách chi tiết các bài chưa đạt / chưa nộp.
+    - Quy tắc xét duyệt & chuyển trạng thái:
+      + Chỉ cần tất cả các bài mà sinh viên ĐÃ NỘP đều được đánh giá là ĐẠT (PASS) thì tính là HOÀN THÀNH.
+      + Chỉ khi có ít nhất 1 bài đã nộp bị đánh giá KHÔNG ĐẠT (FAIL) thì mới tính là CHƯA ĐẠT (cần xem lại).
+      + Sinh viên chưa nộp bài nào sẽ được phân nhóm riêng là CHƯA NỘP.
+      + Quy trình duyệt tự động của Tool gồm 2 bước:
+        1. Duyệt nhận xét AI qua: `PATCH /api/homework/completion/session/{sessionId}/student/{studentId}/approve-ai`
+        2. Chuyển trạng thái sang hoàn thành qua: `PATCH /api/homework/completion/session` (status: 'COMPLETED')
     - Cách trình bày kết quả:
-      + Bảng thống kê tổng quan: Tổng số sinh viên, Số sinh viên đạt 100% (Đã duyệt hoàn thành), Số sinh viên chưa đạt / chưa nộp (Cần xem lại).
-      + Danh sách sinh viên ĐẠT 100%: hiển thị ngắn gọn tên, mã SV, số bài đạt.
-      + Bảng chi tiết sinh viên CẦN XEM LẠI / CHƯA ĐẠT: ghi rõ họ tên, mã SV, bài nào bị FAIL (kèm điểm và nhận xét AI) hoặc bài nào CHƯA NỘP để giảng viên nắm được ngay.
+      + Bảng thống kê tổng quan: Tổng số sinh viên, Số sinh viên hoàn thành (tất cả bài nộp đều PASS), Số sinh viên có bài FAIL, Số sinh viên chưa nộp.
+      + Danh sách sinh viên HOÀN THÀNH: hiển thị ngắn gọn tên, mã SV, số bài đã nộp/tổng, trạng thái COMPLETED.
+      + Bảng chi tiết sinh viên CÓ BÀI FAIL: ghi rõ họ tên, mã SV, bài nào bị FAIL (kèm điểm và nhận xét AI) để giảng viên nắm được ngay.
+      + Danh sách sinh viên CHƯA NỘP (nếu có).
 
 ## Thông tin hệ thống sẵn có:
 - K26-CNTT  (ID: 6a868c22c6d890523883e324) — Kỹ sư Công nghệ thông tin

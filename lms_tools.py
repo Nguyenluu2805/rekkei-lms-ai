@@ -1088,7 +1088,10 @@ class LMSFunctionExecutor:
         return self._get("/api/staff/classes", params)
 
     def get_class_detail(self, class_id: str) -> dict:
-        """Chi tiết một lớp học theo ID."""
+        """Chi tiết một lớp học theo ID (gồm thông tin lớp, môn học, danh sách sinh viên ghi danh)."""
+        res = self._get(f"/api/staff/classes/{class_id}/detail")
+        if isinstance(res, dict) and res.get("statusCode") == 200:
+            return res
         return self._get(f"/api/staff/classes/{class_id}")
 
     # --- NHÓM 4: KHOÁ HỌC ---
@@ -2006,9 +2009,12 @@ class LMSFunctionExecutor:
         """
         Tổng hợp toàn bộ bài tập của sinh viên trong một lớp theo buổi học của môn học.
         Tự động kiểm tra kết quả AI chấm của tất cả các bài:
-        - Nếu sinh viên đạt (PASS) 100% tất cả các bài tập trong buổi:
-          Tự động duyệt nhận xét của AI (aiFeedbackApproved = True, chuyển trạng thái về COMPLETED).
-        - Nếu sinh viên có ít nhất 1 bài không đạt (FAIL) hoặc chưa nộp:
+        - Quy tắc: Chỉ cần các bài sinh viên ĐÃ NỘP đều được đánh giá là ĐẠT (PASS) thì tính là hoàn thành.
+          Chỉ cần có 1 bài đã nộp bị đánh giá không đạt (FAIL) thì mới tính là chưa đạt (cần xem lại).
+        - Nếu sinh viên đạt (tất cả bài đã nộp đều PASS):
+          1. Duyệt nhận xét AI qua: PATCH /api/homework/completion/session/{sessionId}/student/{studentId}/approve-ai
+          2. Đổi trạng thái hoàn thành qua: PATCH /api/homework/completion/session với {sessionId, studentId, status: "COMPLETED"}
+        - Nếu sinh viên có bài không đạt (FAIL) hoặc chưa nộp bài nào:
           Giữ nguyên trạng thái, ghi nhận lại chi tiết và đẩy ra danh sách chi tiết các bài chưa đạt / chưa nộp.
         - Hỗ trợ auto_approve = False (dry_run) để chỉ tổng hợp báo cáo kiểm tra mà không duyệt thực.
         """
@@ -2017,7 +2023,7 @@ class LMSFunctionExecutor:
         # 1. Phân giải lớp học (class_id, class_name)
         resolved_class_id = class_id
         resolved_class_name = class_name
-        class_obj = {}
+        class_detail_data = {}
 
         if not resolved_class_id and class_name:
             c_res = self.list_classes(search=class_name.strip(), limit=5)
@@ -2028,7 +2034,6 @@ class LMSFunctionExecutor:
             if matched:
                 resolved_class_id = matched[0]["id"]
                 resolved_class_name = matched[0].get("classCode") or matched[0].get("name")
-                class_obj = matched[0]
 
         if not resolved_class_id:
             return {
@@ -2036,32 +2041,34 @@ class LMSFunctionExecutor:
                 "error": "Cần cung cấp tên lớp (class_name) hoặc mã lớp (class_id) để tổng hợp bài tập."
             }
 
-        if not class_obj:
-            c_det = self.get_class_detail(resolved_class_id)
-            if isinstance(c_det, dict) and c_det.get("data"):
-                class_obj = c_det.get("data", {})
-                if not resolved_class_name:
-                    resolved_class_name = class_obj.get("classCode") or class_obj.get("name")
+        # Lấy thông tin lớp học chi tiết từ /api/staff/classes/{classId}/detail
+        c_detail_res = self._get(f"/api/staff/classes/{resolved_class_id}/detail")
+        if isinstance(c_detail_res, dict) and c_detail_res.get("statusCode") == 200:
+            class_detail_data = c_detail_res.get("data", {})
+        
+        class_obj = class_detail_data.get("class", {})
+        if not resolved_class_name:
+            resolved_class_name = class_obj.get("classCode") or class_obj.get("name")
 
         # 2. Phân giải môn học (course_id, course_name)
         resolved_course_id = course_id
         resolved_course_name = course_name
-        course_ids = class_obj.get("courseIds", [])
+        course_list = class_detail_data.get("courses", [])
 
-        if course_ids:
-            for crs_id in course_ids:
-                cinfo = self.get_course_detail(crs_id).get("data", {})
-                c_code = (cinfo.get("courseCode") or "").lower()
-                c_n = (cinfo.get("name") or "").lower()
+        if course_list:
+            for crs in course_list:
+                crs_id = crs.get("id") or crs.get("_id")
+                c_code = (crs.get("courseCode") or "").lower()
+                c_n = (crs.get("name") or "").lower()
                 if course_name:
                     q = course_name.lower().strip()
                     if q in c_code or q in c_n:
                         resolved_course_id = crs_id
-                        resolved_course_name = cinfo.get("name")
+                        resolved_course_name = crs.get("name")
                         break
                 elif not resolved_course_id and "kỹ sư" not in c_n and "định hướng" not in c_n:
                     resolved_course_id = crs_id
-                    resolved_course_name = cinfo.get("name")
+                    resolved_course_name = crs.get("name")
 
         # 3. Phân giải buổi học (session_id, session_name)
         resolved_session_id = None
@@ -2141,26 +2148,38 @@ class LMSFunctionExecutor:
                 "error": f"Không tìm thấy buổi học phù hợp với từ khóa '{session_search}' cho lớp '{resolved_class_name}'."
             }
 
-        # 4. Lấy danh sách tất cả sinh viên của lớp trong buổi học
-        class_sess_res = self._get(f"/api/homework/completion/session/{resolved_session_id}", {"classId": resolved_class_id})
-        raw_students = class_sess_res.get("data", []) if isinstance(class_sess_res, dict) else []
-
+        # 4. Lấy danh sách sinh viên ghi danh trong lớp
+        students_roster = class_detail_data.get("students", [])
         student_list = []
-        if isinstance(raw_students, list) and raw_students:
-            for item in raw_students:
-                st = item.get("student") or {}
-                st_id = st.get("id") or st.get("_id") or item.get("studentId")
+
+        if isinstance(students_roster, list) and students_roster:
+            for s_entry in students_roster:
+                st = s_entry.get("student") or {}
+                st_id = st.get("id") or st.get("_id")
                 if st_id:
                     student_list.append({
                         "student_id": st_id,
                         "full_name": st.get("fullName") or "N/A",
                         "student_code": st.get("studentCode") or "N/A",
-                        "completion_id": item.get("id") or item.get("_id"),
-                        "ai_feedback_approved": item.get("aiFeedbackApproved", False),
-                        "status": item.get("status")
+                        "email": st.get("email") or ""
                     })
 
-        # Fallback nếu endpoint trên không trả sinh viên: lấy từ roster
+        # Fallback nếu class_detail chưa có students
+        if not student_list:
+            class_sess_res = self._get(f"/api/homework/completion/session/{resolved_session_id}", {"classId": resolved_class_id})
+            raw_students = class_sess_res.get("data", []) if isinstance(class_sess_res, dict) else []
+            if isinstance(raw_students, list) and raw_students:
+                for item in raw_students:
+                    st = item.get("student") or {}
+                    st_id = st.get("id") or st.get("_id") or item.get("studentId")
+                    if st_id:
+                        student_list.append({
+                            "student_id": st_id,
+                            "full_name": st.get("fullName") or "N/A",
+                            "student_code": st.get("studentCode") or "N/A",
+                            "email": st.get("email") or ""
+                        })
+
         if not student_list:
             roster_res = self.list_students(class_id=resolved_class_id, limit=100)
             items = roster_res.get("data", {}).get("items", []) if isinstance(roster_res.get("data"), dict) else []
@@ -2169,12 +2188,11 @@ class LMSFunctionExecutor:
                     "student_id": it.get("id"),
                     "full_name": it.get("fullName") or "N/A",
                     "student_code": it.get("studentCode") or "N/A",
-                    "completion_id": None,
-                    "ai_feedback_approved": False,
-                    "status": None
+                    "email": it.get("email") or ""
                 })
 
-        # 5. Xử lý từng sinh viên song song để tối ưu tốc độ
+        # 5. Xử lý đánh giá từng sinh viên theo quy tắc:
+        # "Chỉ cần các bài các bạn nộp đều được đánh giá là đạt (pass) thì là hoàn thành, chỉ cần một bài không đạt mới tính"
         def evaluate_student(st_rec):
             st_id = st_rec["student_id"]
             det = self._get(f"/api/homework/completion/session/{resolved_session_id}/student/{st_id}")
@@ -2182,87 +2200,98 @@ class LMSFunctionExecutor:
             items = det_data.get("items", [])
             completion = det_data.get("completion") or {}
 
-            all_pass = True
-            failed_or_missing = []
+            submitted_items = []
+            unsubmitted_items = []
+            passed_items = []
+            failed_items = []
             item_details = []
 
-            if not items:
-                all_pass = False
-                failed_or_missing.append({
-                    "title": "Tất cả bài tập trong buổi",
-                    "status": "CHƯA NỘP",
-                    "reason": "Chưa nộp bất kỳ bài tập nào trong buổi"
-                })
-            else:
-                for it in items:
-                    title = it.get("title") or "Bài tập"
-                    sub_id = it.get("submissionId")
-                    decision = it.get("aiDecision")
-                    score = it.get("aiScore")
-                    status = it.get("aiStatus") or it.get("status")
-                    summary = it.get("aiSummary")
-                    sub_at = format_vietnam_time(it.get("submittedAt"))
-                    approved = it.get("aiFeedbackApproved", False)
+            for it in items:
+                title = it.get("title") or "Bài tập"
+                sub_id = it.get("submissionId")
+                decision = it.get("aiDecision")
+                score = it.get("aiScore")
+                status = it.get("aiStatus") or it.get("status")
+                summary = it.get("aiSummary")
+                sub_at = format_vietnam_time(it.get("submittedAt"))
+                approved = it.get("aiFeedbackApproved", False)
 
-                    item_details.append({
+                item_info = {
+                    "homeworkId": it.get("homeworkId"),
+                    "title": title,
+                    "submissionId": sub_id,
+                    "aiDecision": decision,
+                    "aiScore": score,
+                    "status": status,
+                    "submittedAt": sub_at,
+                    "aiFeedbackApproved": approved
+                }
+                item_details.append(item_info)
+
+                if sub_id:
+                    submitted_items.append(item_info)
+                    if decision == "PASS":
+                        passed_items.append(item_info)
+                    else:
+                        failed_info = dict(item_info)
+                        failed_info["reason"] = f"AI đánh giá {decision or 'FAIL'} ({score if score is not None else 'N/A'}đ)"
+                        failed_info["aiSummary"] = summary
+                        failed_items.append(failed_info)
+                else:
+                    unsubmitted_items.append({
                         "homeworkId": it.get("homeworkId"),
                         "title": title,
-                        "submissionId": sub_id,
-                        "aiDecision": decision,
-                        "aiScore": score,
-                        "status": status,
-                        "submittedAt": sub_at,
-                        "aiFeedbackApproved": approved
+                        "status": "CHƯA NỘP",
+                        "reason": "Chưa nộp bài"
                     })
 
-                    if not sub_id:
-                        all_pass = False
-                        failed_or_missing.append({
-                            "title": title,
-                            "homeworkId": it.get("homeworkId"),
-                            "status": "CHƯA NỘP",
-                            "reason": "Chưa nộp bài"
-                        })
-                    elif decision != "PASS":
-                        all_pass = False
-                        failed_or_missing.append({
-                            "title": title,
-                            "homeworkId": it.get("homeworkId"),
-                            "submissionId": sub_id,
-                            "aiDecision": decision or "CHƯA ĐẠT",
-                            "aiScore": score,
-                            "status": status,
-                            "reason": f"AI đánh giá {decision or 'FAIL'} ({score if score is not None else 'N/A'}đ)",
-                            "aiSummary": summary
-                        })
+            # Quy tắc đánh giá:
+            # - Hoàn thành (All Submitted Pass): Có nộp bài (submitted > 0) và KHÔNG có bài nào bị FAIL (failed == 0).
+            # - Có bài không đạt (Failed): Có ít nhất 1 bài đã nộp bị FAIL (failed > 0).
+            # - Chưa nộp bài nào: submitted == 0.
+            is_completed = (len(submitted_items) > 0 and len(failed_items) == 0)
+            has_failed = (len(failed_items) > 0)
+            is_unsubmitted = (len(submitted_items) == 0)
 
-            # Tự động duyệt nếu all_pass và auto_approve=True
-            approved_submissions_count = 0
-            if all_pass and auto_approve:
-                for it in items:
-                    sub_id = it.get("submissionId")
-                    if sub_id:
-                        try:
-                            self._patch(f"/api/homework/completion/submission/{sub_id}/feedback", {"aiFeedbackApproved": True})
-                            approved_submissions_count += 1
-                        except Exception:
-                            pass
+            auto_approved_now = False
+            current_status = completion.get("status") or "CHƯA NỘP"
+            current_ai_approved = completion.get("aiFeedbackApproved", False)
 
-            total_items = len(items)
-            passed_items = sum(1 for it in items if it.get("aiDecision") == "PASS" and it.get("submissionId"))
+            # Nếu đủ điều kiện hoàn thành và bật auto_approve:
+            if is_completed and auto_approve:
+                try:
+                    # Bước 1: Duyệt nhận xét AI qua approve-ai
+                    self._patch(f"/api/homework/completion/session/{resolved_session_id}/student/{st_id}/approve-ai", {})
+                    # Bước 2: Chuyển trạng thái sang COMPLETED qua /api/homework/completion/session
+                    self._patch("/api/homework/completion/session", {
+                        "sessionId": resolved_session_id,
+                        "studentId": st_id,
+                        "status": "COMPLETED"
+                    })
+                    auto_approved_now = True
+                    current_status = "COMPLETED"
+                    current_ai_approved = True
+                except Exception:
+                    pass
 
             return {
                 "studentId": st_id,
                 "studentCode": st_rec["student_code"],
                 "fullName": st_rec["full_name"],
-                "allPass": all_pass,
-                "autoApproved": (all_pass and auto_approve),
-                "completionStatus": "COMPLETED" if (all_pass and auto_approve) else (completion.get("status") or st_rec.get("status") or "PENDING"),
-                "totalHomeworks": total_items,
-                "passedHomeworks": passed_items,
-                "failedHomeworks": len([f for f in failed_or_missing if f.get("status") != "CHƯA NỘP"]),
-                "unsubmittedHomeworks": len([f for f in failed_or_missing if f.get("status") == "CHƯA NỘP"]),
-                "failedOrMissingItems": failed_or_missing,
+                "email": st_rec.get("email"),
+                "isCompleted": is_completed,
+                "hasFailed": has_failed,
+                "isUnsubmitted": is_unsubmitted,
+                "autoApproved": auto_approved_now,
+                "completionStatus": current_status,
+                "aiFeedbackApproved": current_ai_approved,
+                "totalHomeworks": len(items),
+                "submittedHomeworks": len(submitted_items),
+                "passedHomeworks": len(passed_items),
+                "failedHomeworks": len(failed_items),
+                "unsubmittedHomeworks": len(unsubmitted_items),
+                "failedItems": failed_items,
+                "unsubmittedItems": unsubmitted_items,
                 "items": item_details
             }
 
@@ -2270,8 +2299,9 @@ class LMSFunctionExecutor:
             all_evaluated = list(pool.map(evaluate_student, student_list))
 
         # 6. Tổng hợp phân nhóm
-        all_pass_students = [s for s in all_evaluated if s["allPass"]]
-        pending_students = [s for s in all_evaluated if not s["allPass"]]
+        completed_students = [s for s in all_evaluated if s["isCompleted"]]
+        failed_students = [s for s in all_evaluated if s["hasFailed"]]
+        unsubmitted_students = [s for s in all_evaluated if s["isUnsubmitted"]]
 
         return {
             "statusCode": 200,
@@ -2290,13 +2320,20 @@ class LMSFunctionExecutor:
                 },
                 "summary": {
                     "totalStudents": len(all_evaluated),
-                    "allPassCount": len(all_pass_students),
-                    "pendingCount": len(pending_students),
+                    "completedCount": len(completed_students),
+                    "failedCount": len(failed_students),
+                    "unsubmittedCount": len(unsubmitted_students),
                     "autoApproved": auto_approve,
-                    "actionTaken": "Đã tự động duyệt nhận xét AI và chuyển trạng thái về COMPLETED cho các sinh viên đạt 100% bài" if auto_approve else "Chế độ kiểm tra (Dry-Run), chưa thực hiện duyệt bài trên hệ thống"
+                    "actionTaken": (
+                        "Đã tự động duyệt nhận xét AI (approve-ai) và chuyển trạng thái về COMPLETED cho các sinh viên có tất cả bài đã nộp đều đạt (PASS)"
+                        if auto_approve else
+                        "Chế độ kiểm tra (Dry-Run), chưa thực hiện duyệt bài trên hệ thống"
+                    )
                 },
-                "all_pass_students": all_pass_students,
-                "pending_students": pending_students
+                "all_pass_students": completed_students,
+                "failed_students": failed_students,
+                "unsubmitted_students": unsubmitted_students,
+                "pending_students": failed_students + unsubmitted_students
             }
         }
 
