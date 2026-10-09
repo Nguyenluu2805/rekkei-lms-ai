@@ -2253,12 +2253,17 @@ class LMSFunctionExecutor:
             has_failed = (len(failed_items) > 0)
             is_unsubmitted = (len(submitted_items) == 0)
 
-            auto_approved_now = False
+            # Trạng thái hiện tại trên LMS
             current_status = completion.get("status") or "CHƯA NỘP"
             current_ai_approved = completion.get("aiFeedbackApproved", False)
 
-            # Nếu đủ điều kiện hoàn thành và bật auto_approve:
-            if is_completed and auto_approve:
+            # Kiểm tra xem sinh viên đã được chấm/duyệt từ trước hay chưa:
+            already_approved = (current_status == "COMPLETED" and current_ai_approved is True)
+            auto_approved_now = False
+
+            # QUY TẮC: Nếu đã được chấm rồi thì KHÔNG ĐỔI NỮA, giữ nguyên trạng thái cũ!
+            # Chỉ chấm và chuyển trạng thái cho những sinh viên đạt điều kiện và CHƯA được duyệt trước đó:
+            if is_completed and auto_approve and not already_approved:
                 try:
                     # Bước 1: Duyệt nhận xét AI qua approve-ai
                     self._patch(f"/api/homework/completion/session/{resolved_session_id}/student/{st_id}/approve-ai", {})
@@ -2282,6 +2287,7 @@ class LMSFunctionExecutor:
                 "isCompleted": is_completed,
                 "hasFailed": has_failed,
                 "isUnsubmitted": is_unsubmitted,
+                "alreadyApproved": already_approved,
                 "autoApproved": auto_approved_now,
                 "completionStatus": current_status,
                 "aiFeedbackApproved": current_ai_approved,
@@ -2302,6 +2308,8 @@ class LMSFunctionExecutor:
         completed_students = [s for s in all_evaluated if s["isCompleted"]]
         failed_students = [s for s in all_evaluated if s["hasFailed"]]
         unsubmitted_students = [s for s in all_evaluated if s["isUnsubmitted"]]
+        newly_approved_count = sum(1 for s in completed_students if s["autoApproved"])
+        already_approved_count = sum(1 for s in completed_students if s["alreadyApproved"])
 
         return {
             "statusCode": 200,
@@ -2321,11 +2329,13 @@ class LMSFunctionExecutor:
                 "summary": {
                     "totalStudents": len(all_evaluated),
                     "completedCount": len(completed_students),
+                    "newlyApprovedCount": newly_approved_count,
+                    "alreadyApprovedCount": already_approved_count,
                     "failedCount": len(failed_students),
                     "unsubmittedCount": len(unsubmitted_students),
                     "autoApproved": auto_approve,
                     "actionTaken": (
-                        "Đã tự động duyệt nhận xét AI (approve-ai) và chuyển trạng thái về COMPLETED cho các sinh viên có tất cả bài đã nộp đều đạt (PASS)"
+                        f"Đã duyệt mới {newly_approved_count} sinh viên. Đã giữ nguyên {already_approved_count} sinh viên đã hoàn thành từ trước (không đổi)."
                         if auto_approve else
                         "Chế độ kiểm tra (Dry-Run), chưa thực hiện duyệt bài trên hệ thống"
                     )
