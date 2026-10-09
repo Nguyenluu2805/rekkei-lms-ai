@@ -822,5 +822,51 @@
     },
     "createdAt": 1791175532919,
     "updatedAt": 1791175532919
+  },
+  {
+    "name": "batch_approve_session_homework",
+    "description": "Tổng hợp toàn bộ bài tập của sinh viên trong một lớp theo buổi học của môn học. Tự động kiểm tra kết quả AI chấm của tất cả các bài: nếu sinh viên đạt (PASS) 100% tất cả các bài tập trong buổi thì tự động duyệt nhận xét AI (chuyển trạng thái về COMPLETED/Hoàn thành). Với sinh viên có bài không đạt (FAIL) hoặc chưa nộp, giữ nguyên trạng thái và trả về danh sách chi tiết các bài chưa đạt/chưa nộp để giảng viên theo dõi và xử lý.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT2', 'HCM-KS26-CNTT1')"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "session_search": {
+          "type": "string",
+          "description": "Tên hoặc số buổi học (Ví dụ: 'buổi 3', 'Session 03', 'Session 3', 'Terminal')"
+        },
+        "session_id": {
+          "type": "string",
+          "description": "ID buổi học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên hoặc mã môn học (Ví dụ: 'IT108', 'Nhập Môn Công Nghệ Thông Tin')"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        },
+        "auto_approve": {
+          "type": "boolean",
+          "description": "Mặc định True: tự động duyệt nhận xét AI cho các sinh viên đạt 100% bài. Nếu False (dry_run): chỉ kiểm tra, tổng hợp và báo cáo mà không duyệt thực."
+        }
+      },
+      "required": [
+        "class_name",
+        "session_search"
+      ]
+    },
+    "createdAt": 1791176000000,
+    "updatedAt": 1791176000000
   }
 ]
