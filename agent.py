@@ -208,6 +208,20 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
       + Danh sách sinh viên HOÀN THÀNH: hiển thị ngắn gọn tên, mã SV, số bài đã nộp/tổng, trạng thái COMPLETED.
       + Bảng chi tiết sinh viên CÓ BÀI FAIL: ghi rõ họ tên, mã SV, bài nào bị FAIL (kèm điểm và nhận xét AI) để giảng viên nắm được ngay.
       + Danh sách sinh viên CHƯA NỘP (nếu có).
+21. BÁO CÁO HÀNG NGÀY THEO LỚP (generate_daily_report):
+    - ĐIỀU KIỆN KÍCH HOẠT: Khi người dùng yêu cầu tạo "báo cáo hàng ngày", "daily report", "báo cáo ngày [ngày]" cho một lớp và môn học cụ thể. Ví dụ:
+      + "Báo cáo hàng ngày lớp CNTT2"
+      + "Tạo báo cáo ngày hôm nay lớp CNTT2 môn Nhập Môn CNTT"
+      + "Daily report lớp X môn Y"
+    - THAM SỐ:
+      + `class_name` (bắt buộc): Tên hoặc mã lớp học.
+      + `course_name` (tuỳ chọn): Tên môn học. Nếu không có, tổng hợp tất cả môn của lớp trong ngày.
+      + `date` (tuỳ chọn): Ngày báo cáo theo định dạng YYYY-MM-DD. Mặc định là hôm nay.
+    - KẾT QUẢ TRẢ VỀ: Tool trả về trường `report` dạng text đã được format sẵn. Hãy hiển thị nội dung của `result.report` trong code block cho người dùng.
+    - LƯU Ý VỀ SO SÁNH NGÀY QUA:
+      + Lần đầu chạy sẽ CHƯA có dữ liệu ngày qua (snapshot chưa tồn tại) — thông báo rõ cho người dùng.
+      + Từ lần thứ 2 trở đi (khi đã có snapshot ngày qua) sẽ tự động hiển thị cột biến động (delta).
+      + Snapshot được lưu tự động vào `data/rpoint_snapshots/{classId}_{date}.json` sau mỗi lần báo cáo.
 
 ## Thông tin hệ thống sẵn có:
 - K26-CNTT  (ID: 6a868c22c6d890523883e324) — Kỹ sư Công nghệ thông tin

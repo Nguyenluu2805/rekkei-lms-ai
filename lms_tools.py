@@ -2614,6 +2614,409 @@ class LMSFunctionExecutor:
             }
         }
 
+    def generate_daily_report(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        course_name: str = None,
+        course_id: str = None,
+        date: str = None
+    ) -> dict:
+        """Tạo báo cáo hàng ngày theo lớp: điểm danh, chuẩn bị bài, bài tập, cảnh báo rPoint và biến động so với hôm qua."""
+        import os
+
+        # --- Resolve ngày ---
+        today_dt = datetime.now(VIETNAM_TZ)
+        if date:
+            try:
+                today_dt = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=VIETNAM_TZ)
+            except ValueError:
+                return {"error": f"Ngày không hợp lệ: '{date}'. Vui lòng dùng định dạng YYYY-MM-DD."}
+        today_str = today_dt.strftime("%Y-%m-%d")
+        today_display = today_dt.strftime("%d/%m/%Y")
+        yesterday_dt = today_dt - timedelta(days=1)
+        yesterday_str = yesterday_dt.strftime("%Y-%m-%d")
+        yesterday_display = yesterday_dt.strftime("%d/%m/%Y")
+
+        # --- Resolve class ---
+        cid, cname, cobj, crsid, crsname = self._resolve_course_and_class(
+            class_id, class_name, course_id, course_name
+        )
+        if not cid:
+            return {"error": f"Không tìm thấy lớp học '{class_name or class_id}'."}
+
+        # --- Thư mục snapshot ---
+        snapshot_dir = os.path.join(os.path.dirname(__file__), "data", "rpoint_snapshots")
+        os.makedirs(snapshot_dir, exist_ok=True)
+        snapshot_file_today = os.path.join(snapshot_dir, f"{cid}_{today_str}.json")
+        snapshot_file_yesterday = os.path.join(snapshot_dir, f"{cid}_{yesterday_str}.json")
+
+        # --- Load snapshot ngày qua (nếu có) ---
+        yesterday_map = {}
+        if os.path.exists(snapshot_file_yesterday):
+            try:
+                with open(snapshot_file_yesterday, "r", encoding="utf-8") as f:
+                    yesterday_snapshot = json.load(f)
+                yesterday_map = {r["studentId"]: r for r in yesterday_snapshot.get("records", [])}
+            except Exception:
+                yesterday_map = {}
+
+        # --- Lấy danh sách attendance session hôm nay ---
+        att_res = self.list_attendance_sessions(class_id=cid, course_id=crsid or None)
+        all_sessions = att_res.get("data", []) if isinstance(att_res.get("data"), list) else []
+
+        # Filter sessions có date = hôm nay (UTC+7)
+        today_sessions = []
+        for s in all_sessions:
+            raw_date = s.get("date", "")
+            if raw_date:
+                try:
+                    s_dt = datetime.fromisoformat(raw_date.replace("Z", "+00:00")).astimezone(VIETNAM_TZ)
+                    if s_dt.strftime("%Y-%m-%d") == today_str:
+                        today_sessions.append(s)
+                except Exception:
+                    pass
+
+        # --- Xây dựng phần điểm danh ---
+        attendance_sections = []
+        all_present = 0
+        all_absent = 0
+        all_late = 0
+        all_total_att = 0
+        absent_names = []
+
+        for sess in today_sessions:
+            sess_id = sess.get("_id")
+            course_obj = sess.get("courseId", "")
+            course_label = crsname or (course_obj if isinstance(course_obj, str) else "")
+            sess_info = sess.get("sessionId", {})
+            sess_name = sess_info.get("name", "") if isinstance(sess_info, dict) else ""
+            sess_pos = sess_info.get("position", "") if isinstance(sess_info, dict) else ""
+            sess_type = sess_info.get("type", "") if isinstance(sess_info, dict) else ""
+            start_time = sess.get("startTime", "")
+            end_time = sess.get("endTime", "")
+            room = sess.get("room", "")
+            period = sess.get("period", "")
+
+            roster_res = self.get_session_roster(sess_id)
+            roster = roster_res.get("data", {}).get("roster", []) if isinstance(roster_res.get("data"), dict) else []
+
+            present = [r for r in roster if r.get("status") == "PRESENT"]
+            absent = [r for r in roster if r.get("status") == "ABSENT"]
+            late = [r for r in roster if r.get("status") == "LATE"]
+            total = len(roster)
+
+            all_present += len(present)
+            all_absent += len(absent)
+            all_late += len(late)
+            all_total_att += total
+            absent_names += [r.get("fullName", "") for r in absent]
+
+            attendance_sections.append({
+                "sessionId": sess_id,
+                "courseName": course_label,
+                "sessionName": sess_name,
+                "sessionPosition": sess_pos,
+                "sessionType": sess_type,
+                "time": f"{start_time}–{end_time}" if start_time and end_time else "",
+                "room": room,
+                "period": period,
+                "total": total,
+                "present": len(present),
+                "absent": len(absent),
+                "late": len(late),
+                "absentNames": [r.get("fullName", "") for r in absent],
+                "absentRate": round(len(absent) / total * 100, 1) if total else 0,
+                "presentRate": round(len(present) / total * 100, 1) if total else 0,
+            })
+
+        # --- Lấy rPoint toàn lớp ---
+        metrics_res = self.get_class_training_metrics(
+            class_id=cid, class_name=cname,
+            course_id=crsid, course_name=crsname,
+            limit=0
+        )
+        records = metrics_res.get("data", {}).get("items", []) if metrics_res.get("statusCode") == 200 else []
+        summary_data = metrics_res.get("data", {}).get("summary", {})
+        total_students = len(records)
+
+        # --- Phân loại rPoint ---
+        WARNING_THRESHOLD = 85   # 80 < rPoint <= 85
+        DANGER_THRESHOLD = 80    # rPoint <= 80
+        INELIGIBLE_THRESHOLD = 80  # rPoint < 80 (examEligible=False)
+
+        warning_list = []    # 80 < rPoint <= 85
+        danger_list = []     # rPoint <= 80 (nhưng examEligible=True)
+        ineligible_list = [] # examEligible=False
+
+        prep_violation_counts = {0: 0, 1: 0, 2: 0, 3: 0}  # tiers: 0,1,2,3+
+
+        for r in records:
+            rp = r.get("rpoint") or 0
+            eligible = r.get("examEligible", True)
+            prep = r.get("preparationScore", 20)
+
+            # Phân tầng chuẩn bị bài theo điểm (20=0vi phạm, 15=1, 10=2, 0=3+)
+            if prep >= 20:
+                prep_violation_counts[0] += 1
+            elif prep >= 15:
+                prep_violation_counts[1] += 1
+            elif prep >= 10:
+                prep_violation_counts[2] += 1
+            else:
+                prep_violation_counts[3] += 1
+
+            entry = {
+                "studentId": r.get("studentId"),
+                "studentCode": r.get("studentCode"),
+                "fullName": r.get("fullName"),
+                "rpoint": rp,
+                "examEligible": eligible,
+            }
+
+            # So sánh với ngày qua
+            yest = yesterday_map.get(r.get("studentId"), {})
+            yest_rp = yest.get("rpoint")
+            if yest_rp is not None:
+                delta = round(rp - yest_rp, 1)
+                entry["delta"] = delta
+                entry["deltaStr"] = f"+{delta}" if delta > 0 else str(delta)
+            else:
+                entry["delta"] = None
+                entry["deltaStr"] = "N/A"
+
+            if not eligible:
+                ineligible_list.append(entry)
+            elif rp <= DANGER_THRESHOLD:
+                danger_list.append(entry)
+            elif rp <= WARNING_THRESHOLD:
+                warning_list.append(entry)
+
+        # Sort by rpoint ascending (nguy hiểm nhất lên đầu)
+        warning_list.sort(key=lambda x: x["rpoint"])
+        danger_list.sort(key=lambda x: x["rpoint"])
+        ineligible_list.sort(key=lambda x: x["rpoint"])
+
+        # --- Tính biến động so với hôm qua ---
+        changes = []
+        for r in records:
+            yest = yesterday_map.get(r.get("studentId"), {})
+            yest_rp = yest.get("rpoint")
+            if yest_rp is not None:
+                delta = round((r.get("rpoint") or 0) - yest_rp, 1)
+                changes.append({
+                    "studentId": r.get("studentId"),
+                    "studentCode": r.get("studentCode"),
+                    "fullName": r.get("fullName"),
+                    "rpoint": r.get("rpoint"),
+                    "delta": delta,
+                    "deltaStr": f"+{delta}" if delta > 0 else str(delta),
+                })
+        changes_sorted = sorted(changes, key=lambda x: x["delta"], reverse=True)
+        top3_up = changes_sorted[:3] if changes_sorted else []
+        top3_down = sorted(changes, key=lambda x: x["delta"])[:3] if changes else []
+
+        avg_rp_today = round(sum(r.get("rpoint") or 0 for r in records) / total_students, 1) if total_students else 0
+        avg_rp_yesterday = None
+        if yesterday_map:
+            vals = [v.get("rpoint") for v in yesterday_map.values() if v.get("rpoint") is not None]
+            avg_rp_yesterday = round(sum(vals) / len(vals), 1) if vals else None
+
+        avg_rp_delta = None
+        if avg_rp_yesterday is not None:
+            avg_rp_delta = round(avg_rp_today - avg_rp_yesterday, 1)
+        avg_prep_score = round(sum(r.get("preparationScore") or 0 for r in records) / total_students, 1) if total_students else 0
+        avg_submission_rate = round(sum(r.get("submissionRate") or 0 for r in records) / total_students, 1) if total_students else 0
+
+        # So sánh submission rate với ngày qua
+        sub_rate_delta = None
+        if yesterday_map:
+            yest_subs = [v.get("submissionRate") for v in yesterday_map.values() if v.get("submissionRate") is not None]
+            if yest_subs:
+                avg_sub_yesterday = round(sum(yest_subs) / len(yest_subs), 1)
+                sub_rate_delta = round(avg_submission_rate - avg_sub_yesterday, 1)
+
+        # --- Lưu snapshot hôm nay ---
+        try:
+            snapshot_data = {
+                "date": today_str,
+                "classId": cid,
+                "className": cname,
+                "courseId": crsid,
+                "courseName": crsname,
+                "records": [
+                    {
+                        "studentId": r.get("studentId"),
+                        "studentCode": r.get("studentCode"),
+                        "fullName": r.get("fullName"),
+                        "rpoint": r.get("rpoint"),
+                        "absenceRate": r.get("absenceRate"),
+                        "preparationScore": r.get("preparationScore"),
+                        "submissionRate": r.get("submissionRate"),
+                        "complianceScore": r.get("complianceScore"),
+                        "examEligible": r.get("examEligible"),
+                    }
+                    for r in records
+                ]
+            }
+            with open(snapshot_file_today, "w", encoding="utf-8") as f:
+                json.dump(snapshot_data, f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            pass  # Không block report nếu save thất bại
+
+        # --- Format báo cáo text ---
+        lines = []
+        sep = "━" * 52
+        lines.append(sep)
+        lines.append(f"BAO CAO HANG NGAY — Lop {cname}")
+        lines.append(f"Ngay: {today_display}")
+        lines.append(f"Mon: {crsname or '(Tat ca mon)'}")
+        lines.append(sep)
+
+        # Phần I: Điểm danh
+        lines.append("")
+        lines.append("I. DIEM DANH NGAY " + today_display)
+        lines.append("─" * 40)
+        if not today_sessions:
+            lines.append("  Khong co buoi hoc nao hom nay.")
+        else:
+            for sec in attendance_sections:
+                lines.append(f"  Mon    : {sec['courseName']}")
+                if sec.get("sessionName"):
+                    lines.append(f"  Buoi   : {sec['sessionPosition']} - {sec['sessionName']} ({sec['sessionType']})")
+                if sec.get("time"):
+                    lines.append(f"  Gio    : {sec['time']}  Phong: {sec.get('room', 'N/A')}")
+                lines.append(f"  Co mat : {sec['present']} / {sec['total']}  ({sec['presentRate']}%)")
+                lines.append(f"  Vang   : {sec['absent']} / {sec['total']}  ({sec['absentRate']}%)")
+                lines.append(f"  Di tre : {sec['late']} SV")
+                if sec["absentNames"]:
+                    lines.append(f"  DS vang: {', '.join(sec['absentNames'])}")
+                lines.append("")
+
+        lines.append(sep)
+
+        # Phần II: Chuẩn bị bài
+        lines.append("")
+        lines.append("II. CHUAN BI BAI")
+        lines.append("─" * 40)
+        lines.append(f"  Diem TB ca lop: {avg_prep_score} / 20")
+        lines.append(f"  Phan loai:")
+        lines.append(f"    0 vi pham (20d): {prep_violation_counts[0]} SV  ({round(prep_violation_counts[0]/total_students*100,1) if total_students else 0}%)")
+        lines.append(f"    1 vi pham (15d): {prep_violation_counts[1]} SV  ({round(prep_violation_counts[1]/total_students*100,1) if total_students else 0}%)")
+        lines.append(f"    2 vi pham (10d): {prep_violation_counts[2]} SV  ({round(prep_violation_counts[2]/total_students*100,1) if total_students else 0}%)")
+        lines.append(f"    3+ vi pham (0d): {prep_violation_counts[3]} SV  ({round(prep_violation_counts[3]/total_students*100,1) if total_students else 0}%)")
+
+        lines.append(sep)
+
+        # Phần III: Bài tập về nhà
+        lines.append("")
+        lines.append("III. BAI TAP VE NHA")
+        lines.append("─" * 40)
+        sub_delta_str = ""
+        if sub_rate_delta is not None:
+            arrow = "tang" if sub_rate_delta >= 0 else "giam"
+            sub_delta_str = f"  ({arrow} {abs(sub_rate_delta)}% so voi {yesterday_display})"
+        lines.append(f"  Ti le nop bai TB: {avg_submission_rate}%{sub_delta_str}")
+
+        lines.append(sep)
+
+        # Phần IV: Cảnh báo rPoint
+        lines.append("")
+        lines.append("IV. CANH BAO RPOINT")
+        lines.append("─" * 40)
+        avg_delta_str = ""
+        if avg_rp_delta is not None:
+            arrow = "tang" if avg_rp_delta >= 0 else "giam"
+            avg_delta_str = f"  ({arrow} {abs(avg_rp_delta)} so voi hom qua: {avg_rp_yesterday})"
+        lines.append(f"  rPoint TB lop: {avg_rp_today}{avg_delta_str}")
+        lines.append("")
+
+        def _fmt_table(lst, label):
+            lines.append(f"  [{label}] — {len(lst)} SV")
+            if lst:
+                lines.append(f"  {'STT':<4} {'Ho Ten':<25} {'MSV':<12} {'rPoint':>7} {'Thay doi':>10}")
+                lines.append("  " + "-" * 60)
+                for i, e in enumerate(lst, 1):
+                    lines.append(
+                        f"  {i:<4} {(e['fullName'] or '')[:24]:<25} {(e['studentCode'] or ''):<12} "
+                        f"{e['rpoint']:>7.1f} {e['deltaStr']:>10}"
+                    )
+            lines.append("")
+
+        _fmt_table(warning_list, "CANH BAO: 80 < rPoint <= 85")
+        _fmt_table(danger_list, "BAO DONG: rPoint <= 80")
+        _fmt_table(ineligible_list, "KHONG DU DIEU KIEN THI")
+
+        lines.append(sep)
+
+        # Phần V: Biến động
+        lines.append("")
+        lines.append(f"V. BIEN DONG SO VOI HOM QUA ({yesterday_display})")
+        lines.append("─" * 40)
+        if not changes:
+            lines.append(f"  Chua co du lieu ngay {yesterday_display} de so sanh.")
+            lines.append(f"  (Snapshot se duoc luu hom nay de su dung cho ngay mai)")
+        else:
+            lines.append(f"  rPoint TB hom nay  : {avg_rp_today}")
+            lines.append(f"  rPoint TB hom qua  : {avg_rp_yesterday}")
+            delta_sign = "+" if avg_rp_delta and avg_rp_delta >= 0 else ""
+            lines.append(f"  Chenh lech         : {delta_sign}{avg_rp_delta}")
+            lines.append("")
+            lines.append("  Top 3 Tien Bo Nhat:")
+            for i, c in enumerate(top3_up, 1):
+                tag = ""
+                if not c.get("rpoint") or c["rpoint"] < INELIGIBLE_THRESHOLD:
+                    tag = "  [CANH BAO: nguong nguy hiem]"
+                lines.append(f"    {i}. {c['fullName']} → {c['deltaStr']} rPoint{tag}")
+            lines.append("")
+            lines.append("  Top 3 Sut Giam Nhieu Nhat:")
+            for i, c in enumerate(top3_down, 1):
+                rp = c.get("rpoint") or 0
+                if rp < INELIGIBLE_THRESHOLD:
+                    tag = "  [KHONG DU DIEU KIEN]"
+                elif rp <= DANGER_THRESHOLD:
+                    tag = "  [BAO DONG]"
+                elif rp <= WARNING_THRESHOLD:
+                    tag = "  [CANH BAO]"
+                else:
+                    tag = ""
+                lines.append(f"    {i}. {c['fullName']} → {c['deltaStr']} rPoint{tag}")
+
+        lines.append("")
+        lines.append(sep)
+        lines.append(f"Bao cao tu dong boi RIKA AI | {today_display}")
+        lines.append(sep)
+
+        report_text = "\n".join(lines)
+
+        return {
+            "statusCode": 200,
+            "reportDate": today_str,
+            "class": {"id": cid, "name": cname},
+            "course": {"id": crsid, "name": crsname},
+            "snapshotSaved": os.path.exists(snapshot_file_today),
+            "summary": {
+                "totalStudents": total_students,
+                "avgRpoint": avg_rp_today,
+                "avgRpointYesterday": avg_rp_yesterday,
+                "avgRpointDelta": avg_rp_delta,
+                "avgPreparationScore": avg_prep_score,
+                "avgSubmissionRate": avg_submission_rate,
+                "submissionRateDelta": sub_rate_delta,
+                "warningCount": len(warning_list),
+                "dangerCount": len(danger_list),
+                "ineligibleCount": len(ineligible_list),
+                "todaySessionCount": len(today_sessions),
+            },
+            "attendance": attendance_sections,
+            "prepViolations": prep_violation_counts,
+            "rPointWarning": warning_list,
+            "rPointDanger": danger_list,
+            "rPointIneligible": ineligible_list,
+            "topChanges": {"up": top3_up, "down": top3_down},
+            "report": report_text,
+        }
+
     # --- DISPATCHER: Agent gọi qua đây ---
 
     def execute(self, function_name: str, arguments: dict) -> Any:
@@ -2650,6 +3053,7 @@ class LMSFunctionExecutor:
             "get_class_training_metrics":    self.get_class_training_metrics,
             "get_course_class_roster":       self.get_course_class_roster,
             "batch_approve_session_homework": self.batch_approve_session_homework,
+            "generate_daily_report":         self.generate_daily_report,
         }
 
         fn = dispatch.get(function_name)

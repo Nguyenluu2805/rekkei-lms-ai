@@ -868,5 +868,42 @@
     },
     "createdAt": 1791176000000,
     "updatedAt": 1791176000000
+  },
+  {
+    "name": "generate_daily_report",
+    "description": "Tạo báo cáo hàng ngày theo lớp và môn học. Báo cáo gồm: (1) Điểm danh buổi học hôm nay - có mặt/vắng/trễ; (2) Chuẩn bị bài - điểm trung bình và phân loại vi phạm; (3) Bài tập về nhà - tỷ lệ nộp bài và so sánh với hôm qua; (4) Cảnh báo rPoint 3 ngưỡng: [CANH BAO] 80 < rPoint ≤ 85, [BAO DONG] rPoint ≤ 80, [KHONG DU DIEU KIEN] examEligible=False; (5) Biến động rPoint so với ngày hôm qua (Top 3 tăng/giảm). Dữ liệu so sánh ngày qua được lưu tự động vào snapshot file sau mỗi lần báo cáo.",
+    "category": "Báo cáo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: 'CNTT2', 'HCM-KS26-CNTT2')"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên hoặc mã môn học (tuỳ chọn). Nếu không cung cấp sẽ tổng hợp tất cả môn hôm nay"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        },
+        "date": {
+          "type": "string",
+          "description": "Ngày báo cáo theo định dạng YYYY-MM-DD (tuỳ chọn). Mặc định là hôm nay"
+        }
+      },
+      "required": [
+        "class_name"
+      ]
+    },
+    "createdAt": 1761696000000,
+    "updatedAt": 1761696000000
   }
 ]
