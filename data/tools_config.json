@@ -905,5 +905,210 @@
     },
     "createdAt": 1761696000000,
     "updatedAt": 1761696000000
+  },
+  {
+    "name": "recompute_class_rpoint",
+    "description": "Kích hoạt hệ thống LMS tính toán lại (recompute) toàn bộ điểm rPoint và các chỉ số đào tạo cho tất cả sinh viên trong một lớp theo môn học. Dùng ngay sau khi chấm bài hoặc điểm danh để ép LMS cập nhật dữ liệu tức thì.",
+    "category": "Chỉ số đào tạo & rPoint",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: CNTT1, HCM-KS26-CNTT2)"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học (Ví dụ: Nhập Môn CNTT, Kỹ năng làm việc nhóm)"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        }
+      },
+      "required": [
+        "class_name"
+      ]
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
+  },
+  {
+    "name": "finalize_class_rpoint",
+    "description": "Chốt sổ chính thức (finalize) hoặc mở chốt sổ (unfinalize) điểm rPoint cuối môn học cho cả lớp trên LMS. Chỉ chốt sổ khi cả lớp đã hoàn thành đủ các cột điểm và điều kiện thi.",
+    "category": "Chỉ số đào tạo & rPoint",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        },
+        "action": {
+          "type": "string",
+          "description": "finalize (chốt sổ) hoặc unfinalize (mở chốt sổ)",
+          "enum": [
+            "finalize",
+            "unfinalize"
+          ]
+        }
+      },
+      "required": [
+        "class_name"
+      ]
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
+  },
+  {
+    "name": "get_student_transcript",
+    "description": "Tra cứu học bạ / bảng điểm tổng kết chính thức toàn khóa của một sinh viên (bao gồm điểm tổng kết từng môn, số tín chỉ đạt, điểm GPA và trạng thái qua môn).",
+    "category": "Quản lý Sinh viên",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "student_search": {
+          "type": "string",
+          "description": "Họ và tên hoặc mã sinh viên cần tra cứu học bạ"
+        },
+        "student_id": {
+          "type": "string",
+          "description": "ID sinh viên nếu đã biết"
+        }
+      },
+      "required": [
+        "student_search"
+      ]
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
+  },
+  {
+    "name": "get_student_parents_info",
+    "description": "Tra cứu thông tin liên lạc của phụ huynh sinh viên (họ tên, số điện thoại, vai trò, tình trạng kích hoạt tài khoản phụ huynh). Dùng khi cần liên hệ gia đình để thông báo tình hình học tập hoặc cảnh báo nguy cơ cấm thi.",
+    "category": "Quản lý Sinh viên",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "student_search": {
+          "type": "string",
+          "description": "Họ tên hoặc mã sinh viên cần tra cứu phụ huynh"
+        },
+        "student_id": {
+          "type": "string",
+          "description": "ID sinh viên nếu đã biết"
+        }
+      },
+      "required": [
+        "student_search"
+      ]
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
+  },
+  {
+    "name": "get_student_learning_path",
+    "description": "Xem lộ trình học tập, các kỳ học và tiến độ hoàn thành các môn học theo khung chương trình đào tạo của một sinh viên.",
+    "category": "Quản lý Sinh viên",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "student_search": {
+          "type": "string",
+          "description": "Họ tên hoặc mã sinh viên"
+        },
+        "student_id": {
+          "type": "string",
+          "description": "ID sinh viên nếu đã biết"
+        }
+      },
+      "required": [
+        "student_search"
+      ]
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
+  },
+  {
+    "name": "get_course_class_statistics",
+    "description": "Lấy báo cáo thống kê chuyên sâu toàn diện của lớp môn học (Course-Class Statistics): tổng số sinh viên, số buổi kế hoạch, số buổi bài tập, tỷ lệ vắng mặt, tỷ lệ nộp bài tập, phân tích chi tiết từng sinh viên.",
+    "category": "Chỉ số đào tạo & rPoint",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học"
+        },
+        "course_id": {
+          "type": "string",
+          "description": "ID môn học nếu đã biết"
+        }
+      },
+      "required": [
+        "class_name"
+      ]
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
+  },
+  {
+    "name": "get_class_feedback_tickets",
+    "description": "Xem danh sách các ticket phản hồi, thắc mắc, khiếu nại của học viên gửi tới giảng viên hoặc nhà trường (trạng thái: Mới, Đang xử lý, Đã giải quyết).",
+    "category": "Thông báo",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "description": "Số lượng ticket tối đa cần lấy (mặc định 20)"
+        },
+        "status": {
+          "type": "string",
+          "description": "Lọc theo trạng thái: NEW, IN_PROGRESS, RESOLVED, CLOSED"
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1761700000000,
+    "updatedAt": 1761700000000
   }
 ]

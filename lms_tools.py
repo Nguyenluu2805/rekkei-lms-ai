@@ -3098,6 +3098,212 @@ class LMSFunctionExecutor:
             "report": report_text,
         }
 
+    def recompute_class_rpoint(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        course_name: str = None,
+        course_id: str = None
+    ) -> dict:
+        """Kích hoạt hệ thống LMS tính toán lại (recompute) toàn bộ điểm rPoint cho cả lớp theo môn học."""
+        cid, cname, cobj, crsid, crsname = self._resolve_course_and_class(class_id, class_name, course_id, course_name)
+        if not cid or not crsid:
+            return {"error": "Cần cung cấp lớp học và môn học để tính lại rPoint.", "classId": cid, "courseId": crsid}
+
+        url = f"/api/auto-rpoint/class/{cid}/course/{crsid}/recompute"
+        res = self._post(url, {})
+        return {
+            "statusCode": res.get("statusCode", 200),
+            "class": {"id": cid, "name": cname},
+            "course": {"id": crsid, "name": crsname},
+            "message": f"Đã tính toán lại toàn bộ chỉ số rPoint cho lớp {cname} môn {crsname}.",
+            "data": res.get("data", res)
+        }
+
+    def finalize_class_rpoint(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        course_name: str = None,
+        course_id: str = None,
+        action: str = "finalize"
+    ) -> dict:
+        """Chốt sổ hoặc mở chốt sổ điểm rPoint chính thức của lớp môn học."""
+        cid, cname, cobj, crsid, crsname = self._resolve_course_and_class(class_id, class_name, course_id, course_name)
+        if not cid or not crsid:
+            return {"error": "Cần xác định lớp và môn học để chốt sổ rPoint.", "classId": cid, "courseId": crsid}
+
+        act = "unfinalize" if "un" in (action or "").lower() else "finalize"
+        url = f"/api/auto-rpoint/class/{cid}/course/{crsid}/{act}"
+        res = self._post(url, {})
+        action_name = "Mở chốt sổ" if act == "unfinalize" else "Chốt sổ chính thức"
+        return {
+            "statusCode": res.get("statusCode", 200),
+            "action": act,
+            "class": {"id": cid, "name": cname},
+            "course": {"id": crsid, "name": crsname},
+            "message": f"Đã thực hiện {action_name} điểm rPoint cho lớp {cname} môn {crsname}.",
+            "data": res.get("data", res)
+        }
+
+    def get_student_transcript(
+        self,
+        student_search: str = None,
+        student_id: str = None
+    ) -> dict:
+        """Lấy bảng điểm tổng kết / bảng điểm học bạ chính thức của một sinh viên toàn khóa."""
+        target_sid = student_id
+        student_info = {}
+
+        if not target_sid and student_search:
+            st_res = self.list_students(search=student_search.strip(), limit=5)
+            st_items = st_res.get("data", {}).get("items", []) if isinstance(st_res.get("data"), dict) else []
+            if st_items:
+                target_sid = st_items[0].get("id")
+                student_info = st_items[0]
+
+        if not target_sid:
+            return {"error": f"Không tìm thấy sinh viên '{student_search or student_id}'."}
+
+        url = f"/api/final-result/student/{target_sid}/transcript"
+        res = self._get(url, {})
+        if res.get("statusCode") in [200, 201] or "data" in res:
+            d = res.get("data", res)
+            return {
+                "statusCode": 200,
+                "student": {
+                    "id": target_sid,
+                    "fullName": student_info.get("fullName") or d.get("fullName"),
+                    "studentCode": student_info.get("studentCode") or d.get("studentCode"),
+                },
+                "summary": d.get("summary", {}),
+                "results": d.get("results", [])
+            }
+        return res
+
+    def get_student_parents_info(
+        self,
+        student_search: str = None,
+        student_id: str = None
+    ) -> dict:
+        """Tra cứu thông tin liên lạc phụ huynh học viên (họ tên, số điện thoại, vai trò, trạng thái)."""
+        target_sid = student_id
+        student_info = {}
+
+        if not target_sid and student_search:
+            st_res = self.list_students(search=student_search.strip(), limit=5)
+            st_items = st_res.get("data", {}).get("items", []) if isinstance(st_res.get("data"), dict) else []
+            if st_items:
+                target_sid = st_items[0].get("id")
+                student_info = st_items[0]
+
+        if not target_sid:
+            return {"error": f"Không tìm thấy sinh viên '{student_search or student_id}'."}
+
+        url = f"/api/staff/students/{target_sid}/parents"
+        res = self._get(url, {})
+        parents = res.get("data", []) if isinstance(res.get("data"), list) else []
+        return {
+            "statusCode": 200,
+            "student": {
+                "id": target_sid,
+                "fullName": student_info.get("fullName"),
+                "studentCode": student_info.get("studentCode"),
+            },
+            "totalParents": len(parents),
+            "parents": parents
+        }
+
+    def get_student_learning_path(
+        self,
+        student_search: str = None,
+        student_id: str = None
+    ) -> dict:
+        """Xem lộ trình học tập và tiến độ các môn học của một sinh viên."""
+        target_sid = student_id
+        student_info = {}
+
+        if not target_sid and student_search:
+            st_res = self.list_students(search=student_search.strip(), limit=5)
+            st_items = st_res.get("data", {}).get("items", []) if isinstance(st_res.get("data"), dict) else []
+            if st_items:
+                target_sid = st_items[0].get("id")
+                student_info = st_items[0]
+
+        if not target_sid:
+            return {"error": f"Không tìm thấy sinh viên '{student_search or student_id}'."}
+
+        url = f"/api/staff/students/{target_sid}/learning-path"
+        res = self._get(url, {})
+        path_items = res.get("data", []) if isinstance(res.get("data"), list) else []
+        return {
+            "statusCode": 200,
+            "student": {
+                "id": target_sid,
+                "fullName": student_info.get("fullName"),
+                "studentCode": student_info.get("studentCode"),
+            },
+            "totalSemesters": len(path_items),
+            "learningPath": path_items
+        }
+
+    def get_course_class_statistics(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        course_name: str = None,
+        course_id: str = None
+    ) -> dict:
+        """Lấy báo cáo thống kê chuyên sâu toàn diện của lớp môn học (số buổi học, bài tập, tỷ lệ vắng, nộp bài)."""
+        cid, cname, cobj, crsid, crsname = self._resolve_course_and_class(class_id, class_name, course_id, course_name)
+        if not cid:
+            return {"error": f"Không tìm thấy lớp học '{class_name or class_id}'."}
+
+        cc_res = self._get(f"/api/staff/course-classes/class/{cid}", {})
+        cc_items = cc_res.get("data", []) if isinstance(cc_res.get("data"), list) else []
+
+        target_cc = None
+        if crsid:
+            for cc in cc_items:
+                c_id_match = cc.get("courseId", {}).get("id") if isinstance(cc.get("courseId"), dict) else cc.get("courseId")
+                if c_id_match == crsid or cc.get("id") == crsid:
+                    target_cc = cc
+                    break
+        if not target_cc and cc_items:
+            target_cc = cc_items[0]
+
+        if not target_cc:
+            return {"error": f"Không tìm thấy lớp môn học tương ứng trong lớp {cname}."}
+
+        target_cc_id = target_cc.get("id")
+        stat_res = self._get(f"/api/staff/course-classes/{target_cc_id}/statistics", {})
+        return {
+            "statusCode": 200,
+            "courseClassId": target_cc_id,
+            "class": {"id": cid, "name": cname},
+            "course": {"id": crsid, "name": crsname},
+            "statistics": stat_res.get("data", stat_res)
+        }
+
+    def get_class_feedback_tickets(
+        self,
+        limit: int = 20,
+        status: str = None
+    ) -> dict:
+        """Xem danh sách các ticket phản hồi, thắc mắc, khiếu nại của học viên gửi tới giảng viên/nhà trường."""
+        params = {"limit": limit}
+        if status:
+            params["status"] = status
+        res = self._get("/api/staff/feedback-tickets", params)
+        d = res.get("data", {}) if isinstance(res.get("data"), dict) else {}
+        return {
+            "statusCode": 200,
+            "stats": d.get("stats", {}),
+            "pagination": d.get("pagination", {}),
+            "total": len(d.get("items", [])),
+            "tickets": d.get("items", [])
+        }
+
     # --- DISPATCHER: Agent gọi qua đây ---
 
     def execute(self, function_name: str, arguments: dict) -> Any:
@@ -3135,6 +3341,13 @@ class LMSFunctionExecutor:
             "get_course_class_roster":       self.get_course_class_roster,
             "batch_approve_session_homework": self.batch_approve_session_homework,
             "generate_daily_report":         self.generate_daily_report,
+            "recompute_class_rpoint":        self.recompute_class_rpoint,
+            "finalize_class_rpoint":         self.finalize_class_rpoint,
+            "get_student_transcript":        self.get_student_transcript,
+            "get_student_parents_info":      self.get_student_parents_info,
+            "get_student_learning_path":     self.get_student_learning_path,
+            "get_course_class_statistics":   self.get_course_class_statistics,
+            "get_class_feedback_tickets":    self.get_class_feedback_tickets,
         }
 
         fn = dispatch.get(function_name)
