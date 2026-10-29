@@ -2564,6 +2564,8 @@ class LMSFunctionExecutor:
                     "submissionRate": d.get("submissionRate", 0),
                     "attendanceScore": d.get("attendanceScore", 0),
                     "complianceScore": d.get("complianceScore", 0),
+                    "violationCount": d.get("violationCount", 0),
+                    "lateCount": d.get("lateCount", 0),
                     "examEligible": d.get("examEligible", False)
                 }
             except Exception:
@@ -2772,6 +2774,7 @@ class LMSFunctionExecutor:
                 "fullName": r.get("fullName"),
                 "rpoint": rp,
                 "examEligible": eligible,
+                "violationCount": r.get("violationCount") or 0,
             }
 
             # So sánh với ngày qua
@@ -2864,127 +2867,130 @@ class LMSFunctionExecutor:
         except Exception as e:
             pass  # Không block report nếu save thất bại
 
-        # --- Format báo cáo text ---
+        # --- Format báo cáo text (Tiếng Việt có dấu, bảng markdown) ---
         lines = []
-        sep = "━" * 52
+        sep = "━" * 56
         lines.append(sep)
-        lines.append(f"BAO CAO HANG NGAY — Lop {cname}")
-        lines.append(f"Ngay: {today_display}")
-        lines.append(f"Mon: {crsname or '(Tat ca mon)'}")
+        lines.append(f"BÁO CÁO HÀNG NGÀY — Lớp {cname}")
+        lines.append(f"Ngày: {today_display}")
+        lines.append(f"Môn: {crsname or '(Tất cả môn)'}")
         lines.append(sep)
 
         # Phần I: Điểm danh
         lines.append("")
-        lines.append("I. DIEM DANH NGAY " + today_display)
-        lines.append("─" * 40)
+        lines.append("I. ĐIỂM DANH NGÀY " + today_display)
+        lines.append("─" * 44)
         if not today_sessions:
-            lines.append("  Khong co buoi hoc nao hom nay.")
+            lines.append("  Không có buổi học nào hôm nay.")
         else:
             for sec in attendance_sections:
-                lines.append(f"  Mon    : {sec['courseName']}")
+                lines.append(f"  Môn      : {sec['courseName']}")
                 if sec.get("sessionName"):
-                    lines.append(f"  Buoi   : {sec['sessionPosition']} - {sec['sessionName']} ({sec['sessionType']})")
+                    lines.append(f"  Buổi     : {sec['sessionPosition']} - {sec['sessionName']} ({sec['sessionType']})")
                 if sec.get("time"):
-                    lines.append(f"  Gio    : {sec['time']}  Phong: {sec.get('room', 'N/A')}")
-                lines.append(f"  Co mat : {sec['present']} / {sec['total']}  ({sec['presentRate']}%)")
-                lines.append(f"  Vang   : {sec['absent']} / {sec['total']}  ({sec['absentRate']}%)")
-                lines.append(f"  Di tre : {sec['late']} SV")
+                    lines.append(f"  Giờ      : {sec['time']}  Phòng: {sec.get('room', 'N/A')}")
+                lines.append(f"  Có mặt   : {sec['present']} / {sec['total']}  ({sec['presentRate']}%)")
+                lines.append(f"  Vắng     : {sec['absent']} / {sec['total']}  ({sec['absentRate']}%)")
+                lines.append(f"  Đi trễ   : {sec['late']} SV")
                 if sec["absentNames"]:
-                    lines.append(f"  DS vang: {', '.join(sec['absentNames'])}")
+                    lines.append(f"  DS vắng  : {', '.join(sec['absentNames'])}")
                 lines.append("")
 
         lines.append(sep)
 
         # Phần II: Chuẩn bị bài
         lines.append("")
-        lines.append("II. CHUAN BI BAI")
-        lines.append("─" * 40)
-        lines.append(f"  Diem TB ca lop: {avg_prep_score} / 20")
-        lines.append(f"  Phan loai:")
-        lines.append(f"    0 vi pham (20d): {prep_violation_counts[0]} SV  ({round(prep_violation_counts[0]/total_students*100,1) if total_students else 0}%)")
-        lines.append(f"    1 vi pham (15d): {prep_violation_counts[1]} SV  ({round(prep_violation_counts[1]/total_students*100,1) if total_students else 0}%)")
-        lines.append(f"    2 vi pham (10d): {prep_violation_counts[2]} SV  ({round(prep_violation_counts[2]/total_students*100,1) if total_students else 0}%)")
-        lines.append(f"    3+ vi pham (0d): {prep_violation_counts[3]} SV  ({round(prep_violation_counts[3]/total_students*100,1) if total_students else 0}%)")
+        lines.append("II. CHUẨN BỊ BÀI")
+        lines.append("─" * 44)
+        lines.append(f"  Điểm TB cả lớp : {avg_prep_score} / 20")
+        lines.append(f"  Phân loại:")
+        lines.append(f"    0 vi phạm (20đ) : {prep_violation_counts[0]} SV  ({round(prep_violation_counts[0]/total_students*100,1) if total_students else 0}%)")
+        lines.append(f"    1 vi phạm (15đ) : {prep_violation_counts[1]} SV  ({round(prep_violation_counts[1]/total_students*100,1) if total_students else 0}%)")
+        lines.append(f"    2 vi phạm (10đ) : {prep_violation_counts[2]} SV  ({round(prep_violation_counts[2]/total_students*100,1) if total_students else 0}%)")
+        lines.append(f"    3+ vi phạm (0đ) : {prep_violation_counts[3]} SV  ({round(prep_violation_counts[3]/total_students*100,1) if total_students else 0}%)")
 
         lines.append(sep)
 
         # Phần III: Bài tập về nhà
         lines.append("")
-        lines.append("III. BAI TAP VE NHA")
-        lines.append("─" * 40)
+        lines.append("III. BÀI TẬP VỀ NHÀ")
+        lines.append("─" * 44)
         sub_delta_str = ""
         if sub_rate_delta is not None:
-            arrow = "tang" if sub_rate_delta >= 0 else "giam"
-            sub_delta_str = f"  ({arrow} {abs(sub_rate_delta)}% so voi {yesterday_display})"
-        lines.append(f"  Ti le nop bai TB: {avg_submission_rate}%{sub_delta_str}")
+            arrow = "tăng" if sub_rate_delta >= 0 else "giảm"
+            sub_delta_str = f"  ({arrow} {abs(sub_rate_delta)}% so với {yesterday_display})"
+        lines.append(f"  Tỉ lệ nộp bài TB : {avg_submission_rate}%{sub_delta_str}")
 
         lines.append(sep)
 
         # Phần IV: Cảnh báo rPoint
         lines.append("")
-        lines.append("IV. CANH BAO RPOINT")
-        lines.append("─" * 40)
+        lines.append("IV. CẢNH BÁO RPOINT")
+        lines.append("─" * 44)
         avg_delta_str = ""
         if avg_rp_delta is not None:
-            arrow = "tang" if avg_rp_delta >= 0 else "giam"
-            avg_delta_str = f"  ({arrow} {abs(avg_rp_delta)} so voi hom qua: {avg_rp_yesterday})"
-        lines.append(f"  rPoint TB lop: {avg_rp_today}{avg_delta_str}")
+            arrow = "tăng" if avg_rp_delta >= 0 else "giảm"
+            avg_delta_str = f"  ({arrow} {abs(avg_rp_delta)} so với hôm qua: {avg_rp_yesterday})"
+        lines.append(f"  rPoint TB lớp : {avg_rp_today}{avg_delta_str}")
         lines.append("")
 
         def _fmt_table(lst, label):
             lines.append(f"  [{label}] — {len(lst)} SV")
             if lst:
-                lines.append(f"  {'STT':<4} {'Ho Ten':<25} {'MSV':<12} {'rPoint':>7} {'Thay doi':>10}")
-                lines.append("  " + "-" * 60)
+                # Header markdown table
+                lines.append(f"  | {'STT'} | {'Họ Tên':<30} | {'MSV':<12} | {'rPoint':>7} | {'Vi phạm':>8} | {'Thay đổi':>9} |")
+                lines.append(f"  |{'─'*5}|{'─'*32}|{'─'*14}|{'─'*9}|{'─'*10}|{'─'*11}|")
                 for i, e in enumerate(lst, 1):
-                    lines.append(
-                        f"  {i:<4} {(e['fullName'] or '')[:24]:<25} {(e['studentCode'] or ''):<12} "
-                        f"{e['rpoint']:>7.1f} {e['deltaStr']:>10}"
-                    )
+                    name = (e['fullName'] or '')[:30]
+                    code = (e['studentCode'] or '')[:12]
+                    rp   = f"{e['rpoint']:.1f}"
+                    vp   = str(e.get('violationCount', 0))
+                    dt   = e['deltaStr']
+                    lines.append(f"  | {i:<3} | {name:<30} | {code:<12} | {rp:>7} | {vp:>8} | {dt:>9} |")
             lines.append("")
 
-        _fmt_table(warning_list, "CANH BAO: 80 < rPoint <= 85")
-        _fmt_table(danger_list, "BAO DONG: rPoint <= 80")
-        _fmt_table(ineligible_list, "KHONG DU DIEU KIEN THI")
+        _fmt_table(warning_list, "CẢNH BÁO: 80 < rPoint ≤ 85")
+        _fmt_table(danger_list,  "BÁO ĐỘNG: rPoint ≤ 80")
+        _fmt_table(ineligible_list, "KHÔNG ĐỦ ĐIỀU KIỆN THI")
 
         lines.append(sep)
 
         # Phần V: Biến động
         lines.append("")
-        lines.append(f"V. BIEN DONG SO VOI HOM QUA ({yesterday_display})")
-        lines.append("─" * 40)
+        lines.append(f"V. BIẾN ĐỘNG SO VỚI HÔM QUA ({yesterday_display})")
+        lines.append("─" * 44)
         if not changes:
-            lines.append(f"  Chua co du lieu ngay {yesterday_display} de so sanh.")
-            lines.append(f"  (Snapshot se duoc luu hom nay de su dung cho ngay mai)")
+            lines.append(f"  Chưa có dữ liệu ngày {yesterday_display} để so sánh.")
+            lines.append(f"  (Snapshot đã được lưu lại ngày hôm nay để sử dụng cho báo cáo ngày mai)")
         else:
-            lines.append(f"  rPoint TB hom nay  : {avg_rp_today}")
-            lines.append(f"  rPoint TB hom qua  : {avg_rp_yesterday}")
+            lines.append(f"  rPoint TB hôm nay  : {avg_rp_today}")
+            lines.append(f"  rPoint TB hôm qua  : {avg_rp_yesterday}")
             delta_sign = "+" if avg_rp_delta and avg_rp_delta >= 0 else ""
-            lines.append(f"  Chenh lech         : {delta_sign}{avg_rp_delta}")
+            lines.append(f"  Chênh lệch         : {delta_sign}{avg_rp_delta}")
             lines.append("")
-            lines.append("  Top 3 Tien Bo Nhat:")
+            lines.append("  Top 3 Tiến Bộ Nhất:")
             for i, c in enumerate(top3_up, 1):
                 tag = ""
                 if not c.get("rpoint") or c["rpoint"] < INELIGIBLE_THRESHOLD:
-                    tag = "  [CANH BAO: nguong nguy hiem]"
+                    tag = "  [CẢNH BÁO: ngưỡng nguy hiểm]"
                 lines.append(f"    {i}. {c['fullName']} → {c['deltaStr']} rPoint{tag}")
             lines.append("")
-            lines.append("  Top 3 Sut Giam Nhieu Nhat:")
+            lines.append("  Top 3 Sụt Giảm Nhiều Nhất:")
             for i, c in enumerate(top3_down, 1):
                 rp = c.get("rpoint") or 0
                 if rp < INELIGIBLE_THRESHOLD:
-                    tag = "  [KHONG DU DIEU KIEN]"
+                    tag = "  [KHÔNG ĐỦ ĐIỀU KIỆN]"
                 elif rp <= DANGER_THRESHOLD:
-                    tag = "  [BAO DONG]"
+                    tag = "  [BÁO ĐỘNG]"
                 elif rp <= WARNING_THRESHOLD:
-                    tag = "  [CANH BAO]"
+                    tag = "  [CẢNH BÁO]"
                 else:
                     tag = ""
                 lines.append(f"    {i}. {c['fullName']} → {c['deltaStr']} rPoint{tag}")
 
         lines.append("")
         lines.append(sep)
-        lines.append(f"Bao cao tu dong boi RIKA AI | {today_display}")
+        lines.append(f"Báo cáo tự động bởi RIKA AI | {today_display}")
         lines.append(sep)
 
         report_text = "\n".join(lines)
