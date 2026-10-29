@@ -2377,20 +2377,95 @@ class LMSFunctionExecutor:
         resolved_course_name = course_name
 
         if not resolved_course_id and course_name:
-            courses_res = self.list_courses(limit=50)
-            courses_items = courses_res.get("data", {}).get("items", []) if isinstance(courses_res.get("data"), dict) else []
-            matched_c = [c for c in courses_items if (c.get("name") or "").lower() == course_name.strip().lower() or (c.get("code") or "").lower() == course_name.strip().lower()]
+            import unicodedata, re
+
+            def _normalize_vn(s: str) -> str:
+                s = (s or "").replace("đ", "d").replace("Đ", "d")
+                s = unicodedata.normalize("NFD", s)
+                s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+                return re.sub(r"[^a-z0-9\s]", " ", s.lower()).strip()
+
+            abbr_map = {
+                "cntt": "cong nghe thong tin",
+                "qtkd": "quan tri kinh doanh",
+                "csdl": "co so du lieu",
+                "ktlt": "ky thuat lap trinh",
+                "oop": "huong doi tuong",
+            }
+
+            q_norm = _normalize_vn(course_name)
+            # Expand abbreviations in query
+            q_words = q_norm.split()
+            q_expanded = " ".join(abbr_map.get(w, w) for w in q_words)
+
+            # Ưu tiên tìm trong danh sách courses của class (nếu đã có class_id)
+            class_courses = []
+            _cid_for_lookup = resolved_class_id or class_id
+            if _cid_for_lookup:
+                try:
+                    detail_res2 = self._get(f"/api/staff/classes/{_cid_for_lookup}/detail", {})
+                    raw_courses = detail_res2.get("data", {}).get("courses", []) if isinstance(detail_res2.get("data"), dict) else []
+                    for rc in raw_courses:
+                        crs_obj = rc.get("courseId", {})
+                        if isinstance(crs_obj, dict) and crs_obj.get("id"):
+                            class_courses.append({
+                                "id": crs_obj["id"],
+                                "name": crs_obj.get("name", ""),
+                                "courseCode": crs_obj.get("courseCode", ""),
+                            })
+                except Exception:
+                    pass
+
+            def _match_courses(lst):
+                exact = []
+                partial = []
+                for c in lst:
+                    c_name_norm = _normalize_vn(c.get("name"))
+                    c_code_norm = _normalize_vn(c.get("courseCode"))
+                    combined = f"{c_name_norm} {c_code_norm}"
+
+                    # 1. Exact match
+                    if q_norm == c_name_norm or q_norm == c_code_norm or q_expanded == c_name_norm:
+                        exact.append(c)
+                        continue
+
+                    # 2. Substring match with original or expanded
+                    if (q_norm and (q_norm in c_name_norm or q_norm in c_code_norm)) or \
+                       (q_expanded and (q_expanded in c_name_norm or q_expanded in c_code_norm)):
+                        exact.append(c)
+                        continue
+
+                    # 3. All tokens in query match tokens in course
+                    tokens = [w for w in q_expanded.split() if len(w) > 1]
+                    if tokens and all(t in combined for t in tokens):
+                        partial.append(c)
+                        continue
+
+                    # 4. Partial tokens (ví dụ: 'nhap mon')
+                    orig_tokens = [w for w in q_norm.split() if len(w) > 1 and w not in abbr_map]
+                    if orig_tokens and all(t in combined for t in orig_tokens):
+                        partial.append(c)
+
+                return exact if exact else partial
+
+            matched_c = _match_courses(class_courses)
+
+            # Fallback: tìm toàn cục nếu không tìm thấy trong class
             if not matched_c:
-                matched_c = [c for c in courses_items if course_name.strip().lower() in (c.get("name") or "").lower() or course_name.strip().lower() in (c.get("code") or "").lower()]
+                courses_res = self.list_courses(limit=100)
+                all_courses = courses_res.get("data", {}).get("items", []) if isinstance(courses_res.get("data"), dict) else []
+                matched_c = _match_courses(all_courses)
+
             if matched_c:
                 resolved_course_id = matched_c[0]["id"]
-                resolved_course_name = matched_c[0].get("name")
+                resolved_course_name = matched_c[0].get("name") or matched_c[0].get("courseCode")
 
         # Fallback: nếu chưa có course_id, lấy courseId đầu tiên từ class
         if not resolved_course_id and class_obj and class_obj.get("courseIds"):
             resolved_course_id = class_obj["courseIds"][0]
+            resolved_course_name = None  # Reset để lấy tên chính xác bên dưới
 
-        if resolved_course_id and not resolved_course_name:
+        if resolved_course_id and (not resolved_course_name or resolved_course_name == course_name):
             c_detail = self.get_course_detail(resolved_course_id)
             if isinstance(c_detail, dict) and c_detail.get("data"):
                 resolved_course_name = c_detail["data"].get("name")
