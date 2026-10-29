@@ -1110,5 +1110,38 @@
     },
     "createdAt": 1761700000000,
     "updatedAt": 1761700000000
+  },
+  {
+    "name": "get_class_care_cases",
+    "description": "Quản lý danh sách ca chăm sóc đặc biệt (Care Cases) của lớp học: tra cứu danh sách học viên có nguy cơ học tập cao (risk score), vắng nhiều, xu hướng học giảm sút (worsening), giảng viên phụ trách và trạng thái can thiệp.",
+    "category": "Quản lý Sinh viên",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: CNTT1, CNTT2)"
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết"
+        },
+        "status": {
+          "type": "string",
+          "description": "Lọc trạng thái ca chăm sóc: all, open, in_progress, closed. Mặc định là all"
+        },
+        "limit": {
+          "type": "integer",
+          "description": "Số lượng ca tối đa cần hiển thị (mặc định 30)"
+        }
+      },
+      "required": [
+        "class_name"
+      ]
+    },
+    "createdAt": 1761705000000,
+    "updatedAt": 1761705000000
   }
 ]

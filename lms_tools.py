@@ -3304,6 +3304,42 @@ class LMSFunctionExecutor:
             "tickets": d.get("items", [])
         }
 
+    def get_class_care_cases(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        status: str = "all",
+        limit: int = 30
+    ) -> dict:
+        """Quản lý và tra cứu danh sách các ca chăm sóc đặc biệt (Care Cases) của lớp học: học viên có nguy cơ học tập cao, vắng nhiều, xu hướng học giảm sút."""
+        cid, cname, _, _, _ = self._resolve_course_and_class(class_id=class_id, class_name=class_name)
+        if not cid:
+            return {"error": f"Không tìm thấy lớp học '{class_name or class_id}'."}
+
+        url = f"https://sc.rikkeiedu.com/api/monitoring/class/{cid}/care-cases"
+        headers = {
+            "Authorization": f"Bearer {self._api.token}",
+            "Accept": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        }
+        try:
+            resp = requests.get(url, params={"status": status or "all"}, headers=headers, timeout=12)
+            if resp.status_code == 200:
+                cases = resp.json().get("cases", [])
+                cases_sorted = sorted(cases, key=lambda x: x.get("latestRiskScore", 0), reverse=True)
+                display_cases = cases_sorted[:limit] if limit else cases_sorted
+                return {
+                    "statusCode": 200,
+                    "class": {"id": cid, "name": cname},
+                    "totalCases": len(cases),
+                    "worseningCount": sum(1 for c in cases if c.get("direction") == "worsening"),
+                    "inProgressCount": sum(1 for c in cases if c.get("status") == "in_progress"),
+                    "cases": display_cases
+                }
+            return {"statusCode": resp.status_code, "error": resp.text[:300]}
+        except Exception as e:
+            return {"error": f"Lỗi gọi Student Care API: {str(e)}"}
+
     # --- DISPATCHER: Agent gọi qua đây ---
 
     def execute(self, function_name: str, arguments: dict) -> Any:
@@ -3348,6 +3384,7 @@ class LMSFunctionExecutor:
             "get_student_learning_path":     self.get_student_learning_path,
             "get_course_class_statistics":   self.get_course_class_statistics,
             "get_class_feedback_tickets":    self.get_class_feedback_tickets,
+            "get_class_care_cases":          self.get_class_care_cases,
         }
 
         fn = dispatch.get(function_name)
