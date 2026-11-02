@@ -1,0 +1,688 @@
+{
+  "total_endpoints": 133,
+  "categories": {
+    "Auto rPoint & Điểm số (rPoint & Final Results)": [
+      {
+        "endpoint": "/api/auto-rpoint/class/${e}/course/${i}/finalize",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/auto-rpoint/class/${e}/course/${i}/recompute",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/auto-rpoint/class/${e}/course/${i}/rpoint-formula",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/auto-rpoint/class/${e}/course/${i}/unfinalize",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/auto-rpoint/course/${e}/rpoint-formula",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/final-result/student/${e}/${t}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/final-result/student/${e}/transcript",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      }
+    ],
+    "Student Care & Giám sát lớp học (sc-api / Monitoring)": [
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/attendance-formula",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/browser-config",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/care",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/care-case",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/care-config",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/care-roster",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/care-staff",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/ide-config",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/lists",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/live${n}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/officer-tasks",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/officers",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/sc-api/monitoring/class/${t}/seating",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      }
+    ],
+    "Lớp học & Khóa học (Classes & Courses)": [
+      {
+        "endpoint": "/api/staff/classes",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/classes${l}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/classes/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/classes/${e}/detail",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/course-classes",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/course-classes/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/course-classes/${e}/enrollment",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/course-classes/${e}/exam-context",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/course-classes/${e}/statistics",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/course-classes/class/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/courses${a}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses${i}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses${n}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses${o}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses${r}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/${e}/assign-semesters",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/${e}/open-learning-preview",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/${e}/publish",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/${e}/scoring-formula",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/6a88fb77a493e63f11a75432/publish-status",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/courses/6a8d13ca1d62b8910b674ea4/publish-status",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/courses/6aad0918f00919310d3f102b/publish-status",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/courses/6aae5ad27d22545796a8eeaa/publish-status",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/courses/6ab48f55e8eaed812f0941cb/publish-status",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/courses/assign-category",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/reorder",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/scoring-methods",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/system/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/courses/system/${e}/assign",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/semesters",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/semesters/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/semesters/specialize/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/specializes",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/specializes/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/students/${e}/learning-path/courses",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/students/${e}/learning-path/courses/${t}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/tags/${e}/courses",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      }
+    ],
+    "Buổi học & Điểm danh (Sessions & Attendance)": [
+      {
+        "endpoint": "/api/staff/sessions",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/${e}/practice",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/${e}/practices/${i}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/${e}/practices/${s}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/course/${et}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/course/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/sessions/course/${w}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      }
+    ],
+    "Bài tập & Đánh giá AI (Homework & Practice Submissions)": [
+      {
+        "endpoint": "/api/staff/practice-submissions/ai-review",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/practice-submissions/feedback",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/quizzes",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/quizzes/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/homework/${e}/approve",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/homework/${e}/reject",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/homework/bulk/approve",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/homework/bulk/reject",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/session-quizzes",
+        "methods": "GET",
+        "status": "HTTP 200"
+      }
+    ],
+    "Duyệt học liệu & Nội dung (Review Materials / Lessons)": [
+      {
+        "endpoint": "/api/staff/lessons",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/lessons/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/lessons/${e}/quiz",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/lessons/${e}/reading",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/lessons/${e}/reading-html",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/lessons/${e}/video",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/lessons/session/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/lessons/${e}/approve",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/lessons/${e}/reject",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/lessons/bulk/approve",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/review-materials/lessons/bulk/reject",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      }
+    ],
+    "Sinh viên & Phụ huynh (Students & Parents)": [
+      {
+        "endpoint": "/api/staff/parents",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/parents${t}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/parents/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/parents/${e}/send-credentials",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/parents/send-credentials",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/student-classes",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/student-classes/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/student-classes/import-template",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/student-classes/import/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/student-classes/student/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/students/${e}/learning-path",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/students/${e}/parents",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/students/${e}/parents/${t}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/students",
+        "methods": "GET",
+        "status": "HTTP 200"
+      }
+    ],
+    "Thông báo & Hệ thống (Notifications & System Config)": [
+      {
+        "endpoint": "/api/staff/feedback-tickets",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/monthly-feedbacks",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/notifications",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/notifications/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/notifications/received",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/notifications/received/${e}/confirm",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/notifications/received/confirm-all",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/notifications/received/unread-count",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/tags",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/tags/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/systems",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://project.rikkeiedu.com/api/notifications/unread",
+        "methods": "GET",
+        "status": "HTTP 200"
+      }
+    ],
+    "Khác": [
+      {
+        "endpoint": "/api/admin/academic-warning-configs",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff-roles",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/application-requests",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/course-categories",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/course-categories/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/notification-categories",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/notification-categories/${e}",
+        "methods": "GET/POST/PATCH",
+        "status": "Khám phá từ bundle"
+      },
+      {
+        "endpoint": "/api/staff/profile/me",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/roadmap",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/staff/timetables/my",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "/api/training-programs",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://lms-flow.rikkeiedu.com/api/auth/sso",
+        "methods": "POST",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://lms-flow.rikkeiedu.com/api/boards",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://lms-flow.rikkeiedu.com/api/me",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://project.rikkeiedu.com/api/auth/sso",
+        "methods": "POST",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://project.rikkeiedu.com/api/me",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://project.rikkeiedu.com/api/my/tasks",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://project.rikkeiedu.com/api/my/todos",
+        "methods": "GET",
+        "status": "HTTP 200"
+      },
+      {
+        "endpoint": "https://project.rikkeiedu.com/api/projects",
+        "methods": "GET",
+        "status": "HTTP 200"
+      }
+    ]
+  }
+}

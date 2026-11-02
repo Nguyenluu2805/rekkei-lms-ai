@@ -882,6 +882,14 @@ TOOLS_SCHEMA = [
                     "auto_approve": {
                         "type": "boolean",
                         "description": "Mặc định True: tự động duyệt nhận xét AI cho các sinh viên đạt 100% bài. Nếu False (dry_run): chỉ kiểm tra, tổng hợp và báo cáo mà không duyệt thực."
+                    },
+                    "regrade_failed_only": {
+                        "type": "boolean",
+                        "description": "Mặc định False. Nếu True, chỉ chấm/kiểm tra lại riêng các sinh viên có bài chưa đạt (FAIL) hoặc chưa hoàn thành, đối chiếu nhận xét chi tiết của AI và tự động duyệt bổ sung nếu bài đã sửa đạt chuẩn."
+                    },
+                    "student_search": {
+                        "type": "string",
+                        "description": "Tên hoặc mã số sinh viên cụ thể nếu chỉ muốn chấm lại cho một sinh viên duy nhất."
                     }
                 },
                 "required": ["class_name", "session_search"]
@@ -2004,7 +2012,9 @@ class LMSFunctionExecutor:
         session_id: str = None,
         course_name: str = None,
         course_id: str = None,
-        auto_approve: bool = True
+        auto_approve: bool = True,
+        regrade_failed_only: bool = False,
+        student_search: str = None
     ) -> dict:
         """
         Tổng hợp toàn bộ bài tập của sinh viên trong một lớp theo buổi học của môn học.
@@ -2191,6 +2201,13 @@ class LMSFunctionExecutor:
                     "email": it.get("email") or ""
                 })
 
+        if student_search and student_list:
+            s_q = student_search.lower().strip()
+            student_list = [
+                s for s in student_list
+                if s_q in (s.get("student_code") or "").lower() or s_q in (s.get("full_name") or "").lower() or s_q in (s.get("student_id") or "").lower()
+            ]
+
         # 5. Xử lý đánh giá từng sinh viên theo quy tắc:
         # "Chỉ cần các bài các bạn nộp đều được đánh giá là đạt (pass) thì là hoàn thành, chỉ cần một bài không đạt mới tính"
         def evaluate_student(st_rec):
@@ -2311,9 +2328,57 @@ class LMSFunctionExecutor:
         newly_approved_count = sum(1 for s in completed_students if s["autoApproved"])
         already_approved_count = sum(1 for s in completed_students if s["alreadyApproved"])
 
+        if regrade_failed_only:
+            now_passed_students = [s for s in completed_students if not s["alreadyApproved"]]
+            still_failed_students = failed_students
+            still_unsubmitted_students = unsubmitted_students
+            rechecked_total = len(still_failed_students) + len(now_passed_students)
+
+            return {
+                "statusCode": 200,
+                "data": {
+                    "mode": "regrade_failed_only",
+                    "session": {
+                        "id": resolved_session_id,
+                        "name": session_name
+                    },
+                    "class": {
+                        "id": resolved_class_id,
+                        "name": resolved_class_name
+                    },
+                    "course": {
+                        "id": resolved_course_id,
+                        "name": resolved_course_name
+                    },
+                    "summary": {
+                        "totalStudents": len(all_evaluated),
+                        "recheckedCount": rechecked_total,
+                        "nowPassedCount": len(now_passed_students),
+                        "newlyApprovedCount": newly_approved_count,
+                        "alreadyApprovedCount": already_approved_count,
+                        "stillFailedCount": len(still_failed_students),
+                        "unsubmittedCount": len(still_unsubmitted_students),
+                        "autoApproved": auto_approve,
+                        "actionTaken": (
+                            f"Chế độ Chấm lại bài chưa đạt: Đã rà soát lại {rechecked_total} sinh viên có bài chưa đạt. "
+                            f"Đã duyệt bổ sung {newly_approved_count} sinh viên đạt chuẩn. "
+                            f"Hiện còn {len(still_failed_students)} sinh viên có bài chưa đạt (FAIL) cần chỉnh sửa."
+                            if auto_approve else
+                            f"Chế độ kiểm tra lại (Dry-Run): Đã rà soát {rechecked_total} sinh viên có bài chưa đạt, còn {len(still_failed_students)} sinh viên chưa đạt."
+                        )
+                    },
+                    "now_passed_students": now_passed_students,
+                    "still_failed_students": still_failed_students,
+                    "failed_students": still_failed_students,
+                    "unsubmitted_students": still_unsubmitted_students,
+                    "all_pass_students": completed_students
+                }
+            }
+
         return {
             "statusCode": 200,
             "data": {
+                "mode": "full_session",
                 "session": {
                     "id": resolved_session_id,
                     "name": session_name

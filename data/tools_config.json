@@ -859,6 +859,14 @@
         "auto_approve": {
           "type": "boolean",
           "description": "Mặc định True: tự động duyệt nhận xét AI cho các sinh viên đạt 100% bài. Nếu False (dry_run): chỉ kiểm tra, tổng hợp và báo cáo mà không duyệt thực."
+        },
+        "regrade_failed_only": {
+          "type": "boolean",
+          "description": "Mặc định False. Nếu True, chỉ chấm/kiểm tra lại riêng các sinh viên có bài chưa đạt (FAIL) hoặc chưa hoàn thành, đối chiếu nhận xét chi tiết của AI và tự động duyệt bổ sung nếu bài đã sửa đạt chuẩn."
+        },
+        "student_search": {
+          "type": "string",
+          "description": "Tên hoặc mã số sinh viên cụ thể nếu chỉ muốn chấm lại cho một sinh viên duy nhất."
         }
       },
       "required": [

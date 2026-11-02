@@ -1,0 +1,408 @@
+{
+  "apis": [
+    {
+      "path": "/api/staff/profile/me",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/profile/me"
+    },
+    {
+      "path": "/api/staff/notifications/received",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notifications/received?limit=10&offset=0"
+    },
+    {
+      "path": "/api/staff/notifications/received/unread-count",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notifications/received/unread-count"
+    },
+    {
+      "path": "/api/staff-roles",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff-roles"
+    },
+    {
+      "path": "/api/systems",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/systems"
+    },
+    {
+      "path": "/api/training-programs",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/training-programs"
+    },
+    {
+      "path": "/api/staff/courses",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/courses/6ab48f55e8eaed812f0941cb/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6ab48f55e8eaed812f0941cb/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6aae5ad27d22545796a8eeaa/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6aad0918f00919310d3f102b/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6aad0918f00919310d3f102b/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6a8d13ca1d62b8910b674ea4/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6a8d13ca1d62b8910b674ea4/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6a88fb77a493e63f11a75432/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6a88fb77a493e63f11a75432/publish-status"
+    },
+    {
+      "path": "/api/staff/course-categories",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/course-categories"
+    },
+    {
+      "path": "/api/staff/tags",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/tags"
+    },
+    {
+      "path": "/api/staff/roadmap",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/roadmap?systemId=6adf330e826ee105b03ffd68"
+    },
+    {
+      "path": "/api/staff/classes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/classes?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/timetables/my",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/timetables/my"
+    },
+    {
+      "path": "/api/admin/academic-warning-configs",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/admin/academic-warning-configs"
+    },
+    {
+      "path": "/api/students",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/students?page=1&pageSize=10"
+    },
+    {
+      "path": "/api/staff/parents",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/parents?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/notifications",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notifications?limit=10&offset=0"
+    },
+    {
+      "path": "/api/staff/notification-categories",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notification-categories"
+    },
+    {
+      "path": "/api/staff/application-requests",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/application-requests?page=1&pageSize=10"
+    },
+    {
+      "path": "/api/staff/specializes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/specializes"
+    },
+    {
+      "path": "/api/staff/quizzes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/quizzes?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/session-quizzes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/session-quizzes?page=1&limit=10"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/auth/sso",
+      "methods": [
+        "POST"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/auth/sso"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/me",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/me"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/notifications/unread",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/notifications/unread"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/my/todos",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/my/todos"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/projects",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/projects"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/my/tasks",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/my/tasks"
+    },
+    {
+      "path": "https://lms-flow.rikkeiedu.com/api/auth/sso",
+      "methods": [
+        "POST"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-flow.rikkeiedu.com/api/auth/sso"
+    },
+    {
+      "path": "https://lms-flow.rikkeiedu.com/api/me",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-flow.rikkeiedu.com/api/me"
+    },
+    {
+      "path": "https://lms-flow.rikkeiedu.com/api/boards",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-flow.rikkeiedu.com/api/boards?tab=recent"
+    },
+    {
+      "path": "/api/staff/feedback-tickets",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/feedback-tickets?scope=assigned&page=1&pageSize=20"
+    }
+  ],
+  "scripts": [
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1kunnk_kw3r5i.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/38yz04cr--clt.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/10xhar-ne2njb.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2c53dss7-jik6.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/17whtzwt-g4az.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1408b2iie158l.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3n-pp70flngkx.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3-q1fkyyknezx.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1fs3zwd4xhwi8.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/18k19ecs6yp64.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1e4u68e7l_vui.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0ym-_4o9wc_ee.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1ny6judc3q9u3.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/turbopack-1z-zgbohc5v98.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1gz8vo-wvrv6_.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0se30dffiwv7e.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3uc-v7hrtc7r3.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1kx6g5mgpigzq.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0e_fz_rc3gdhm.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3dzeb6gq-8uut.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1wrouwejq3cf7.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1jkowr_1ico6r.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/44ebtfz6f52n6.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2-3r_u4mo15kz.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3nsixn1u26o4n.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/02nb1nup4tgzr.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2k3nj_r2b96_e.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/02xb97o2oa_8t.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3wv9figd7rjyq.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3yqcuttwmmrq2.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2entoldix8u1y.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2hct0hqxy9gqo.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3z-jnj62gdzs5.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3posl1j6mgn3n.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3-ip6pi-ba-s9.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0d1le07dm0hv6.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/36busrmuds4-9.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0vj8ufioagpzp.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0ry4nz5hmmagg.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2zszpy3lb6mtd.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0-e1b2igk1nx3.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/36ne0po_dsfbh.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0kkum9es05y1d.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3eg9k5gpxsg5d.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2m2j8wljz11so.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0latdfwi0n24g.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/42mgfviujqjgf.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/328jidx4ttyzt.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0189n4zuea0ev.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0j9xpaifgcmpd.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1c578m_vr8n5-.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/22louptu30b5l.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0cyv98dcb0hxu.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/32jb3xee2hjoh.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3yd283gvc2q2d.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2212j_b1lzngh.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3xf0s57a62ood.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2mmunv8htphhi.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/30r0omfu4zon8.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3ih4offb1use8.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1n-onmmrnl3er.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0t23zsyre8970.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2xuzaj1zehs0u.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2m89prgsw_suc.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/137lz7h3wc-ay.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/11iaeor1j28at.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3v4jvsh7ugcyc.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1a2aa3aa9edmt.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3xzlvlqydd06h.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0j0qoe4xf5n7u.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3txzi0tk4ps_v.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/37min0fs_x2jm.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2dferziuxycgi.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2bal7tt7rgb89.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2tc8__kley2z6.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/42emnovd5sbj1.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/25-3lwdyk7cc6.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0-dizfv27qz7-.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0lb34yi796seh.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3ywnierq_zkjb.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/33vdg35aaiqhz.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3bzg7jtdl2iiy.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3gapj_jt_l61f.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2jwe__6_ry_oz.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/14xervmal273y.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3c9_a8jtcvwdh.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/160at4ti_rxm-.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/05g-tjukywwws.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/09bn6kcjf304x.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3vr6c_z3jcsnp.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/08vx62la9kw7v.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0_p_gxo6sbp8y.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0nl6dqmbe6e09.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1ubn-7ihvfbjg.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1dvefw5fa73vg.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/44xyepo72v0xx.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1d0furt9c3j59.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/28iuythmoia2i.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/01lxn0yuju4mu.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/09ad-33buuizi.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/185b2-82zrhda.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0wh8iiilvdfnq.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/39k05cud0w2ak.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/241mgcx-hta5k.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/415i_agqwrdju.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0naaf-8ktwo90.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/3kw6cpai1cr8n.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/30zd7mk26i6j0.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1btz90z12l33r.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1v93cofd4ne3-.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/12w1abo5et908.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/1jfko3t_p5l_t.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/2woxsdqhmpddq.js",
+    "https://lms-admin.rikkei.edu.vn/_next/static/chunks/0unt_ogpcgk6s.js"
+  ]
+}

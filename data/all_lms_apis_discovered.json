@@ -1,0 +1,332 @@
+{
+  "total": 36,
+  "live_captured_count": 36,
+  "live_apis": [
+    {
+      "path": "/api/staff/profile/me",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/profile/me"
+    },
+    {
+      "path": "/api/staff/notifications/received",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notifications/received?limit=10&offset=0"
+    },
+    {
+      "path": "/api/staff/notifications/received/unread-count",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notifications/received/unread-count"
+    },
+    {
+      "path": "/api/staff-roles",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff-roles"
+    },
+    {
+      "path": "/api/systems",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/systems"
+    },
+    {
+      "path": "/api/training-programs",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/training-programs"
+    },
+    {
+      "path": "/api/staff/courses",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/courses/6ab48f55e8eaed812f0941cb/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6ab48f55e8eaed812f0941cb/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6aae5ad27d22545796a8eeaa/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6aae5ad27d22545796a8eeaa/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6aad0918f00919310d3f102b/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6aad0918f00919310d3f102b/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6a8d13ca1d62b8910b674ea4/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6a8d13ca1d62b8910b674ea4/publish-status"
+    },
+    {
+      "path": "/api/staff/courses/6a88fb77a493e63f11a75432/publish-status",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/courses/6a88fb77a493e63f11a75432/publish-status"
+    },
+    {
+      "path": "/api/staff/course-categories",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/course-categories"
+    },
+    {
+      "path": "/api/staff/tags",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/tags"
+    },
+    {
+      "path": "/api/staff/roadmap",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/roadmap?systemId=6adf330e826ee105b03ffd68"
+    },
+    {
+      "path": "/api/staff/classes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/classes?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/timetables/my",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/timetables/my"
+    },
+    {
+      "path": "/api/admin/academic-warning-configs",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/admin/academic-warning-configs"
+    },
+    {
+      "path": "/api/students",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/students?page=1&pageSize=10"
+    },
+    {
+      "path": "/api/staff/parents",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/parents?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/notifications",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notifications?limit=10&offset=0"
+    },
+    {
+      "path": "/api/staff/notification-categories",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/notification-categories"
+    },
+    {
+      "path": "/api/staff/application-requests",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/application-requests?page=1&pageSize=10"
+    },
+    {
+      "path": "/api/staff/specializes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/specializes"
+    },
+    {
+      "path": "/api/staff/quizzes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/quizzes?page=1&limit=10"
+    },
+    {
+      "path": "/api/staff/session-quizzes",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/session-quizzes?page=1&limit=10"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/auth/sso",
+      "methods": [
+        "POST"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/auth/sso"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/me",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/me"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/notifications/unread",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/notifications/unread"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/my/todos",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/my/todos"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/projects",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/projects"
+    },
+    {
+      "path": "https://project.rikkeiedu.com/api/my/tasks",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://project.rikkeiedu.com/api/my/tasks"
+    },
+    {
+      "path": "https://lms-flow.rikkeiedu.com/api/auth/sso",
+      "methods": [
+        "POST"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-flow.rikkeiedu.com/api/auth/sso"
+    },
+    {
+      "path": "https://lms-flow.rikkeiedu.com/api/me",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-flow.rikkeiedu.com/api/me"
+    },
+    {
+      "path": "https://lms-flow.rikkeiedu.com/api/boards",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-flow.rikkeiedu.com/api/boards?tab=recent"
+    },
+    {
+      "path": "/api/staff/feedback-tickets",
+      "methods": [
+        "GET"
+      ],
+      "status": 200,
+      "sample_url": "https://lms-admin.rikkei.edu.vn/api/staff/feedback-tickets?scope=assigned&page=1&pageSize=20"
+    }
+  ],
+  "all_endpoints": [
+    "/api/admin/academic-warning-configs",
+    "/api/staff-roles",
+    "/api/staff/application-requests",
+    "/api/staff/classes",
+    "/api/staff/course-categories",
+    "/api/staff/courses",
+    "/api/staff/courses/6a88fb77a493e63f11a75432/publish-status",
+    "/api/staff/courses/6a8d13ca1d62b8910b674ea4/publish-status",
+    "/api/staff/courses/6aad0918f00919310d3f102b/publish-status",
+    "/api/staff/courses/6aae5ad27d22545796a8eeaa/publish-status",
+    "/api/staff/courses/6ab48f55e8eaed812f0941cb/publish-status",
+    "/api/staff/feedback-tickets",
+    "/api/staff/notification-categories",
+    "/api/staff/notifications",
+    "/api/staff/notifications/received",
+    "/api/staff/notifications/received/unread-count",
+    "/api/staff/parents",
+    "/api/staff/profile/me",
+    "/api/staff/quizzes",
+    "/api/staff/roadmap",
+    "/api/staff/session-quizzes",
+    "/api/staff/specializes",
+    "/api/staff/tags",
+    "/api/staff/timetables/my",
+    "/api/students",
+    "/api/systems",
+    "/api/training-programs",
+    "https://lms-flow.rikkeiedu.com/api/auth/sso",
+    "https://lms-flow.rikkeiedu.com/api/boards",
+    "https://lms-flow.rikkeiedu.com/api/me",
+    "https://project.rikkeiedu.com/api/auth/sso",
+    "https://project.rikkeiedu.com/api/me",
+    "https://project.rikkeiedu.com/api/my/tasks",
+    "https://project.rikkeiedu.com/api/my/todos",
+    "https://project.rikkeiedu.com/api/notifications/unread",
+    "https://project.rikkeiedu.com/api/projects"
+  ]
+}

@@ -208,6 +208,22 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
       + Danh sách sinh viên HOÀN THÀNH: hiển thị ngắn gọn tên, mã SV, số bài đã nộp/tổng, trạng thái COMPLETED.
       + Bảng chi tiết sinh viên CÓ BÀI FAIL: ghi rõ họ tên, mã SV, bài nào bị FAIL (kèm điểm và nhận xét AI) để giảng viên nắm được ngay.
       + Danh sách sinh viên CHƯA NỘP (nếu có).
+    - CHẾ ĐỘ CHẤM LẠI RIÊNG CÁC BÀI CHƯA ĐẠT (regrade_failed_only=True):
+      + Khi người dùng yêu cầu:
+        'Chấm lại bài cho những bạn chưa đạt',
+        'Chấm lại các bài không hoàn thành',
+        'Chấm lại các bạn fail',
+        'Kiểm tra lại bài chưa đạt buổi [X] lớp [Y]'...
+      + HÃY GỌI: `batch_approve_session_homework(..., regrade_failed_only=True, auto_approve=True)` (hoặc auto_approve=False nếu chỉ yêu cầu kiểm tra/dry-run).
+      + Nếu người dùng muốn chấm lại cho một sinh viên cụ thể (ví dụ: 'Chấm lại bài bạn Trịnh Mỹ An'): truyền thêm `student_search='Trịnh Mỹ An'`.
+      + Tool sẽ:
+        * Chỉ lọc và xử lý riêng các sinh viên có bài chưa đạt (FAIL) hoặc chưa hoàn thành của buổi học đó.
+        * Kiểm tra từng bài tập của các bạn này trên LMS: nếu bạn nào đã sửa/nộp bổ sung và tất cả bài nộp hiện tại đều ĐẠT (PASS) thì tự động duyệt hoàn thành (COMPLETED).
+        * Đối với các bạn vẫn còn bài không đạt (FAIL): tổng hợp chi tiết bài nào bị FAIL, điểm số, và nguyên văn nhận xét chi tiết của AI từ LMS.
+      + Cách trình bày kết quả:
+        * Tóm tắt kết quả chấm lại: Tổng số SV chưa đạt được rà soát, Số SV mới đạt và đã duyệt bổ sung, Số SV vẫn còn bài chưa đạt.
+        * Bảng chi tiết SV vẫn còn bài chưa đạt: | STT | Mã SV | Họ và tên | Bài tập không đạt | Nhận xét chi tiết từ AI |.
+        * Đối chiếu và xác nhận nhận xét chi tiết từ LMS để giảng viên theo dõi chuẩn xác.
 21. BÁO CÁO HÀNG NGÀY THEO LỚP (generate_daily_report):
     - ĐIỀU KIỆN KÍCH HOẠT: Khi người dùng yêu cầu tạo "báo cáo hàng ngày", "daily report", "báo cáo ngày [ngày]" cho một lớp và môn học cụ thể. Ví dụ:
       + "Báo cáo hàng ngày lớp CNTT2"
