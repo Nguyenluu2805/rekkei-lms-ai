@@ -3124,7 +3124,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                         if ratio >= similarity_threshold:
                             violations.append(f"TƯƠNG ĐỒNG NỘI DUNG {ratio*100:.1f}%")
                             high_similarity_count += 1
-                            clean_snip = c1[:100].replace('\n', ' ')
+                            clean_snip = c1[:100].replace('\r', ' ').replace('\n', ' ').replace('|', '/').strip()
                             evidence_list.append(f"Đoạn văn tương đồng cao ({ratio*100:.1f}%): '{clean_snip}...'")
 
                     if violations:
@@ -3146,7 +3146,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                         )
 
                         flagged_cases.append({
-                            "homeworkTitle": hw_title,
+                            "homeworkTitle": hw_title.replace('|', '/').strip(),
                             "originalAuthor": {
                                 "code": orig["studentCode"],
                                 "name": orig["fullName"],
@@ -3162,7 +3162,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                             "similarityPercentage": round(sim_score * 100, 1),
                             "violationTypes": violations,
                             "verdict": verdict,
-                            "evidence": " • ".join(evidence_list),
+                            "evidence": " • ".join(evidence_list).replace('|', '/').replace('\r', ' ').replace('\n', ' '),
                             "timeline": time_note,
                             "recommendation": (
                                 "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."

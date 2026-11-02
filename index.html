@@ -2429,14 +2429,24 @@ function buildTableCard(headerCells, rowList) {
   html += '</button>';
   html += '</div></div>';
 
+  const formatCell = (c) => {
+    return (c || '').trim()
+      .replace(/&lt;br\s*\/?&gt;/gi, '<br/>')
+      .replace(/&lt;b&gt;/gi, '<b>')
+      .replace(/&lt;\/b&gt;/gi, '</b>')
+      .replace(/&lt;strong&gt;/gi, '<strong>')
+      .replace(/&lt;\/strong&gt;/gi, '</strong>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  };
+
   html += '<div class="table-scroll-container"><table>';
   if (headerCells && headerCells.length > 0) {
-    html += '<thead><tr>' + headerCells.map(c => `<th>${c.trim()}</th>`).join('') + '</tr></thead>';
+    html += '<thead><tr>' + headerCells.map(c => `<th>${formatCell(c)}</th>`).join('') + '</tr></thead>';
   }
   html += '<tbody>';
   if (rowList && rowList.length > 0) {
     for (const r of rowList) {
-      html += '<tr>' + r.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
+      html += '<tr>' + r.map(c => `<td>${formatCell(c)}</td>`).join('') + '</tr>';
     }
   }
   html += '</tbody></table></div></div>';
@@ -2600,7 +2610,21 @@ function parseContentToHtml(rawText) {
   });
 
   // 3. Parse Markdown Tables with Table Cards and Export Buttons
-  const lines = s.split('\n');
+  const rawLines = s.split('\n');
+
+  // Pre-pass: Nối các hàng bảng bị ngắt dòng không mong muốn
+  const lines = [];
+  for (let i = 0; i < rawLines.length; i++) {
+    let cur = rawLines[i];
+    if (cur.trim().startsWith('|') && !cur.trim().endsWith('|')) {
+      while (i + 1 < rawLines.length && !cur.trim().endsWith('|')) {
+        i++;
+        cur += ' <br/> ' + rawLines[i].trim();
+      }
+    }
+    lines.push(cur);
+  }
+
   let inTable = false;
   let tableHeader = null;
   let tableRows = [];
@@ -2608,7 +2632,16 @@ function parseContentToHtml(rawText) {
   const tablePlaceholders = [];
 
   function flushCurrentTable() {
-    if (!tableHeader && tableRows.length === 0) return;
+    if (!tableHeader || tableRows.length === 0) {
+      if (tableHeader) {
+        // Nếu chỉ có header mà không có dữ liệu hàng, giữ nguyên dưới dạng text để không tạo bảng 0 dòng bị lỗi
+        processedLines.push('| ' + tableHeader.join(' | ') + ' |');
+      }
+      tableHeader = null;
+      tableRows = [];
+      inTable = false;
+      return;
+    }
     const ph = `:::TABLE_CARD_PLACEHOLDER_${tablePlaceholders.length}:::`;
     const cardHtml = buildTableCard(tableHeader, tableRows);
     tablePlaceholders.push({ ph: ph, html: cardHtml });
@@ -2632,6 +2665,18 @@ function parseContentToHtml(rawText) {
         tableHeader = cells;
       } else {
         tableRows.push(cells);
+      }
+    } else if (inTable && line === '') {
+      // Lookahead: Nếu dòng trống nhưng ngay sau đó vẫn là hàng của bảng (|...|), bỏ qua dòng trống và tiếp tục giữ bảng
+      let nextIdx = i + 1;
+      while (nextIdx < lines.length && lines[nextIdx].trim() === '') {
+        nextIdx++;
+      }
+      if (nextIdx < lines.length && lines[nextIdx].trim().startsWith('|') && lines[nextIdx].trim().endsWith('|')) {
+        continue;
+      } else {
+        flushCurrentTable();
+        processedLines.push(lines[i]);
       }
     } else {
       if (inTable) {
