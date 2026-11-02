@@ -3112,7 +3112,9 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                         f"Không phát hiện dấu hiệu sao chép hoặc dùng chung bài nào vượt ngưỡng {similarity_threshold*100:.0f}% trong buổi học."
                     )
                 },
-                "flagged_cases": flagged_cases
+                "flagged_cases": flagged_cases,
+                "flaggedPairs": flagged_cases,
+                "items": flagged_cases
             }
         }
 
