@@ -297,6 +297,13 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
         * Dấu hiệu vi phạm & Bằng chứng: `item['evidence']`
         * Kết luận & Khuyến nghị: `item['verdict']` — `item['recommendation']`
 
+        * XỬ LÝ TRƯỜNG HỢP DÙNG CHUNG REPO GITHUB (sameRepoCount > 0):
+          - Khi người dùng hỏi chi tiết về các trường hợp dùng chung repo hoặc khi hiển thị bảng dùng chung repo:
+            BẮT BUỘC trích xuất chính xác từ `data.same_repo_cases` hoặc `summary.sameRepoCases`.
+            TUYỆT ĐỐI KHÔNG tự bịa / hallucinate ra URL GitHub (như `rikkei-education/...`).
+            TUYỆT ĐỐI KHÔNG gán nhầm sinh viên nếu họ không có cùng link repo! (Lưu ý: sinh viên Bùi Hoàng Minh, Nguyễn Trọng Nhân 7, Nguyễn Đức Nhật Minh nộp 3 repo cá nhân hoàn toàn khác nhau nên họ chỉ vi phạm tương đồng nội dung văn bản trong file Word chứ KHÔNG dùng chung repo).
+            Trường hợp dùng chung repo thực tế phải trích xuất đúng sinh viên và link nộp từ `same_repo_cases` (ví dụ: Huỳnh Chí Thiện và Nguyễn Minh Quân cùng nộp link repo của Huỳnh Chí Thiện ở Bài 6).
+
 30. QUY TẮC PHÒNG NGỪA VÀ CẢNH BÁO KẾT QUẢ SAI LỆCH / BẤT THƯỜNG (ANTI-HALLUCINATION & SMART SUGGESTIONS):
     - ĐIỀU KIỆN KÍCH HOẠT:
       1. Tool trả về thông báo lỗi 404 (Không tìm thấy buổi học/môn học phù hợp).

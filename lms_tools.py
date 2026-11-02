@@ -3175,6 +3175,10 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         # Sắp xếp theo tỷ lệ tương đồng giảm dần
         flagged_cases.sort(key=lambda x: x["similarityPercentage"], reverse=True)
 
+        same_repo_cases = [c for c in flagged_cases if any("REPO" in v or "CHUNG TÀI KHOẢN" in v for v in c.get("violationTypes", []))]
+        forensic_leak_cases = [c for c in flagged_cases if any("LỘ TÊN TÁC GIẢ GỐC" in v for v in c.get("violationTypes", []))]
+        high_similarity_cases = [c for c in flagged_cases if any("TƯƠNG ĐỒNG NỘI DUNG" in v for v in c.get("violationTypes", []))]
+
         return {
             "statusCode": 200,
             "data": {
@@ -3189,6 +3193,17 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                     "forensicLeakCount": name_leak_count,
                     "highSimilarityCount": high_similarity_count,
                     "similarityThreshold": f"{similarity_threshold*100:.0f}%",
+                    "sameRepoCases": [
+                        {
+                            "homeworkTitle": c["homeworkTitle"],
+                            "studentA": f"{c['originalAuthor']['name']} ({c['originalAuthor']['code']})",
+                            "studentB": f"{c['copiedStudent']['name']} ({c['copiedStudent']['code']})",
+                            "repoUrl": c['originalAuthor']['githubUrl'],
+                            "submittedAtA": c['originalAuthor']['submittedAt'],
+                            "submittedAtB": c['copiedStudent']['submittedAt'],
+                            "verdict": c["verdict"]
+                        } for c in same_repo_cases
+                    ],
                     "conclusion": (
                         f"Phát hiện {len(flagged_cases)} cặp sinh viên nghi vấn sao chép / dùng chung bài (ngưỡng {similarity_threshold*100:.0f}%): "
                         f"{same_repo_count} trường hợp dùng chung repo/link, "
@@ -3200,7 +3215,10 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                 },
                 "flagged_cases": flagged_cases,
                 "flaggedPairs": flagged_cases,
-                "items": flagged_cases
+                "items": flagged_cases,
+                "same_repo_cases": same_repo_cases,
+                "forensic_leak_cases": forensic_leak_cases,
+                "high_similarity_cases": high_similarity_cases
             }
         }
 
