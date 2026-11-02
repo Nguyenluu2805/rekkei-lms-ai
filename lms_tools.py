@@ -2261,11 +2261,39 @@ class LMSFunctionExecutor:
 
         if not resolved_session_id:
             course_hint = f" môn '{resolved_course_name}'" if resolved_course_name else ""
-            avail_names = [s.get("name", "") for s in available_sessions[:5]] if available_sessions else []
-            avail_str = f" Hiện tại môn này mới có các buổi: {', '.join(avail_names)}." if avail_names else ""
+            curr_course_suggestions = [s.get("name", "") for s in available_sessions[:8]] if available_sessions else []
+            
+            # Kiểm tra xem từ khóa buổi học có trùng với môn khác cùng lớp không
+            other_matches = []
+            if session_search and course_list:
+                s_q_chk = session_search.lower().strip()
+                for crs_it in course_list:
+                    co = crs_it.get("courseId") if isinstance(crs_it.get("courseId"), dict) else crs_it
+                    other_cid = co.get("id") or co.get("_id")
+                    other_cname = co.get("name") or "Khác"
+                    if other_cid and other_cid != resolved_course_id:
+                        try:
+                            o_res = self._get(f"/api/staff/sessions/course/{other_cid}")
+                            o_list = o_res.get("data", []) if isinstance(o_res, dict) else []
+                            for os in o_list:
+                                if s_q_chk in os.get("name", "").lower():
+                                    other_matches.append(f"{os.get('name')} (thuộc môn '{other_cname}')")
+                        except Exception:
+                            pass
+
+            sugg_text = ""
+            if curr_course_suggestions:
+                sugg_text += f" Các buổi học hiện có của môn '{resolved_course_name}': {', '.join(curr_course_suggestions[:5])}..."
+            if other_matches:
+                sugg_text += f" Gợi ý các môn khác có buổi tương tự: {', '.join(other_matches)}."
+
             return {
                 "statusCode": 404,
-                "error": f"Không tìm thấy buổi học phù hợp với từ khóa '{session_search}'{course_hint} của lớp '{resolved_class_name}'.{avail_str}"
+                "error": f"Không tìm thấy buổi học phù hợp với từ khóa '{session_search}'{course_hint} của lớp '{resolved_class_name}'.{sugg_text}",
+                "suggestions": {
+                    "currentCourse": curr_course_suggestions,
+                    "otherCourses": other_matches
+                }
             }
 
         # 4. Lấy danh sách sinh viên ghi danh trong lớp
@@ -2440,6 +2468,29 @@ class LMSFunctionExecutor:
         newly_approved_count = sum(1 for s in completed_students if s["autoApproved"])
         already_approved_count = sum(1 for s in completed_students if s["alreadyApproved"])
 
+        # KIỂM ĐỊNH TÍNH HỢP LỆ VÀ CẢNH BÁO SAI LỆCH DỮ LIỆU (Anomaly & Misleading Prevention)
+        max_hw = max((s["totalHomeworks"] for s in all_evaluated), default=0)
+        anomaly_warning = None
+        anomaly_suggestions = []
+
+        if max_hw == 0:
+            anomaly_warning = (
+                f"⚠️ CẢNH BÁO SAI LỆCH: Buổi học '{session_name}' môn '{resolved_course_name or 'N/A'}' "
+                f"HOÀN TOÀN KHÔNG CÓ BÀI TẬP VỀ NHÀ nào được cấu hình trên hệ thống LMS. "
+                f"Có thể bạn đang chọn nhầm buổi học lý thuyết/thảo luận không có bài tập hoặc nhầm môn học."
+            )
+        elif len(unsubmitted_students) == len(all_evaluated) and len(all_evaluated) > 0:
+            anomaly_warning = (
+                f"⚠️ LƯU Ý KẾT QUẢ BẤT THƯỜNG: 100% sinh viên ({len(all_evaluated)}/{len(all_evaluated)}) "
+                f"trong lớp đều CHƯA NỘP BÀI cho buổi '{session_name}' môn '{resolved_course_name}'. "
+                f"Vui lòng kiểm tra lại xem có đúng buổi học cần chấm hay lớp học này chưa đến hạn nộp bài."
+            )
+
+        if anomaly_warning and available_sessions:
+            for asess in available_sessions[:5]:
+                if asess.get("syllabus_id") != resolved_session_id:
+                    anomaly_suggestions.append(asess.get("name"))
+
         if regrade_failed_only:
             now_passed_students = [s for s in completed_students if not s["alreadyApproved"]]
             still_failed_students = failed_students
@@ -2471,6 +2522,9 @@ class LMSFunctionExecutor:
                         "stillFailedCount": len(still_failed_students),
                         "unsubmittedCount": len(still_unsubmitted_students),
                         "autoApproved": auto_approve,
+                        "hasAnomaly": bool(anomaly_warning),
+                        "anomalyWarning": anomaly_warning,
+                        "suggestions": anomaly_suggestions,
                         "actionTaken": (
                             f"Chế độ Chấm lại bài chưa đạt: Đã rà soát lại {rechecked_total} sinh viên có bài chưa đạt. "
                             f"Đã duyệt bổ sung {newly_approved_count} sinh viên đạt chuẩn. "
@@ -2511,6 +2565,9 @@ class LMSFunctionExecutor:
                     "failedCount": len(failed_students),
                     "unsubmittedCount": len(unsubmitted_students),
                     "autoApproved": auto_approve,
+                    "hasAnomaly": bool(anomaly_warning),
+                    "anomalyWarning": anomaly_warning,
+                    "suggestions": anomaly_suggestions,
                     "actionTaken": (
                         f"Đã duyệt mới {newly_approved_count} sinh viên. Đã giữ nguyên {already_approved_count} sinh viên đã hoàn thành từ trước (không đổi)."
                         if auto_approve else
