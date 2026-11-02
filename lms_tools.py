@@ -896,6 +896,53 @@ TOOLS_SCHEMA = [
             }
         }
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "audit_failed_homework_grading",
+            "description": (
+                "Thẩm định và đối chiếu kết quả chấm bài AI cho các sinh viên có bài CHƯA ĐẠT (FAIL). "
+                "Tự động lấy tiêu chuẩn chấm bài gốc (gradingCriteria) từ '/api/homework/session/{sessionId}', "
+                "đọc trực tiếp nội dung bài làm của sinh viên từ GitHub repository (hỗ trợ .docx, .md, .txt, source code...), "
+                "và sử dụng mô hình AI độc lập để đối chiếu từng tiêu chí, thẩm định xem hệ thống LMS chấm đúng hay chấm oan/quá khắt khe. "
+                "Chỉ quét qua các bạn có bài không đạt để tiết kiệm tài nguyên và báo cáo chuẩn xác cho giảng viên."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "class_name": {
+                        "type": "string",
+                        "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1')."
+                    },
+                    "class_id": {
+                        "type": "string",
+                        "description": "ID lớp học nếu đã biết."
+                    },
+                    "session_search": {
+                        "type": "string",
+                        "description": "Tên hoặc số buổi học (Ví dụ: 'buổi 16', 'Session 16')."
+                    },
+                    "session_id": {
+                        "type": "string",
+                        "description": "ID buổi học nếu đã biết."
+                    },
+                    "course_name": {
+                        "type": "string",
+                        "description": "Tên hoặc mã môn học (Ví dụ: 'Nhập Môn Công Nghệ Thông Tin')."
+                    },
+                    "student_search": {
+                        "type": "string",
+                        "description": "Tên hoặc mã sinh viên cụ thể nếu chỉ muốn đối chiếu thẩm định riêng cho 1 sinh viên."
+                    },
+                    "max_students": {
+                        "type": "integer",
+                        "description": "Số lượng sinh viên chưa đạt tối đa cần thẩm định (mặc định 20)."
+                    }
+                },
+                "required": ["class_name", "session_search"]
+            }
+        }
+    },
 
     # -----------------------------------------------------------------------
     # NHÓM 9: CHỈ SỐ ĐÀO TẠO, ĐIỂM RPOINT & ĐIỀU KIỆN THI
@@ -2241,7 +2288,9 @@ class LMSFunctionExecutor:
                     "aiScore": score,
                     "status": status,
                     "submittedAt": sub_at,
-                    "aiFeedbackApproved": approved
+                    "aiFeedbackApproved": approved,
+                    "githubUrl": it.get("githubUrl"),
+                    "branch": it.get("branch")
                 }
                 item_details.append(item_info)
 
@@ -2409,6 +2458,302 @@ class LMSFunctionExecutor:
                 "failed_students": failed_students,
                 "unsubmitted_students": unsubmitted_students,
                 "pending_students": failed_students + unsubmitted_students
+            }
+        }
+
+    def _fetch_github_submission_content(self, github_url: str) -> tuple:
+        """
+        Đọc nội dung bài làm của sinh viên từ GitHub repository.
+        Hỗ trợ trích xuất text từ file Word (.docx), Markdown (.md), Text (.txt), JSON, script code...
+        Trả về (content, is_success).
+        """
+        import re, requests, zipfile, io
+        import xml.etree.ElementTree as ET
+
+        if not github_url:
+            return "Không có đường dẫn GitHub", False
+
+        m = re.search(r'github\.com/([^/]+)/([^/\.]+)', github_url)
+        if not m:
+            return f"Link GitHub không hợp lệ: {github_url}", False
+
+        owner, repo = m.group(1), m.group(2)
+        api_url = f"https://api.github.com/repos/{owner}/{repo}/contents"
+        headers = {"User-Agent": "Mozilla/5.0"}
+
+        try:
+            r = requests.get(api_url, headers=headers, timeout=10)
+            if r.status_code == 404:
+                return "Lỗi 404: Repository không tồn tại hoặc đang ở chế độ Private.", False
+            elif r.status_code == 409:
+                return "Lỗi 409: Repository hoàn toàn trống (chưa có commit nào trên nhánh chính).", False
+            elif r.status_code != 200:
+                return f"Không thể đọc repository: HTTP {r.status_code}", False
+
+            items = r.json()
+            if not isinstance(items, list) or len(items) == 0:
+                return "Repository không có file nào.", False
+
+            collected_texts = []
+            for it in items:
+                fname = it.get("name", "")
+                durl = it.get("download_url")
+                ftype = it.get("type")
+
+                if ftype != "file" or not durl:
+                    continue
+
+                if fname.lower().endswith(".docx"):
+                    try:
+                        f_res = requests.get(durl, timeout=10)
+                        if f_res.status_code == 200:
+                            with zipfile.ZipFile(io.BytesIO(f_res.content)) as z:
+                                xml_content = z.read("word/document.xml")
+                                tree = ET.fromstring(xml_content)
+                                ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+                                paras = []
+                                for p in tree.iterfind('.//w:p', ns):
+                                    texts = [node.text for node in p.iterfind('.//w:t', ns) if node.text]
+                                    if texts:
+                                        paras.append(''.join(texts))
+                                doc_text = '\n'.join(paras)
+                                collected_texts.append(f"--- File: {fname} ---\n{doc_text}")
+                    except Exception as e:
+                        collected_texts.append(f"--- File: {fname} (Lỗi đọc docx: {e}) ---")
+
+                elif fname.lower().endswith((".md", ".txt", ".py", ".js", ".html", ".sh", ".json", ".sql", ".java", ".cpp")):
+                    try:
+                        f_res = requests.get(durl, timeout=10)
+                        if f_res.status_code == 200:
+                            collected_texts.append(f"--- File: {fname} ---\n{f_res.text[:4000]}")
+                    except Exception:
+                        pass
+
+            if not collected_texts:
+                return "Repository có file nhưng không có file tài liệu/báo cáo phù hợp (.docx, .md, .txt).", False
+
+            full_text = "\n\n".join(collected_texts)
+            return full_text[:8000], True
+        except Exception as e:
+            return f"Lỗi kết nối GitHub: {e}", False
+
+    def audit_failed_homework_grading(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        session_search: str = None,
+        session_id: str = None,
+        course_name: str = None,
+        course_id: str = None,
+        student_search: str = None,
+        max_students: int = 20
+    ) -> dict:
+        """
+        Thẩm định và đối chiếu kết quả chấm bài AI cho các sinh viên có bài CHƯA ĐẠT (FAIL).
+        Lấy tiêu chuẩn chấm bài gốc (gradingCriteria) từ: /api/homework/session/{sessionId}
+        Đọc trực tiếp bài làm của sinh viên từ GitHub (file Word .docx, Markdown, Code...)
+        và dùng Gemini AI đối chiếu độc lập để kết luận:
+        - Hệ thống LMS chấm đúng hay chấm oan/quá khắt khe?
+        - Đưa ra điểm thẩm định độc lập và bằng chứng chi tiết theo từng tiêu chí chấm.
+        """
+        import os, json, re
+        from google import genai
+
+        # 1. Quét danh sách bài chưa đạt qua batch_approve_session_homework (dry-run)
+        batch_res = self.batch_approve_session_homework(
+            class_name=class_name,
+            class_id=class_id,
+            session_search=session_search,
+            session_id=session_id,
+            course_name=course_name,
+            course_id=course_id,
+            auto_approve=False,
+            regrade_failed_only=True,
+            student_search=student_search
+        )
+
+        b_data = batch_res.get("data", {})
+        resolved_session = b_data.get("session", {})
+        resolved_class = b_data.get("class", {})
+        resolved_course = b_data.get("course", {})
+        sess_id = resolved_session.get("id")
+
+        if not sess_id:
+            return {
+                "statusCode": 400,
+                "error": "Không xác định được buổi học để thẩm định bài tập."
+            }
+
+        # 2. Lấy bộ tiêu chuẩn chấm bài gốc (gradingCriteria) từ /api/homework/session/{sessionId}
+        hw_res = self._get(f"/api/homework/session/{sess_id}")
+        hw_items = hw_res.get("data", []) if isinstance(hw_res.get("data"), list) else []
+        criteria_map = {item.get("_id") or item.get("id"): item.get("gradingCriteria", "") for item in hw_items}
+        title_map = {item.get("_id") or item.get("id"): item.get("title", "") for item in hw_items}
+
+        failed_students = b_data.get("still_failed_students", []) or b_data.get("failed_students", [])
+        if student_search:
+            s_q = student_search.lower().strip()
+            failed_students = [
+                s for s in failed_students
+                if s_q in (s.get("studentCode") or "").lower() or s_q in (s.get("fullName") or "").lower()
+            ]
+
+        target_students = failed_students[:max_students]
+
+        api_key = os.getenv("GEMINI_API_KEY")
+        client = genai.Client(api_key=api_key) if api_key else None
+
+        audit_results = []
+        accurate_count = 0
+        unfair_count = 0
+        error_repo_count = 0
+
+        for s_idx, st in enumerate(target_students, 1):
+            st_code = st.get("studentCode")
+            st_name = st.get("fullName")
+            f_items = st.get("failedItems", [])
+
+            for it in f_items:
+                hw_id = it.get("homeworkId")
+                hw_title = it.get("title") or title_map.get(hw_id, "Bài tập")
+                crit = criteria_map.get(hw_id) or "Không có tiêu chuẩn gradingCriteria riêng trong hệ thống."
+                gh_url = it.get("githubUrl")
+                lms_score = it.get("aiScore")
+                lms_decision = it.get("aiDecision") or "FAIL"
+                lms_summary = it.get("aiSummary") or it.get("reason", "")
+
+                content, is_ok = self._fetch_github_submission_content(gh_url)
+
+                if not is_ok:
+                    error_repo_count += 1
+                    accurate_count += 1
+                    audit_entry = {
+                        "studentCode": st_code,
+                        "fullName": st_name,
+                        "homeworkTitle": hw_title,
+                        "githubUrl": gh_url,
+                        "lmsScore": lms_score,
+                        "lmsDecision": lms_decision,
+                        "lmsSummary": lms_summary,
+                        "auditScore": 0,
+                        "auditDecision": "FAIL",
+                        "auditConclusion": "CHẤM ĐÚNG (REPO LỖI/TRỐNG)",
+                        "auditReason": f"Repository không thể truy cập hoặc không chứa file bài làm phù hợp ({content}). Khớp hoàn toàn với nhận xét từ chối của LMS.",
+                        "recommendation": "Sinh viên cần kiểm tra lại link repo, quyền Public và push code bài làm lên nhánh chính trước khi chấm lại."
+                    }
+                else:
+                    if not client:
+                        audit_entry = {
+                            "studentCode": st_code,
+                            "fullName": st_name,
+                            "homeworkTitle": hw_title,
+                            "githubUrl": gh_url,
+                            "lmsScore": lms_score,
+                            "lmsDecision": lms_decision,
+                            "lmsSummary": lms_summary,
+                            "auditScore": lms_score,
+                            "auditDecision": lms_decision,
+                            "auditConclusion": "CHƯA THẨM ĐỊNH (THIẾU GEMINI_API_KEY)",
+                            "auditReason": "Cần cấu hình GEMINI_API_KEY để chạy mô hình AI đối chiếu.",
+                            "recommendation": "Kiểm tra lại cấu hình API key."
+                        }
+                    else:
+                        audit_prompt = f"""
+Bạn là chuyên gia thẩm định chất lượng đào tạo và kiểm tra chấm bài AI (Audit Grader) của Rikkei Education.
+Nhiệm vụ của bạn là đối chiếu bài nộp thực tế của sinh viên với Tiêu chuẩn chấm bài gốc (gradingCriteria) từ hệ thống LMS và nhận xét hiện tại của LMS.
+
+TÊN BÀI TẬP: {hw_title}
+TIÊU CHUẨN CHẤM BÀI GỐC (gradingCriteria từ LMS):
+{crit}
+
+KẾT QUẢ ĐÁNH GIÁ HIỆN TẠI CỦA LMS:
+- Điểm LMS: {lms_score}/100
+- Quyết định LMS: {lms_decision}
+- Nhận xét chi tiết của LMS: {lms_summary}
+
+NỘI DUNG BÀI NỘP THỰC TẾ CỦA SINH VIÊN (đọc trực tiếp từ GitHub):
+{content}
+
+HÃY ĐỐI SOÁT CÔNG TÂM VÀ TRẢ VỀ JSON:
+{{
+  "ket_luan": "CHẤM ĐÚNG" hoặc "CHẤM OAN" hoặc "CHẤM QUÁ KHẮT KHE" hoặc "CHẤM SÓT",
+  "diem_tham_dinh": <số điểm từ 0-100 theo tiêu chuẩn chấm gốc>,
+  "quyet_dinh_tham_dinh": "FAIL" hoặc "PASS",
+  "ly_do_doi_chieu": "<Phân tích chi tiết từng tiêu chí trong gradingCriteria đối chiếu với bài làm của sinh viên>",
+  "nhan_xet_cho_giang_vien": "<Lời khuyên ngắn gọn cho giảng viên>"
+}}
+Chỉ trả về JSON thuần túy, không kèm markdown thừa.
+"""
+                        try:
+                            resp = client.models.generate_content(
+                                model="gemini-flash-lite-latest",
+                                contents=audit_prompt
+                            )
+                            raw_txt = resp.text.strip()
+                            raw_txt = re.sub(r'^```json\s*', '', raw_txt)
+                            raw_txt = re.sub(r'\s*```$', '', raw_txt)
+                            parsed = json.loads(raw_txt)
+
+                            conc = parsed.get("ket_luan", "CHẤM ĐÚNG")
+                            if "OAN" in conc or "KHẮT KHE" in conc:
+                                unfair_count += 1
+                            else:
+                                accurate_count += 1
+
+                            audit_entry = {
+                                "studentCode": st_code,
+                                "fullName": st_name,
+                                "homeworkTitle": hw_title,
+                                "githubUrl": gh_url,
+                                "lmsScore": lms_score,
+                                "lmsDecision": lms_decision,
+                                "lmsSummary": lms_summary,
+                                "auditScore": parsed.get("diem_tham_dinh", lms_score),
+                                "auditDecision": parsed.get("quyet_dinh_tham_dinh", "FAIL"),
+                                "auditConclusion": conc,
+                                "auditReason": parsed.get("ly_do_doi_chieu", ""),
+                                "recommendation": parsed.get("nhan_xet_cho_giang_vien", "")
+                            }
+                        except Exception as e:
+                            accurate_count += 1
+                            audit_entry = {
+                                "studentCode": st_code,
+                                "fullName": st_name,
+                                "homeworkTitle": hw_title,
+                                "githubUrl": gh_url,
+                                "lmsScore": lms_score,
+                                "lmsDecision": lms_decision,
+                                "lmsSummary": lms_summary,
+                                "auditScore": lms_score,
+                                "auditDecision": lms_decision,
+                                "auditConclusion": "CHẤM ĐÚNG",
+                                "auditReason": f"Không thể parse JSON từ AI, ghi nhận đánh giá ban đầu ({e}).",
+                                "recommendation": "Giữ nguyên kết quả của LMS."
+                            }
+
+                audit_results.append(audit_entry)
+
+        return {
+            "statusCode": 200,
+            "data": {
+                "session": resolved_session,
+                "class": resolved_class,
+                "course": resolved_course,
+                "summary": {
+                    "totalFailedStudentsInClass": len(failed_students),
+                    "studentsAudited": len(target_students),
+                    "itemsAudited": len(audit_results),
+                    "accurateCount": accurate_count,
+                    "unfairCount": unfair_count,
+                    "repoErrorCount": error_repo_count,
+                    "conclusion": (
+                        f"Đã thẩm định {len(audit_results)} bài tập của các bạn chưa đạt: "
+                        f"{accurate_count} bài LMS CHẤM ĐÚNG chuẩn tiêu chuẩn, "
+                        f"{unfair_count} bài có nghi vấn CHẤM OAN/QUÁ KHẮT KHE, "
+                        f"{error_repo_count} bài bị từ chối do repo rỗng hoặc lỗi đường dẫn."
+                    )
+                },
+                "audit_details": audit_results
             }
         }
 
@@ -3450,6 +3795,7 @@ class LMSFunctionExecutor:
             "get_course_class_statistics":   self.get_course_class_statistics,
             "get_class_feedback_tickets":    self.get_class_feedback_tickets,
             "get_class_care_cases":          self.get_class_care_cases,
+            "audit_failed_homework_grading": self.audit_failed_homework_grading,
         }
 
         fn = dispatch.get(function_name)

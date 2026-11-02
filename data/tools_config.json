@@ -1151,5 +1151,47 @@
     },
     "createdAt": 1761705000000,
     "updatedAt": 1761705000000
+  },
+  {
+    "name": "audit_failed_homework_grading",
+    "enabled": true,
+    "description": "Thẩm định và đối chiếu kết quả chấm bài AI cho các sinh viên có bài CHƯA ĐẠT (FAIL). Tự động lấy tiêu chuẩn chấm bài gốc (gradingCriteria) từ '/api/homework/session/{sessionId}', đọc trực tiếp nội dung bài làm của sinh viên từ GitHub repository (hỗ trợ .docx, .md, .txt, source code...), và sử dụng mô hình AI độc lập để đối chiếu từng tiêu chí, thẩm định xem hệ thống LMS chấm đúng hay chấm oan/quá khắt khe. Chỉ quét qua các bạn có bài không đạt để tiết kiệm tài nguyên và báo cáo chuẩn xác cho giảng viên.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1')."
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết."
+        },
+        "session_search": {
+          "type": "string",
+          "description": "Tên hoặc số buổi học (Ví dụ: 'buổi 16', 'Session 16')."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "ID buổi học nếu đã biết."
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên hoặc mã môn học (Ví dụ: 'Nhập Môn Công Nghệ Thông Tin')."
+        },
+        "student_search": {
+          "type": "string",
+          "description": "Tên hoặc mã sinh viên cụ thể nếu chỉ muốn đối chiếu thẩm định riêng cho 1 sinh viên."
+        },
+        "max_students": {
+          "type": "integer",
+          "description": "Số lượng sinh viên chưa đạt tối đa cần thẩm định (mặc định 20)."
+        }
+      },
+      "required": [
+        "class_name",
+        "session_search"
+      ]
+    }
   }
 ]
