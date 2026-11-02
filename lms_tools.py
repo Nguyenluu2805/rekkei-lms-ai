@@ -2163,20 +2163,21 @@ class LMSFunctionExecutor:
         resolved_course_name = course_name
         course_list = class_detail_data.get("courses", [])
 
-        if course_list:
+        if course_list and not resolved_course_id:
             for crs in course_list:
-                crs_id = crs.get("id") or crs.get("_id")
-                c_code = (crs.get("courseCode") or "").lower()
-                c_n = (crs.get("name") or "").lower()
+                c_obj = crs.get("courseId") if isinstance(crs.get("courseId"), dict) else crs
+                crs_id = c_obj.get("id") or c_obj.get("_id")
+                c_code = (c_obj.get("courseCode") or "").lower()
+                c_n = (c_obj.get("name") or "").lower()
                 if course_name:
                     q = course_name.lower().strip()
                     if q in c_code or q in c_n:
                         resolved_course_id = crs_id
-                        resolved_course_name = crs.get("name")
+                        resolved_course_name = c_obj.get("name")
                         break
                 elif not resolved_course_id and "kỹ sư" not in c_n and "định hướng" not in c_n:
                     resolved_course_id = crs_id
-                    resolved_course_name = crs.get("name")
+                    resolved_course_name = c_obj.get("name")
 
         # 3. Phân giải buổi học (session_id, session_name)
         resolved_session_id = None
@@ -2246,14 +2247,18 @@ class LMSFunctionExecutor:
                     resolved_session_id = matched_sess["syllabus_id"]
                     session_name = matched_sess["name"]
 
-            if not resolved_session_id and available_sessions:
+            # Chỉ tự động lấy buổi đầu tiên nếu người dùng KHÔNG chỉ định session_search cụ thể
+            if not resolved_session_id and not session_search and available_sessions:
                 resolved_session_id = available_sessions[0]["syllabus_id"]
                 session_name = available_sessions[0]["name"]
 
         if not resolved_session_id:
+            course_hint = f" môn '{resolved_course_name}'" if resolved_course_name else ""
+            avail_names = [s.get("name", "") for s in available_sessions[:5]] if available_sessions else []
+            avail_str = f" Hiện tại môn này mới có các buổi: {', '.join(avail_names)}." if avail_names else ""
             return {
-                "statusCode": 400,
-                "error": f"Không tìm thấy buổi học phù hợp với từ khóa '{session_search}' cho lớp '{resolved_class_name}'."
+                "statusCode": 404,
+                "error": f"Không tìm thấy buổi học phù hợp với từ khóa '{session_search}'{course_hint} của lớp '{resolved_class_name}'.{avail_str}"
             }
 
         # 4. Lấy danh sách sinh viên ghi danh trong lớp
@@ -2869,7 +2874,12 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         session_name = "N/A"
         if not resolved_session_id:
             sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
-            sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
+            raw_sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
+            if resolved_course_id:
+                sess_list = [s for s in raw_sess_list if s.get("courseId") == resolved_course_id]
+            else:
+                sess_list = raw_sess_list
+
             s_q = (session_search or "").lower().strip()
             num_match = re.search(r'\d+', s_q)
             target_num = int(num_match.group(0)) if num_match else None
@@ -2893,7 +2903,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
             if matched_sess:
                 resolved_session_id = matched_sess.get("_id") or matched_sess.get("id")
                 session_name = matched_sess.get("name", "")
-            elif sess_list:
+            elif not session_search and sess_list:
                 s_meta = sess_list[0].get("sessionId")
                 if isinstance(s_meta, dict):
                     resolved_session_id = s_meta.get("_id") or s_meta.get("id")
