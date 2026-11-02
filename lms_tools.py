@@ -2186,37 +2186,44 @@ class LMSFunctionExecutor:
         if session_id:
             resolved_session_id = self._resolve_syllabus_session_id(session_id)
         else:
-            sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
-            sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
-
             available_sessions = []
-            for s in sess_list:
-                if resolved_course_id and s.get("courseId") != resolved_course_id:
-                    continue
-                s_meta = s.get("sessionId")
-                if isinstance(s_meta, dict) and s_meta.get("_id"):
-                    available_sessions.append({
-                        "syllabus_id": s_meta["_id"],
-                        "name": s_meta.get("name", ""),
-                        "position": s_meta.get("position", 0),
-                        "attendance_id": s.get("_id")
-                    })
-                elif isinstance(s_meta, str):
-                    available_sessions.append({
-                        "syllabus_id": s_meta,
-                        "name": f"Session {s_meta}",
-                        "position": 0,
-                        "attendance_id": s.get("_id")
-                    })
+            # Ưu tiên lấy đầy đủ danh sách toàn bộ các buổi học từ giáo trình môn học (/api/staff/sessions/course/{courseId})
+            if resolved_course_id:
+                try:
+                    c_sess_res = self._get(f"/api/staff/sessions/course/{resolved_course_id}")
+                    c_sessions = c_sess_res.get("data", []) if isinstance(c_sess_res, dict) else []
+                    for cs in c_sessions:
+                        cs_id = cs.get("id") or cs.get("_id")
+                        if cs_id:
+                            available_sessions.append({
+                                "syllabus_id": cs_id,
+                                "name": cs.get("name", ""),
+                                "position": cs.get("position", 0),
+                                "attendance_id": None
+                            })
+                except Exception:
+                    pass
 
-            if not available_sessions and sess_list:
+            # Fallback nếu chưa có từ giáo trình: lấy từ danh sách điểm danh lớp
+            if not available_sessions:
+                sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
+                sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
                 for s in sess_list:
+                    if resolved_course_id and s.get("courseId") != resolved_course_id:
+                        continue
                     s_meta = s.get("sessionId")
                     if isinstance(s_meta, dict) and s_meta.get("_id"):
                         available_sessions.append({
                             "syllabus_id": s_meta["_id"],
                             "name": s_meta.get("name", ""),
                             "position": s_meta.get("position", 0),
+                            "attendance_id": s.get("_id")
+                        })
+                    elif isinstance(s_meta, str):
+                        available_sessions.append({
+                            "syllabus_id": s_meta,
+                            "name": f"Session {s_meta}",
+                            "position": 0,
                             "attendance_id": s.get("_id")
                         })
 
@@ -2873,12 +2880,29 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         resolved_session_id = session_id
         session_name = "N/A"
         if not resolved_session_id:
-            sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
-            raw_sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
+            avail_sessions = []
             if resolved_course_id:
-                sess_list = [s for s in raw_sess_list if s.get("courseId") == resolved_course_id]
-            else:
-                sess_list = raw_sess_list
+                try:
+                    c_sess_res = self._get(f"/api/staff/sessions/course/{resolved_course_id}")
+                    c_sessions = c_sess_res.get("data", []) if isinstance(c_sess_res, dict) else []
+                    for cs in c_sessions:
+                        cs_id = cs.get("id") or cs.get("_id")
+                        if cs_id:
+                            avail_sessions.append({"id": cs_id, "name": cs.get("name", "")})
+                except Exception:
+                    pass
+
+            if not avail_sessions:
+                sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
+                raw_sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
+                if resolved_course_id:
+                    sess_list = [s for s in raw_sess_list if s.get("courseId") == resolved_course_id]
+                else:
+                    sess_list = raw_sess_list
+                for s in sess_list:
+                    s_meta = s.get("sessionId")
+                    if isinstance(s_meta, dict):
+                        avail_sessions.append({"id": s_meta.get("_id") or s_meta.get("id"), "name": s_meta.get("name", "")})
 
             s_q = (session_search or "").lower().strip()
             num_match = re.search(r'\d+', s_q)
@@ -2886,28 +2910,23 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
 
             matched_sess = None
             if target_num is not None:
-                for s in sess_list:
-                    s_meta = s.get("sessionId")
-                    if isinstance(s_meta, dict):
-                        as_name = s_meta.get("name", "").lower()
-                        if f"session {target_num:02d}" in as_name or f"session {target_num}" in as_name or f"buổi {target_num}" in as_name:
-                            matched_sess = s_meta
-                            break
+                for asess in avail_sessions:
+                    as_name = asess["name"].lower()
+                    if f"session {target_num:02d}" in as_name or f"session {target_num}" in as_name or f"buổi {target_num}" in as_name:
+                        matched_sess = asess
+                        break
             if not matched_sess:
-                for s in sess_list:
-                    s_meta = s.get("sessionId")
-                    if isinstance(s_meta, dict) and s_q in s_meta.get("name", "").lower():
-                        matched_sess = s_meta
+                for asess in avail_sessions:
+                    if s_q in asess["name"].lower():
+                        matched_sess = asess
                         break
 
             if matched_sess:
-                resolved_session_id = matched_sess.get("_id") or matched_sess.get("id")
+                resolved_session_id = matched_sess.get("id")
                 session_name = matched_sess.get("name", "")
-            elif not session_search and sess_list:
-                s_meta = sess_list[0].get("sessionId")
-                if isinstance(s_meta, dict):
-                    resolved_session_id = s_meta.get("_id") or s_meta.get("id")
-                    session_name = s_meta.get("name", "")
+            elif not session_search and avail_sessions:
+                resolved_session_id = avail_sessions[0].get("id")
+                session_name = avail_sessions[0].get("name", "")
 
         if not resolved_session_id:
             return {"statusCode": 400, "error": f"Không tìm thấy buổi học phù hợp với '{session_search}'."}
