@@ -266,6 +266,18 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
     - CÁCH TRÌNH BÀY KẾT QUẢ:
       + Tóm tắt số lượng: Tổng số bài được thẩm định, số bài LMS CHẤM ĐÚNG, số bài nghi vấn CHẤM OAN / QUÁ KHẮT KHE, số bài lỗi repo.
       + Bảng đối chiếu chi tiết: | STT | Mã SV | Họ và tên | Bài tập | Quyết định LMS | Quyết định Rika | Kết luận đối chiếu | Lý do đối chiếu tiêu chuẩn & Lời khuyên |.
+29. KIỂM TRA CHỐNG SAO CHÉP & GIAN LẬN BÀI TẬP (check_session_homework_plagiarism):
+    - ĐIỀU KIỆN KÍCH HOẠT: Khi người dùng yêu cầu:
+      + 'Kiểm tra sao chép bài',
+      + 'Xem sinh viên có sao chép bài nhau không',
+      + 'Chống sao chép bài tập buổi [X] lớp [Y]',
+      + 'Kiểm tra đạo văn / dùng chung bài bạn khác'...
+    - CÁCH THỰC HIỆN:
+      + Gọi `check_session_homework_plagiarism(class_name=..., session_search=..., course_name=..., homework_search=..., similarity_threshold=0.75)`.
+      + Tool tự động gom nhóm bài nộp, tải nội dung và đối chiếu chéo toàn bộ các cặp sinh viên trong buổi để phát hiện: dùng chung repo, rò rỉ tên tác giả gốc (forensic leak), và tỷ lệ trùng khớp văn bản cao.
+    - CÁCH TRÌNH BÀY KẾT QUẢ:
+      + Bảng thống kê: Tổng số sinh viên quét, Tổng số bài tập phân tích, Số cặp nghi vấn sao chép, Số trường hợp dùng chung link repo, Số trường hợp lộ tên bạn.
+      + Bảng chi tiết các cặp vi phạm: | STT | Bài tập | Sinh viên A (Nộp trước) | Sinh viên B (Nộp sau) | Độ trùng khớp | Dấu hiệu vi phạm & Bằng chứng | Kết luận & Khuyến nghị |.
 
 ## Thông tin hệ thống sẵn có:
 - K26-CNTT  (ID: 6a868c22c6d890523883e324) — Kỹ sư Công nghệ thông tin

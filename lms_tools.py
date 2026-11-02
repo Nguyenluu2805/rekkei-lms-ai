@@ -899,6 +899,57 @@ TOOLS_SCHEMA = [
     {
         "type": "function",
         "function": {
+            "name": "check_session_homework_plagiarism",
+            "description": (
+                "Kiểm tra chống sao chép và phát hiện gian lận bài tập về nhà giữa các sinh viên trong cùng một buổi học. "
+                "Quét toàn bộ bài nộp của lớp, tải và đối chiếu nội dung từ GitHub repository (hỗ trợ .docx, .md, .txt, code...) "
+                "để phát hiện: dùng chung link/tài khoản GitHub, sinh viên quên xóa tên/mã số của bạn trong bài làm (forensic leak), "
+                "và các cặp bài có độ tương đồng nội dung cao vượt ngưỡng (similarity_threshold). "
+                "Chỉ ra rõ ai nộp trước (tác giả gốc) và ai nộp sau (nghi vấn sao chép)."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "class_name": {
+                        "type": "string",
+                        "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1')."
+                    },
+                    "class_id": {
+                        "type": "string",
+                        "description": "ID lớp học nếu đã biết."
+                    },
+                    "session_search": {
+                        "type": "string",
+                        "description": "Tên hoặc số buổi học (Ví dụ: 'buổi 16', 'Session 16')."
+                    },
+                    "session_id": {
+                        "type": "string",
+                        "description": "ID buổi học nếu đã biết."
+                    },
+                    "course_name": {
+                        "type": "string",
+                        "description": "Tên hoặc mã môn học (Ví dụ: 'Nhập Môn Công Nghệ Thông Tin')."
+                    },
+                    "homework_search": {
+                        "type": "string",
+                        "description": "Tên bài tập cụ thể cần kiểm tra nếu muốn thu hẹp phạm vi (Ví dụ: 'Bài 2', 'Bài 6'). Nếu bỏ trống, quét toàn bộ bài tập trong buổi."
+                    },
+                    "similarity_threshold": {
+                        "type": "number",
+                        "description": "Ngưỡng tỷ lệ tương đồng tối thiểu để cảnh báo nghi vấn sao chép (từ 0.5 đến 1.0, mặc định 0.75 tức 75%)."
+                    },
+                    "max_students": {
+                        "type": "integer",
+                        "description": "Số lượng sinh viên tối đa cần quét (mặc định 50)."
+                    }
+                },
+                "required": ["class_name", "session_search"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "audit_failed_homework_grading",
             "description": (
                 "Thẩm định và đối chiếu kết quả chấm bài AI cho các sinh viên có bài CHƯA ĐẠT (FAIL). "
@@ -2468,12 +2519,16 @@ class LMSFunctionExecutor:
                 self.progress_callback(message)
             except Exception:
                 pass
-        safe_print(f"  🔍 {message}")
+        try:
+            print(f"  🔍 {message}")
+        except Exception:
+            pass
 
-    def _fetch_github_submission_content(self, github_url: str) -> tuple:
+    def _fetch_github_submission_content(self, github_url: str, branch: str = "main") -> tuple:
         """
-        Đọc nội dung bài làm của sinh viên từ GitHub repository.
-        Hỗ trợ trích xuất text từ file Word (.docx), Markdown (.md), Text (.txt), JSON, script code...
+        Đọc toàn bộ nội dung bài nộp của sinh viên qua GitHub Web Archive (zipball).
+        HOÀN TOÀN KHÔNG BỊ GIỚI HẠN RATE LIMIT của GitHub API.
+        Hỗ trợ trích xuất text từ file Word (.docx), Markdown (.md), Text (.txt), Code...
         Trả về (content, is_success).
         """
         import re, requests, zipfile, io
@@ -2487,37 +2542,42 @@ class LMSFunctionExecutor:
             return f"Link GitHub không hợp lệ: {github_url}", False
 
         owner, repo = m.group(1), m.group(2)
-        api_url = f"https://api.github.com/repos/{owner}/{repo}/contents"
         headers = {"User-Agent": "Mozilla/5.0"}
 
+        branches_to_try = [branch, "main", "master"] if branch else ["main", "master"]
+        zip_content = None
+
+        for b in branches_to_try:
+            archive_url = f"https://github.com/{owner}/{repo}/archive/refs/heads/{b}.zip"
+            try:
+                r = requests.get(archive_url, headers=headers, timeout=8)
+                if r.status_code == 200 and len(r.content) > 100:
+                    zip_content = r.content
+                    break
+            except Exception:
+                pass
+
+        if not zip_content:
+            return "Lỗi 404: Repository không tồn tại, ở chế độ Private hoặc chưa có commit trên nhánh main/master.", False
+
         try:
-            r = requests.get(api_url, headers=headers, timeout=10)
-            if r.status_code == 404:
-                return "Lỗi 404: Repository không tồn tại hoặc đang ở chế độ Private.", False
-            elif r.status_code == 409:
-                return "Lỗi 409: Repository hoàn toàn trống (chưa có commit nào trên nhánh chính).", False
-            elif r.status_code != 200:
-                return f"Không thể đọc repository: HTTP {r.status_code}", False
+            with zipfile.ZipFile(io.BytesIO(zip_content)) as z:
+                file_names = z.namelist()
+                collected_texts = []
 
-            items = r.json()
-            if not isinstance(items, list) or len(items) == 0:
-                return "Repository không có file nào.", False
+                for fname in file_names:
+                    if fname.endswith("/"):
+                        continue
+                    if any(ext in fname.lower() for ext in [".png", ".jpg", ".jpeg", ".webp", ".zip", ".exe", ".pdf", ".git"]):
+                        continue
 
-            collected_texts = []
-            for it in items:
-                fname = it.get("name", "")
-                durl = it.get("download_url")
-                ftype = it.get("type")
+                    base_name = fname.split("/")[-1]
 
-                if ftype != "file" or not durl:
-                    continue
-
-                if fname.lower().endswith(".docx"):
-                    try:
-                        f_res = requests.get(durl, timeout=10)
-                        if f_res.status_code == 200:
-                            with zipfile.ZipFile(io.BytesIO(f_res.content)) as z:
-                                xml_content = z.read("word/document.xml")
+                    if fname.lower().endswith(".docx"):
+                        try:
+                            docx_bytes = z.read(fname)
+                            with zipfile.ZipFile(io.BytesIO(docx_bytes)) as docx_z:
+                                xml_content = docx_z.read("word/document.xml")
                                 tree = ET.fromstring(xml_content)
                                 ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
                                 paras = []
@@ -2526,25 +2586,25 @@ class LMSFunctionExecutor:
                                     if texts:
                                         paras.append(''.join(texts))
                                 doc_text = '\n'.join(paras)
-                                collected_texts.append(f"--- File: {fname} ---\n{doc_text}")
-                    except Exception as e:
-                        collected_texts.append(f"--- File: {fname} (Lỗi đọc docx: {e}) ---")
+                                collected_texts.append(f"--- File: {base_name} ---\n{doc_text}")
+                        except Exception as e:
+                            collected_texts.append(f"--- File: {base_name} (Lỗi đọc docx: {e}) ---")
 
-                elif fname.lower().endswith((".md", ".txt", ".py", ".js", ".html", ".sh", ".json", ".sql", ".java", ".cpp")):
-                    try:
-                        f_res = requests.get(durl, timeout=10)
-                        if f_res.status_code == 200:
-                            collected_texts.append(f"--- File: {fname} ---\n{f_res.text[:4000]}")
-                    except Exception:
-                        pass
+                    elif fname.lower().endswith((".md", ".txt", ".py", ".js", ".html", ".sh", ".json", ".sql", ".java", ".cpp")):
+                        try:
+                            raw_bytes = z.read(fname)
+                            text = raw_bytes.decode("utf-8", errors="ignore")
+                            collected_texts.append(f"--- File: {base_name} ---\n{text[:4000]}")
+                        except Exception:
+                            pass
 
-            if not collected_texts:
-                return "Repository có file nhưng không có file tài liệu/báo cáo phù hợp (.docx, .md, .txt).", False
+                if not collected_texts:
+                    return "Repository có tồn tại nhưng không chứa file tài liệu/báo cáo (.docx, .md, .txt, code).", False
 
-            full_text = "\n\n".join(collected_texts)
-            return full_text[:8000], True
+                full_text = "\n\n".join(collected_texts)
+                return full_text[:8000], True
         except Exception as e:
-            return f"Lỗi kết nối GitHub: {e}", False
+            return f"Lỗi giải nén repository zip: {e}", False
 
     def audit_failed_homework_grading(
         self,
@@ -2769,6 +2829,290 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                     )
                 },
                 "audit_details": audit_results
+            }
+        }
+
+    def check_session_homework_plagiarism(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        session_search: str = None,
+        session_id: str = None,
+        course_name: str = None,
+        course_id: str = None,
+        homework_search: str = None,
+        similarity_threshold: float = 0.75,
+        max_students: int = 50
+    ) -> dict:
+        """
+        Kiểm tra chống sao chép và phát hiện gian lận bài tập về nhà giữa các sinh viên trong cùng một buổi học.
+        Quét toàn bộ bài nộp của lớp, tải và đối chiếu nội dung từ GitHub repository (hỗ trợ .docx, .md, .txt, code...)
+        để phát hiện: dùng chung link/tài khoản GitHub, sinh viên quên xóa tên/mã số của bạn trong bài làm (forensic leak),
+        và các cặp bài có độ tương đồng nội dung cao vượt ngưỡng (similarity_threshold).
+        Chỉ ra rõ ai nộp trước (tác giả gốc) và ai nộp sau (nghi vấn sao chép).
+        """
+        import re, difflib
+        from concurrent.futures import ThreadPoolExecutor
+
+        self._emit_progress("Đang bắt đầu quét chống sao chép và dùng chung bài tập...")
+
+        # 1. Phân giải lớp học, môn học, buổi học
+        resolved_class_id, resolved_class_name, class_obj, resolved_course_id, resolved_course_name = self._resolve_course_and_class(
+            class_id=class_id, class_name=class_name, course_id=course_id, course_name=course_name
+        )
+
+        if not resolved_class_id:
+            return {"statusCode": 400, "error": f"Không tìm thấy lớp học phù hợp với '{class_name}'."}
+
+        # Lấy session
+        resolved_session_id = session_id
+        session_name = "N/A"
+        if not resolved_session_id:
+            sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
+            sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
+            s_q = (session_search or "").lower().strip()
+            num_match = re.search(r'\d+', s_q)
+            target_num = int(num_match.group(0)) if num_match else None
+
+            matched_sess = None
+            if target_num is not None:
+                for s in sess_list:
+                    s_meta = s.get("sessionId")
+                    if isinstance(s_meta, dict):
+                        as_name = s_meta.get("name", "").lower()
+                        if f"session {target_num:02d}" in as_name or f"session {target_num}" in as_name or f"buổi {target_num}" in as_name:
+                            matched_sess = s_meta
+                            break
+            if not matched_sess:
+                for s in sess_list:
+                    s_meta = s.get("sessionId")
+                    if isinstance(s_meta, dict) and s_q in s_meta.get("name", "").lower():
+                        matched_sess = s_meta
+                        break
+
+            if matched_sess:
+                resolved_session_id = matched_sess.get("_id") or matched_sess.get("id")
+                session_name = matched_sess.get("name", "")
+            elif sess_list:
+                s_meta = sess_list[0].get("sessionId")
+                if isinstance(s_meta, dict):
+                    resolved_session_id = s_meta.get("_id") or s_meta.get("id")
+                    session_name = s_meta.get("name", "")
+
+        if not resolved_session_id:
+            return {"statusCode": 400, "error": f"Không tìm thấy buổi học phù hợp với '{session_search}'."}
+
+        # 2. Lấy danh sách sinh viên trong lớp
+        c_detail = self._get(f"/api/staff/classes/{resolved_class_id}/detail")
+        students_roster = c_detail.get("data", {}).get("students", []) if isinstance(c_detail.get("data"), dict) else []
+        if not students_roster:
+            c_stud = self.list_students(class_id=resolved_class_id, limit=max_students)
+            students_roster = [{"student": s} for s in c_stud.get("data", {}).get("items", [])]
+
+        target_roster = students_roster[:max_students]
+        self._emit_progress(f"Đang lấy chi tiết bài nộp của {len(target_roster)} sinh viên trong buổi...")
+
+        # 3. Lấy chi tiết bài nộp của từng sinh viên
+        def fetch_student_hw(s_entry):
+            st = s_entry.get("student") or {}
+            sid = st.get("id") or st.get("_id")
+            if not sid:
+                return None
+            det = self._get(f"/api/homework/completion/session/{resolved_session_id}/student/{sid}")
+            items = det.get("data", {}).get("items", []) if isinstance(det.get("data"), dict) else []
+            return {
+                "studentId": sid,
+                "studentCode": st.get("studentCode") or "N/A",
+                "fullName": st.get("fullName") or "N/A",
+                "items": items
+            }
+
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            students_hw_data = [res for res in pool.map(fetch_student_hw, target_roster) if res]
+
+        # 4. Gom nhóm bài nộp theo từng bài tập (homeworkId)
+        hw_groups = {}
+        for s in students_hw_data:
+            st_meta = {"studentId": s["studentId"], "studentCode": s["studentCode"], "fullName": s["fullName"]}
+            for it in s["items"]:
+                hw_id = it.get("homeworkId")
+                title = it.get("title") or "Bài tập"
+                if homework_search and homework_search.lower() not in title.lower():
+                    continue
+                if hw_id not in hw_groups:
+                    hw_groups[hw_id] = {"title": title, "submissions": []}
+
+                gh_url = it.get("githubUrl")
+                sub_id = it.get("submissionId")
+                if gh_url and sub_id:
+                    sub_item = dict(st_meta)
+                    sub_item["submissionId"] = sub_id
+                    sub_item["githubUrl"] = gh_url
+                    sub_item["branch"] = it.get("branch") or "main"
+                    sub_item["submittedAt"] = it.get("submittedAt")
+                    hw_groups[hw_id]["submissions"].append(sub_item)
+
+        total_hw = len(hw_groups)
+        self._emit_progress(f"Tìm thấy {total_hw} bài tập có bài nộp. Bắt đầu tải bài và so khớp độ tương đồng...")
+
+        flagged_cases = []
+        total_submissions_scanned = sum(len(g["submissions"]) for g in hw_groups.values())
+        same_repo_count = 0
+        name_leak_count = 0
+        high_similarity_count = 0
+
+        # 5. Phân tích từng bài tập
+        for hw_idx, (hw_id, group) in enumerate(hw_groups.items(), 1):
+            hw_title = group["title"]
+            subs = group["submissions"]
+            if len(subs) < 2:
+                continue
+
+            self._emit_progress(f"[{hw_idx}/{total_hw}] Đang phân tích chống sao chép: {hw_title} ({len(subs)} bài nộp)...")
+
+            # Chuẩn hóa link repo
+            for s in subs:
+                url_clean = s["githubUrl"].lower().strip().rstrip(".git")
+                m = re.search(r'github\.com/([^/]+)/([^/\.]+)', url_clean)
+                s["repoOwner"] = m.group(1).lower() if m else ""
+                s["cleanUrl"] = url_clean
+
+            # Tải nội dung concurrently
+            def load_content(s):
+                cnt, ok = self._fetch_github_submission_content(s["githubUrl"], s["branch"])
+                s["content"] = cnt if ok else ""
+                s["isReadable"] = ok
+                return s
+
+            with ThreadPoolExecutor(max_workers=8) as pool:
+                subs = list(pool.map(load_content, subs))
+
+            # So khớp từng cặp sinh viên
+            n_subs = len(subs)
+            for i in range(n_subs):
+                for j in range(i + 1, n_subs):
+                    s1 = subs[i]
+                    s2 = subs[j]
+
+                    violations = []
+                    evidence_list = []
+                    sim_score = 0.0
+
+                    # Kiểm tra 1: Trùng URL hoặc dùng chung tài khoản GitHub
+                    if s1["cleanUrl"] == s2["cleanUrl"]:
+                        violations.append("DÙNG CHUNG REPO GITHUB")
+                        evidence_list.append(f"Cả 2 bạn cùng nộp chính xác một link repo: {s1['githubUrl']}")
+                        sim_score = 1.0
+                        same_repo_count += 1
+                    elif s1["repoOwner"] and s1["repoOwner"] == s2["repoOwner"]:
+                        violations.append("CHUNG TÀI KHOẢN GITHUB")
+                        evidence_list.append(f"Cả 2 bạn cùng nộp repo từ tài khoản GitHub: '{s1['repoOwner']}'")
+                        sim_score = 1.0
+                        same_repo_count += 1
+
+                    # Kiểm tra 2: Dấu vết thông tin cá nhân (Forensic Leak) & Độ tương đồng văn bản
+                    c1 = s1["content"].strip()
+                    c2 = s2["content"].strip()
+
+                    if c1 and c2:
+                        n1 = s1["fullName"].strip()
+                        n2 = s2["fullName"].strip()
+                        code1 = s1["studentCode"].strip()
+                        code2 = s2["studentCode"].strip()
+
+                        # Tên bạn 1 xuất hiện trong bài bạn 2
+                        if len(n1) > 4 and n1.lower() in c2.lower():
+                            violations.append("LỘ TÊN TÁC GIẢ GỐC")
+                            evidence_list.append(f"Tên '{n1}' ({code1}) xuất hiện trong file bài làm của bạn {s2['fullName']} ({code2})")
+                            name_leak_count += 1
+                        elif len(n2) > 4 and n2.lower() in c1.lower():
+                            violations.append("LỘ TÊN TÁC GIẢ GỐC")
+                            evidence_list.append(f"Tên '{n2}' ({code2}) xuất hiện trong file bài làm của bạn {s1['fullName']} ({code1})")
+                            name_leak_count += 1
+
+                        # So sánh độ tương đồng nội dung văn bản
+                        ratio = difflib.SequenceMatcher(None, c1[:3000].lower(), c2[:3000].lower()).ratio()
+                        if ratio > sim_score:
+                            sim_score = ratio
+
+                        if ratio >= similarity_threshold:
+                            violations.append(f"TƯƠNG ĐỒNG NỘI DUNG {ratio*100:.1f}%")
+                            high_similarity_count += 1
+                            clean_snip = c1[:100].replace('\n', ' ')
+                            evidence_list.append(f"Đoạn văn tương đồng cao ({ratio*100:.1f}%): '{clean_snip}...'")
+
+                    if violations:
+                        # Xác định ai nộp trước (tác giả gốc nghi vấn) và ai nộp sau
+                        sub1_at = s1.get("submittedAt") or ""
+                        sub2_at = s2.get("submittedAt") or ""
+                        if sub1_at and sub2_at:
+                            orig = s1 if sub1_at <= sub2_at else s2
+                            copy = s2 if sub1_at <= sub2_at else s1
+                            time_note = f"Bạn {orig['fullName']} nộp lúc {format_vietnam_time(orig['submittedAt'])}; bạn {copy['fullName']} nộp sau lúc {format_vietnam_time(copy['submittedAt'])}."
+                        else:
+                            orig, copy = s1, s2
+                            time_note = "Không xác định rõ chênh lệch thời gian nộp."
+
+                        verdict = (
+                            "🚨 SAO CHÉP TRỰC TIẾP"
+                            if sim_score >= 0.85 or "LỘ TÊN TÁC GIẢ GỐC" in violations or "DÙNG CHUNG REPO GITHUB" in violations
+                            else "⚠️ NGHI VẤN CAO"
+                        )
+
+                        flagged_cases.append({
+                            "homeworkTitle": hw_title,
+                            "originalAuthor": {
+                                "code": orig["studentCode"],
+                                "name": orig["fullName"],
+                                "submittedAt": format_vietnam_time(orig.get("submittedAt")),
+                                "githubUrl": orig["githubUrl"]
+                            },
+                            "copiedStudent": {
+                                "code": copy["studentCode"],
+                                "name": copy["fullName"],
+                                "submittedAt": format_vietnam_time(copy.get("submittedAt")),
+                                "githubUrl": copy["githubUrl"]
+                            },
+                            "similarityPercentage": round(sim_score * 100, 1),
+                            "violationTypes": violations,
+                            "verdict": verdict,
+                            "evidence": " • ".join(evidence_list),
+                            "timeline": time_note,
+                            "recommendation": (
+                                "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+                                if "SAO CHÉP" in verdict else "Giảng viên cần chất vấn trực tiếp để xác minh nguồn gốc bài làm."
+                            )
+                        })
+
+        self._emit_progress(f"Đã hoàn tất quét chống sao chép. Phát hiện {len(flagged_cases)} cặp nghi vấn...")
+
+        # Sắp xếp theo tỷ lệ tương đồng giảm dần
+        flagged_cases.sort(key=lambda x: x["similarityPercentage"], reverse=True)
+
+        return {
+            "statusCode": 200,
+            "data": {
+                "session": {"id": resolved_session_id, "name": session_name},
+                "class": {"id": resolved_class_id, "name": resolved_class_name},
+                "course": {"id": resolved_course_id, "name": resolved_course_name},
+                "summary": {
+                    "totalStudents": len(target_roster),
+                    "totalSubmissionsScanned": total_submissions_scanned,
+                    "flaggedPairsCount": len(flagged_cases),
+                    "sameRepoCount": same_repo_count,
+                    "forensicLeakCount": name_leak_count,
+                    "highSimilarityCount": high_similarity_count,
+                    "similarityThreshold": f"{similarity_threshold*100:.0f}%",
+                    "conclusion": (
+                        f"Phát hiện {len(flagged_cases)} cặp sinh viên nghi vấn sao chép / dùng chung bài (ngưỡng {similarity_threshold*100:.0f}%): "
+                        f"{same_repo_count} trường hợp dùng chung repo/link, "
+                        f"{name_leak_count} trường hợp quên xóa tên bạn, "
+                        f"{high_similarity_count} trường hợp tương đồng nội dung cao."
+                        if flagged_cases else
+                        f"Không phát hiện dấu hiệu sao chép hoặc dùng chung bài nào vượt ngưỡng {similarity_threshold*100:.0f}% trong buổi học."
+                    )
+                },
+                "flagged_cases": flagged_cases
             }
         }
 
@@ -3811,6 +4155,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
             "get_class_feedback_tickets":    self.get_class_feedback_tickets,
             "get_class_care_cases":          self.get_class_care_cases,
             "audit_failed_homework_grading": self.audit_failed_homework_grading,
+            "check_session_homework_plagiarism": self.check_session_homework_plagiarism,
         }
 
         fn = dispatch.get(function_name)

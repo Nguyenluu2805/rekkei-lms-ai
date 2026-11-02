@@ -1193,5 +1193,51 @@
         "session_search"
       ]
     }
+  },
+  {
+    "name": "check_session_homework_plagiarism",
+    "enabled": true,
+    "description": "Kiểm tra chống sao chép và phát hiện gian lận bài tập về nhà giữa các sinh viên trong cùng một buổi học. Quét toàn bộ bài nộp của lớp, tải và đối chiếu nội dung từ GitHub repository (hỗ trợ .docx, .md, .txt, code...) để phát hiện: dùng chung link/tài khoản GitHub, sinh viên quên xóa tên/mã số của bạn trong bài làm (forensic leak), và các cặp bài có độ tương đồng nội dung cao vượt ngưỡng (similarity_threshold). Chỉ ra rõ ai nộp trước (tác giả gốc) và ai nộp sau (nghi vấn sao chép).",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên hoặc mã lớp học (Ví dụ: 'HCM-KS26-CNTT1')."
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học nếu đã biết."
+        },
+        "session_search": {
+          "type": "string",
+          "description": "Tên hoặc số buổi học (Ví dụ: 'buổi 16', 'Session 16')."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "ID buổi học nếu đã biết."
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên hoặc mã môn học (Ví dụ: 'Nhập Môn Công Nghệ Thông Tin')."
+        },
+        "homework_search": {
+          "type": "string",
+          "description": "Tên bài tập cụ thể cần kiểm tra nếu muốn thu hẹp phạm vi (Ví dụ: 'Bài 2', 'Bài 6'). Nếu bỏ trống, quét toàn bộ bài tập trong buổi."
+        },
+        "similarity_threshold": {
+          "type": "number",
+          "description": "Ngưỡng tỷ lệ tương đồng tối thiểu để cảnh báo nghi vấn sao chép (từ 0.5 đến 1.0, mặc định 0.75 tức 75%)."
+        },
+        "max_students": {
+          "type": "integer",
+          "description": "Số lượng sinh viên tối đa cần quét (mặc định 50)."
+        }
+      },
+      "required": [
+        "class_name",
+        "session_search"
+      ]
+    }
   }
 ]
