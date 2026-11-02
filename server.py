@@ -143,9 +143,6 @@ async def chat_stream(req: ChatRequest):
 
             yield f"data: {json.dumps({'type': 'done'})}\n\n"
 
-        finally:
-            agent.executor.execute = original_execute
-            agent.executor.progress_callback = None
         except Exception as e:
             print(f"❌ Streaming server error: {e}")
             fallback_msg = "⚠️ Hệ thống hiện tại đang gặp sự cố hoặc đang trong quá trình bảo trì. Vui lòng thử lại sau ít phút!"
