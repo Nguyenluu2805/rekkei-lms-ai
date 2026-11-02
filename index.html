@@ -2843,7 +2843,13 @@ async function executeSendMessage() {
         let eventObj;
         try { eventObj = JSON.parse(payloadStr); } catch (e) { continue; }
 
-        if (eventObj.type === 'tool_calls') {
+        if (eventObj.type === 'status') {
+          if (domRefs.thinking) {
+            domRefs.thinking.innerHTML = `<div class="pulse-spinner"></div> <span>${eventObj.data}</span>`;
+            scrollThreadToEnd();
+          }
+        }
+        else if (eventObj.type === 'tool_calls') {
           recordedToolCalls = eventObj.data || [];
           if (recordedToolCalls.length > 0) {
             domRefs.toolBar.style.display = 'flex';

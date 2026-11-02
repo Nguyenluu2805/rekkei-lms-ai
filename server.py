@@ -94,24 +94,41 @@ async def chat_stream(req: ChatRequest):
             return
 
         tool_calls_log = []
+        progress_queue = asyncio.Queue()
 
-        # Patch executor để ghi lại tool calls
+        # Patch executor để ghi lại tool calls và progress
         original_execute = agent.executor.execute
         def tracked_execute(fn_name, args):
             tool_calls_log.append({"name": fn_name, "args": args})
             return original_execute(fn_name, args)
         agent.executor.execute = tracked_execute
 
-        try:
-            loop = asyncio.get_event_loop()
+        loop = asyncio.get_event_loop()
+        def on_progress(msg: str):
+            loop.call_soon_threadsafe(progress_queue.put_nowait, {"type": "status", "data": msg})
+        agent.executor.progress_callback = on_progress
 
+        try:
             # Bước 1: Gửi event "thinking" ngay lập tức
             yield f"data: {json.dumps({'type': 'thinking'})}\n\n"
 
-            # Bước 2: Chạy agent trong thread riêng
-            reply, tool_calls = await loop.run_in_executor(
+            # Bước 2: Chạy agent trong thread riêng và đồng thời stream progress
+            agent_future = loop.run_in_executor(
                 _executor, _run_agent_with_stream_final, agent, req.message, tool_calls_log
             )
+
+            while not agent_future.done():
+                try:
+                    event = await asyncio.wait_for(progress_queue.get(), timeout=0.1)
+                    yield f"data: {json.dumps(event)}\n\n"
+                except asyncio.TimeoutError:
+                    pass
+
+            while not progress_queue.empty():
+                event = progress_queue.get_nowait()
+                yield f"data: {json.dumps(event)}\n\n"
+
+            reply, tool_calls = await agent_future
 
             # Bước 3: Gửi tool calls
             if tool_calls:
@@ -126,6 +143,9 @@ async def chat_stream(req: ChatRequest):
 
             yield f"data: {json.dumps({'type': 'done'})}\n\n"
 
+        finally:
+            agent.executor.execute = original_execute
+            agent.executor.progress_callback = None
         except Exception as e:
             print(f"❌ Streaming server error: {e}")
             fallback_msg = "⚠️ Hệ thống hiện tại đang gặp sự cố hoặc đang trong quá trình bảo trì. Vui lòng thử lại sau ít phút!"

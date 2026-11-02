@@ -2461,6 +2461,15 @@ class LMSFunctionExecutor:
             }
         }
 
+    def _emit_progress(self, message: str):
+        """Phát thông báo tiến trình cho UI và console log."""
+        if hasattr(self, "progress_callback") and callable(self.progress_callback):
+            try:
+                self.progress_callback(message)
+            except Exception:
+                pass
+        safe_print(f"  🔍 {message}")
+
     def _fetch_github_submission_content(self, github_url: str) -> tuple:
         """
         Đọc nội dung bài làm của sinh viên từ GitHub repository.
@@ -2559,6 +2568,8 @@ class LMSFunctionExecutor:
         import os, json, re
         from google import genai
 
+        self._emit_progress("Đang bắt đầu quá trình thẩm định bài tập...")
+
         # 1. Quét danh sách bài chưa đạt qua batch_approve_session_homework (dry-run)
         batch_res = self.batch_approve_session_homework(
             class_name=class_name,
@@ -2599,6 +2610,7 @@ class LMSFunctionExecutor:
             ]
 
         target_students = failed_students[:max_students]
+        self._emit_progress(f"Đã tải tiêu chuẩn gradingCriteria. Đang chuẩn bị thẩm định {len(target_students)} sinh viên có bài chưa đạt...")
 
         api_key = os.getenv("GEMINI_API_KEY")
         client = genai.Client(api_key=api_key) if api_key else None
@@ -2616,6 +2628,7 @@ class LMSFunctionExecutor:
             for it in f_items:
                 hw_id = it.get("homeworkId")
                 hw_title = it.get("title") or title_map.get(hw_id, "Bài tập")
+                self._emit_progress(f"Đang thẩm định bạn {st_name} ({st_code}) — {hw_title} ({s_idx}/{len(target_students)})...")
                 crit = criteria_map.get(hw_id) or "Không có tiêu chuẩn gradingCriteria riêng trong hệ thống."
                 gh_url = it.get("githubUrl")
                 lms_score = it.get("aiScore")
@@ -2732,6 +2745,8 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                             }
 
                 audit_results.append(audit_entry)
+
+        self._emit_progress("Đã hoàn tất thẩm định toàn bộ sinh viên, đang tổng hợp báo cáo đối chiếu...")
 
         return {
             "statusCode": 200,
