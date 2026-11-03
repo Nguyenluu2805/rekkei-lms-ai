@@ -414,7 +414,7 @@ class RikkaAgent:
                             system_instruction=SYSTEM_PROMPT,
                             tools=self.tools,
                             temperature=0.2,
-                            max_output_tokens=4096,
+                            max_output_tokens=8192,
                         ),
                     )
                 except Exception as e:
@@ -473,6 +473,7 @@ class RikkaAgent:
 
             # Thực thi từng function call
             tool_response_parts = []
+            _plag_cache = {}  # Cache bảng preformatted từ plagiarism tool
             for fn_part in fn_calls:
                 fc   = fn_part.function_call
                 name = fc.name
@@ -484,6 +485,16 @@ class RikkaAgent:
                 preview = str(result)[:200].replace("\n", " ")
                 safe_print(f"  📦 {preview}...")
 
+                # ── Plagiarism table injection cache ─────────────────────────────────
+                if name == "check_session_homework_plagiarism" and isinstance(result, dict):
+                    _d = result.get("data", {})
+                    if _d:
+                        _plag_cache["top15"]          = _d.get("formatted_table_top15", "")
+                        _plag_cache["remaining"]      = _d.get("formatted_table_remaining", "")
+                        _plag_cache["remaining_count"] = _d.get("remaining_count", 0)
+                        safe_print(f"  ✅ Plag cache: top15={len(_plag_cache['top15'])} chars, rem={len(_plag_cache['remaining'])} chars")
+                # ─────────────────────────────────────────────────────────────────────
+
                 tool_response_parts.append(
                     types.Part.from_function_response(
                         name=name,
@@ -492,6 +503,32 @@ class RikkaAgent:
                 )
 
             # Thêm kết quả tool vào contents và gọi lại Gemini
+            # ── Inject bảng plagiarism vào cùng user turn (không tạo thêm turn mới) ──
+            if _plag_cache.get("top15"):
+                _t15  = _plag_cache["top15"]
+                _trem = _plag_cache.get("remaining", "")
+                _rcnt = _plag_cache.get("remaining_count", 0)
+                _inject_parts = [
+                    "[BẢNG ĐÃ RENDER SẴN — COPY NGUYÊN VĂN VÀO CÂU TRẢ LỜI]",
+                    "Hệ thống backend đã dựng sẵn 100% bảng Markdown hoàn chỉnh bên dưới.",
+                    "BẮT BUỘC đặt bảng này NGUYÊN VĂN vào phần danh sách các cặp nghi vấn trong câu trả lời.",
+                    "KHÔNG tự soạn lại. KHÔNG rút gọn. KHÔNG chỉ xuất tiêu đề rồi dừng.",
+                    "",
+                    _t15,
+                ]
+                if _trem and _rcnt > 0:
+                    _inject_parts += [
+                        "",
+                        f"[BẢNG CÒN LẠI — {_rcnt} cặp từ 16 trở đi]",
+                        _trem,
+                    ]
+                _inject_text = "\n".join(_inject_parts)
+                # Thêm vào cùng tool_response_parts (cùng user turn) để tránh lỗi consecutive user turns
+                tool_response_parts.append(
+                    types.Part.from_text(text=_inject_text)
+                )
+                safe_print(f"  📌 Injected plag table into tool turn ({len(_inject_text)} chars)")
+            # ─────────────────────────────────────────────────────────────────────────
             contents.append(types.Content(role="user", parts=tool_response_parts))
             response = self._send(contents)
 
@@ -512,6 +549,7 @@ class RikkaAgent:
                 config=types.GenerateContentConfig(
                     system_instruction=SYSTEM_PROMPT,
                     temperature=0.2,
+                    max_output_tokens=8192,
                 )
             )
             return final_res.text or "Dữ liệu tra cứu chưa đầy đủ. Bạn vui lòng cung cấp thêm thông tin chi tiết (như mã lớp, môn học hoặc mã sinh viên) để mình hỗ trợ nhé!"

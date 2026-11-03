@@ -2652,7 +2652,11 @@ function parseContentToHtml(rawText) {
   }
 
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
+    let line = lines[i].trim();
+    // Tự động sửa dòng table bị cụt hoặc thiếu dấu đóng | (do stream token ngắt giữa chừng)
+    if (line.startsWith('|') && !line.endsWith('|') && (inTable || line.indexOf('|', 1) !== -1)) {
+      line = line + ' |';
+    }
     if (line.startsWith('|') && line.endsWith('|')) {
       if (!inTable) {
         inTable = true;

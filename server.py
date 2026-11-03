@@ -164,10 +164,117 @@ async def chat_stream(req: ChatRequest):
     )
 
 
+def _sanitize_and_patch_plagiarism_table(reply: str, message: str, agent: RikkaAgent, tool_calls: list) -> str:
+    """
+    Đảm bảo 100% bảng Markdown nghi vấn sao chép luôn được hiển thị đầy đủ,
+    không bị LLM bỏ sót dòng, không bị cụt do token limit, và không bị lỗi parser.
+    """
+    try:
+        import re
+        from datetime import datetime
+
+        # 1. Kiểm tra cache dữ liệu plagiarism
+        cache = getattr(agent.executor, "_plagiarism_cache", {})
+        has_plag_call = any(tc.get("name") == "check_session_homework_plagiarism" for tc in tool_calls)
+        msg_low = (message or "").lower()
+        is_plag_intent = any(w in msg_low for w in ["sao chép", "nghi vấn", "gian lận", "toàn bộ", "xem tiếp", "còn lại", "16", "17", "bài tập", "plagiarism", "buổi", "session"])
+
+        if not has_plag_call and not (is_plag_intent and cache):
+            return reply
+
+        if not cache:
+            return reply
+
+        # Lấy entry mới nhất trong cache
+        latest_key = max(cache.keys(), key=lambda k: cache[k][0])
+        c_time, c_data = cache[latest_key]
+        if (datetime.now() - c_time).total_seconds() > 900:  # Quá 15 phút
+            return reply
+
+        data = c_data.get("data", {})
+        if not data:
+            return reply
+
+        table_top15 = data.get("formatted_table_top15", "")
+        table_remaining = data.get("formatted_table_remaining", "")
+        table_all = data.get("formatted_table_all", "")
+        rem_count = data.get("remaining_count", 0)
+        summary = data.get("summary", {})
+        flagged_count = summary.get("flaggedPairsCount", 0)
+
+        # 2. Quyết định hiển thị bảng nào dựa trên ngữ cảnh người dùng
+        # Phân biệt rõ yêu cầu "xem toàn bộ" vs "xem tiếp các cặp còn lại" vs "lượt quét đầu tiên"
+        is_all_req = any(w in msg_low for w in [
+            "toàn bộ", "tất cả", "toan bo", "tat ca", "full", "hết cả", "toàn thể", "mọi cặp", "xem het"
+        ])
+        is_rem_req = any(w in msg_low for w in [
+            "còn lại", "con lai", "xem tiếp", "xem tiep", "tiếp theo", "tiep theo",
+            "trang sau", "kế tiếp", "các cặp sau", "hiển thị tiếp", "các cặp còn lại"
+        ]) or bool(re.search(r'cặp\s*(?:thứ\s*|từ\s*)?16', msg_low))
+
+        if is_all_req or rem_count == 0:
+            target_table = table_all
+            show_paging_hint = False
+        elif is_rem_req and table_remaining:
+            target_table = table_remaining
+            show_paging_hint = False
+        else:
+            target_table = table_top15
+            show_paging_hint = (rem_count > 0)
+
+        if not target_table:
+            return reply
+
+        # 3. Chuẩn bị khối bảng hoàn chỉnh (kèm gợi ý phân trang nếu có)
+        replacement_block = target_table
+        if show_paging_hint and rem_count > 0:
+            replacement_block += (
+                f"\n\n*(Còn {rem_count} cặp nghi vấn tiếp theo từ 16 đến {flagged_count}. "
+                f"Bạn có thể yêu cầu xem tiếp danh sách các cặp còn lại bất cứ lúc nào).*\n\n"
+                f"[choice: Xem tiếp các cặp còn lại | Xem tiếp các cặp nghi vấn sao chép còn lại]"
+            )
+
+        # 4. Tìm kiếm bảng markdown nghi vấn trong reply của AI
+        table_pattern = re.compile(
+            r'(\|\s*STT\s*\|\s*Bài tập[\s\S]*?)(?=(?:\n\s*\n\s*[#A-ZÀ-Ỹa-zà-ỹ0-9\-*])|\Z)',
+            re.IGNORECASE
+        )
+        matches = list(table_pattern.finditer(reply))
+
+        target_row_count = len(re.findall(r'\|\s*\d+\s*\|', target_table))
+
+        if matches:
+            match = matches[0]
+            existing_table_str = match.group(1)
+            existing_row_count = len(re.findall(r'\|\s*\d+\s*\|', existing_table_str))
+
+            # Nếu bảng của AI có số dòng ít hơn bảng chuẩn HOẶC bị cụt ở cuối -> Thay thế hoàn toàn!
+            if existing_row_count < target_row_count or not existing_table_str.rstrip().endswith("|"):
+                reply = reply[:match.start(1)] + replacement_block + reply[match.end(1):]
+                print(f"  ⚡ [Auto-Patch] Replaced defective table ({existing_row_count} rows) with verified table ({target_row_count} rows)")
+        else:
+            # AI hoàn toàn quên render bảng -> Tự động chèn vào
+            header_m = re.search(r'((?:Danh sách|Bảng|Chi tiết)[^\n]*nghi vấn[^\n]*\n+)', reply, re.IGNORECASE)
+            if header_m:
+                insert_pos = header_m.end(1)
+                reply = reply[:insert_pos] + "\n" + replacement_block + "\n\n" + reply[insert_pos:]
+                print(f"  ⚡ [Auto-Patch] Inserted verified table ({target_row_count} rows) after list header")
+            else:
+                reply = reply + "\n\n### Danh sách các cặp bài làm có dấu hiệu nghi vấn sao chép\n\n" + replacement_block + "\n"
+                print(f"  ⚡ [Auto-Patch] Appended verified table ({target_row_count} rows) to end of reply")
+
+        return reply
+    except Exception as e:
+        print(f"  ⚠️ Error in _sanitize_and_patch_plagiarism_table: {e}")
+        return reply
+
+
 def _run_agent_with_stream_final(agent: RikkaAgent, message: str, tool_calls_log: list):
     """Chạy agent, trả về (reply_text, tool_calls_snapshot)."""
     reply = agent.chat(message)
     tool_calls = list(tool_calls_log)
+    # Tự động vá/bảo đảm bảng Markdown nghi vấn sao chép luôn đầy đủ 100%
+    reply = _sanitize_and_patch_plagiarism_table(reply, message, agent, tool_calls)
     return reply, tool_calls
 
 
@@ -189,6 +296,7 @@ async def chat(req: ChatRequest):
 
         loop = asyncio.get_event_loop()
         reply = await loop.run_in_executor(_executor, agent.chat, req.message)
+        reply = _sanitize_and_patch_plagiarism_table(reply, req.message, agent, tool_calls_log)
         agent.executor.execute = original_execute
 
         return {"reply": reply, "tool_calls": tool_calls_log}
