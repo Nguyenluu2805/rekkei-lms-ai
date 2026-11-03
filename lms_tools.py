@@ -3187,6 +3187,31 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         forensic_leak_cases = [c for c in flagged_cases if any("LỘ TÊN TÁC GIẢ GỐC" in v for v in c.get("violationTypes", []))]
         high_similarity_cases = [c for c in flagged_cases if any("TƯƠNG ĐỒNG NỘI DUNG" in v for v in c.get("violationTypes", []))]
 
+        def _build_plagiarism_markdown_table(cases, start_stt=1):
+            if not cases:
+                return "*(Không có cặp nghi vấn nào)*"
+            lines = [
+                "| STT | Bài tập | Sinh viên A (Nộp trước - Tác giả gốc) | Sinh viên B (Nộp sau - Nghi vấn) | Tỷ lệ trùng khớp | Dấu hiệu vi phạm & Bằng chứng | Kết luận & Khuyến nghị |",
+                "|:---:|---|---|---|:---:|---|---|"
+            ]
+            for idx, c in enumerate(cases, start_stt):
+                orig = c.get("originalAuthor", {})
+                copy = c.get("copiedStudent", {})
+                orig_str = f"{orig.get('name', 'N/A')} ({orig.get('code', 'N/A')})<br/>(Nộp: {orig.get('submittedAt', 'N/A')})"
+                copy_str = f"{copy.get('name', 'N/A')} ({copy.get('code', 'N/A')})<br/>(Nộp: {copy.get('submittedAt', 'N/A')})"
+                ev = c.get("evidence", "").replace("|", "/").replace("\r", " ").replace("\n", " ").strip()
+                rec = c.get("recommendation", "").replace("|", "/").replace("\r", " ").replace("\n", " ").strip()
+                hw = c.get("homeworkTitle", "Bài tập").replace("|", "/").strip()
+                sim = c.get("similarityPercentage", 0.0)
+                verdict = c.get("verdict", "⚠️ NGHI VẤN")
+                row = f"| {idx} | {hw} | {orig_str} | {copy_str} | {sim}% | {ev} | {verdict}<br/>{rec} |"
+                lines.append(row)
+            return "\n".join(lines)
+
+        table_top15 = _build_plagiarism_markdown_table(flagged_cases[:15], 1)
+        table_remaining = _build_plagiarism_markdown_table(flagged_cases[15:], 16) if len(flagged_cases) > 15 else ""
+        table_all = _build_plagiarism_markdown_table(flagged_cases, 1)
+
         final_result = {
             "statusCode": 200,
             "data": {
@@ -3226,7 +3251,11 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                 "items": flagged_cases,
                 "same_repo_cases": same_repo_cases,
                 "forensic_leak_cases": forensic_leak_cases,
-                "high_similarity_cases": high_similarity_cases
+                "high_similarity_cases": high_similarity_cases,
+                "formatted_table_top15": table_top15,
+                "formatted_table_remaining": table_remaining,
+                "formatted_table_all": table_all,
+                "remaining_count": max(0, len(flagged_cases) - 15)
             }
         }
 

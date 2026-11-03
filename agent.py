@@ -278,26 +278,20 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
     - CÁCH TRÌNH BÀY KẾT QUẢ:
       + Bảng 1: Thống kê tổng quan (Tổng số sinh viên quét, Tổng số bài tập phân tích, Số cặp nghi vấn sao chép, Số trường hợp dùng chung link repo, Số trường hợp lộ tên bạn, Tương đồng nội dung cao).
       + Bảng 2: Danh sách các cặp bài làm có dấu hiệu nghi vấn sao chép:
-        Cột bảng: | STT | Bài tập | Sinh viên A (Nộp trước - Tác giả gốc) | Sinh viên B (Nộp sau - Nghi vấn) | Tỷ lệ trùng khớp | Dấu hiệu vi phạm & Bằng chứng | Kết luận & Khuyến nghị |
-        * QUY TẮC ĐỊNH DẠNG BẢNG BẮT BUỘC (ĐỂ KHÔNG BỊ LỖI HIỂN THỊ VÀ TRÀN TOKEN):
-          1. Mỗi hàng của bảng BẮT BUỘC phải nằm trọn vẹn trên đúng 1 dòng duy nhất bắt đầu bằng `|` và kết thúc bằng `|`. Tuyệt đối không chèn ký tự ngắt dòng (enter / \n) bên trong ô; nếu cần xuống dòng thì dùng thẻ `<br/>`.
-          2. Tuyệt đối không để dòng trống giữa dòng tiêu đề phân cách `|---|---|` và dòng dữ liệu đầu tiên.
-          3. Tuyệt đối không dùng ký tự `|` bên trong nội dung văn bản của ô; nếu có hãy thay bằng `/`.
-          4. PHÂN TRANG & XEM TIẾP CÁC CẶP (PAGINATION SAFETY):
-             - Khi có nhiều hơn 15 cặp nghi vấn, hiển thị Top 15 cặp đầu tiên trong bảng và ghi chú người dùng có thể yêu cầu xem tiếp (ví dụ: "Xem tiếp các cặp từ 16 đến 30").
-             - KHI NGƯỜI DÙNG YÊU CẦU XEM TIẾP (ví dụ: 'Xem tiếp cặp 16 và 17', 'Xem tiếp từ cặp 16 đến 30', 'Xem trang 2', 'Hiển thị các cặp còn lại'):
-               + BẮT BUỘC PHẢI GỌI TOOL `check_session_homework_plagiarism(class_name=..., session_search=..., course_name=...)` để lấy dữ liệu đầy đủ. (Hệ thống đã có cache trong 15 phút nên tool sẽ phản hồi ngay lập tức 0.01s).
-               + TUYỆT ĐỐI KHÔNG được trả lời chay từ ngữ cảnh cũ vì lịch sử chat chỉ lưu trữ 15 cặp đầu tiên!
-               + Sau khi gọi tool, BẮT BUỘC trích xuất chính xác các cặp tương ứng từ `flagged_cases` (ví dụ: cặp số 16, 17...) và RENDER ĐẦY ĐỦ CẢ TIÊU ĐỀ, DÒNG PHÂN CÁCH `|---|---|` VÀ TẤT CẢ CÁC HÀNG DỮ LIỆU `| 16 | ... |`, `| 17 | ... |`.
-               + TUYỆT ĐỐI KHÔNG ĐƯỢC CHỈ XUẤT MỖI TIÊU ĐỀ BẢNG MÀ BỎ TRỐNG CÁC DÒNG DỮ LIỆU!
-        Trong đó từng dòng lấy trực tiếp từ phần tử `item` trong `flagged_cases`:
-        * STT: 1, 2, ...
-        * Bài tập: `item['homeworkTitle']`
-        * Sinh viên A: `item['originalAuthor']['name']` (`item['originalAuthor']['code']`)<br/>(Nộp: `item['originalAuthor']['submittedAt']`)
-        * Sinh viên B: `item['copiedStudent']['name']` (`item['copiedStudent']['code']`)<br/>(Nộp: `item['copiedStudent']['submittedAt']`)
-        * Tỷ lệ trùng khớp: `item['similarityPercentage']%`
-        * Dấu hiệu vi phạm & Bằng chứng: `item['evidence']`
-        * Kết luận & Khuyến nghị: `item['verdict']` — `item['recommendation']`
+        * CƠ CHẾ BẢNG TỰ ĐỘNG CHUẨN XÁC 100% (ZERO OMISSION / ZERO ERROR):
+          Hệ thống backend đã tự động dựng sẵn toàn bộ bảng Markdown hoàn chỉnh và chuẩn mực 100% (có đầy đủ tiêu đề, dòng phân cách `|---|---|` và tất cả các hàng dữ liệu chi tiết của từng sinh viên) trong trường:
+          - `data.formatted_table_top15`: Bảng Markdown chứa đầy đủ 15 cặp nghi vấn hàng đầu.
+          - `data.formatted_table_remaining`: Bảng Markdown chứa đầy đủ các cặp nghi vấn còn lại (từ cặp 16 trở đi).
+          - `data.formatted_table_all`: Bảng Markdown toàn bộ các cặp.
+          
+          HÀNH VI BẮT BUỘC CỦA AI:
+          1. Ở lượt quét đầu tiên: AI BẮT BUỘC xuất nguyên văn chuỗi Markdown từ `data.formatted_table_top15`. TUYỆT ĐỐI KHÔNG ĐƯỢC BỎ BỚT DÒNG NÀO, VÀ TUYỆT ĐỐI KHÔNG ĐƯỢC CHỈ XUẤT MỖI TIÊU ĐỀ BẢNG RỒI DỪNG LẠI!
+          2. Nếu có `data.remaining_count > 0`: ngay dưới bảng ghi rõ:
+             `*(Còn {data.remaining_count} cặp nghi vấn tiếp theo từ 16 đến {data.summary.flaggedPairsCount}. Bạn có thể yêu cầu xem tiếp danh sách các cặp còn lại bất cứ lúc nào).*`
+             Kèm nút bấm tiện lợi: `[choice: Xem tiếp các cặp còn lại | Xem tiếp các cặp nghi vấn sao chép Session {sessionName} lớp {className}]`
+          3. KHI NGƯỜI DÙNG YÊU CẦU XEM TIẾP (ví dụ: 'Xem tiếp cặp 16 và 17', 'Xem tiếp từ 16 đến 30', 'Xem trang tiếp theo', 'Hiển thị các cặp còn lại'):
+             - AI BẮT BUỘC phải gọi lại tool `check_session_homework_plagiarism` (hệ thống có bộ nhớ đệm cache 15 phút nên tool sẽ phản hồi ngay lập tức 0.01 giây mà không cần quét lại).
+             - Sau khi tool trả về, AI BẮT BUỘC xuất nguyên văn chuỗi Markdown từ trường `data.formatted_table_remaining` để hiển thị đầy đủ bảng của các cặp còn lại!
 
         * XỬ LÝ TRƯỜNG HỢP DÙNG CHUNG REPO GITHUB (sameRepoCount > 0):
           - Khi người dùng hỏi chi tiết về các trường hợp dùng chung repo hoặc khi hiển thị bảng dùng chung repo:
