@@ -2985,6 +2985,31 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                 resolved_session_id = avail_sessions[0].get("id")
                 session_name = avail_sessions[0].get("name", "")
 
+            # Cross-course search fallback: Nếu vẫn chưa tìm thấy session ở môn hiện tại, tự động quét các môn khác của lớp
+            if not resolved_session_id and session_search and class_obj and class_obj.get("courseIds"):
+                for alt_cid in class_obj["courseIds"]:
+                    if alt_cid == resolved_course_id:
+                        continue
+                    try:
+                        alt_res = self._get(f"/api/staff/sessions/course/{alt_cid}")
+                        alt_sessions = alt_res.get("data", []) if isinstance(alt_res, dict) else []
+                        for alt_s in alt_sessions:
+                            alt_name = alt_s.get("name", "")
+                            alt_num_m = re.search(r'\b(?:session|buổi|lesson|bài)\s*0*([0-9]+)\b', alt_name, re.IGNORECASE)
+                            if (target_num is not None and alt_num_m and int(alt_num_m.group(1)) == target_num) or (s_q in alt_name.lower()):
+                                resolved_session_id = alt_s.get("id") or alt_s.get("_id")
+                                session_name = alt_name
+                                resolved_course_id = alt_cid
+                                alt_cd = self.get_course_detail(alt_cid)
+                                if isinstance(alt_cd, dict) and alt_cd.get("data"):
+                                    resolved_course_name = alt_cd["data"].get("name")
+                                self._emit_progress(f"Đã tự động tìm thấy '{session_name}' thuộc môn '{resolved_course_name}'...")
+                                break
+                    except Exception:
+                        pass
+                    if resolved_session_id:
+                        break
+
         if not resolved_session_id:
             return {"statusCode": 400, "error": f"Không tìm thấy buổi học phù hợp với '{session_search}'."}
 
