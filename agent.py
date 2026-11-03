@@ -283,11 +283,13 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
           1. Mỗi hàng của bảng BẮT BUỘC phải nằm trọn vẹn trên đúng 1 dòng duy nhất bắt đầu bằng `|` và kết thúc bằng `|`. Tuyệt đối không chèn ký tự ngắt dòng (enter / \n) bên trong ô; nếu cần xuống dòng thì dùng thẻ `<br/>`.
           2. Tuyệt đối không để dòng trống giữa dòng tiêu đề phân cách `|---|---|` và dòng dữ liệu đầu tiên.
           3. Tuyệt đối không dùng ký tự `|` bên trong nội dung văn bản của ô; nếu có hãy thay bằng `/`.
-          4. PHÂN TRANG / GIỚI HẠN HIỂN THỊ TRÁNH TRÀN TOKEN (TOKEN LIMIT SAFETY):
-             Khi có nhiều hơn 15 cặp nghi vấn, hãy hiển thị Top 15 cặp có độ tương đồng cao nhất hoặc vi phạm nghiêm trọng nhất (sắp xếp giảm dần theo Tỷ lệ trùng khớp).
-             Ngay dưới bảng, hiển thị ghi chú:
-             `*Hiển thị Top 15 cặp có độ tương đồng cao nhất / nghiêm trọng nhất (trong tổng số {flaggedPairsCount} cặp nghi vấn). Bạn có thể yêu cầu xem tiếp danh sách các cặp tiếp theo (ví dụ: "Xem tiếp các cặp từ 16 đến 30") hoặc lọc theo bài tập cụ thể (ví dụ: "Kiểm tra sao chép Bài 6").*`
-             Khi người dùng yêu cầu xem trang tiếp theo hoặc lọc theo bài, thực hiện đúng yêu cầu đó.
+          4. PHÂN TRANG & XEM TIẾP CÁC CẶP (PAGINATION SAFETY):
+             - Khi có nhiều hơn 15 cặp nghi vấn, hiển thị Top 15 cặp đầu tiên trong bảng và ghi chú người dùng có thể yêu cầu xem tiếp (ví dụ: "Xem tiếp các cặp từ 16 đến 30").
+             - KHI NGƯỜI DÙNG YÊU CẦU XEM TIẾP (ví dụ: 'Xem tiếp cặp 16 và 17', 'Xem tiếp từ cặp 16 đến 30', 'Xem trang 2', 'Hiển thị các cặp còn lại'):
+               + BẮT BUỘC PHẢI GỌI TOOL `check_session_homework_plagiarism(class_name=..., session_search=..., course_name=...)` để lấy dữ liệu đầy đủ. (Hệ thống đã có cache trong 15 phút nên tool sẽ phản hồi ngay lập tức 0.01s).
+               + TUYỆT ĐỐI KHÔNG được trả lời chay từ ngữ cảnh cũ vì lịch sử chat chỉ lưu trữ 15 cặp đầu tiên!
+               + Sau khi gọi tool, BẮT BUỘC trích xuất chính xác các cặp tương ứng từ `flagged_cases` (ví dụ: cặp số 16, 17...) và RENDER ĐẦY ĐỦ CẢ TIÊU ĐỀ, DÒNG PHÂN CÁCH `|---|---|` VÀ TẤT CẢ CÁC HÀNG DỮ LIỆU `| 16 | ... |`, `| 17 | ... |`.
+               + TUYỆT ĐỐI KHÔNG ĐƯỢC CHỈ XUẤT MỖI TIÊU ĐỀ BẢNG MÀ BỎ TRỐNG CÁC DÒNG DỮ LIỆU!
         Trong đó từng dòng lấy trực tiếp từ phần tử `item` trong `flagged_cases`:
         * STT: 1, 2, ...
         * Bài tập: `item['homeworkTitle']`

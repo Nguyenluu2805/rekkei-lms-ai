@@ -2988,6 +2988,14 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         if not resolved_session_id:
             return {"statusCode": 400, "error": f"Không tìm thấy buổi học phù hợp với '{session_search}'."}
 
+        # Kiểm tra Cache kết quả quét trong vòng 15 phút (hỗ trợ phân trang và xem tiếp tức thì)
+        cache_key = (resolved_class_id, resolved_session_id, (homework_search or "").strip().lower(), round(similarity_threshold, 2))
+        if hasattr(self, "_plagiarism_cache") and cache_key in self._plagiarism_cache:
+            c_time, c_data = self._plagiarism_cache[cache_key]
+            if (datetime.now() - c_time).total_seconds() < 900:
+                self._emit_progress("Đã tải nhanh dữ liệu đối chiếu chống sao chép từ bộ nhớ đệm...")
+                return c_data
+
         # 2. Lấy danh sách sinh viên trong lớp
         c_detail = self._get(f"/api/staff/classes/{resolved_class_id}/detail")
         students_roster = c_detail.get("data", {}).get("students", []) if isinstance(c_detail.get("data"), dict) else []
@@ -3179,7 +3187,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         forensic_leak_cases = [c for c in flagged_cases if any("LỘ TÊN TÁC GIẢ GỐC" in v for v in c.get("violationTypes", []))]
         high_similarity_cases = [c for c in flagged_cases if any("TƯƠNG ĐỒNG NỘI DUNG" in v for v in c.get("violationTypes", []))]
 
-        return {
+        final_result = {
             "statusCode": 200,
             "data": {
                 "session": {"id": resolved_session_id, "name": session_name},
@@ -3221,6 +3229,13 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                 "high_similarity_cases": high_similarity_cases
             }
         }
+
+        # Lưu cache cho các lượt gọi phân trang tiếp theo
+        if not hasattr(self, "_plagiarism_cache"):
+            self._plagiarism_cache = {}
+        self._plagiarism_cache[cache_key] = (datetime.now(), final_result)
+
+        return final_result
 
     # --- NHÓM 9: CHỈ SỐ ĐÀO TẠO, ĐIỂM RPOINT & ĐIỀU KIỆN THI ---
 
