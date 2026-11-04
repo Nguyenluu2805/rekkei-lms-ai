@@ -2663,7 +2663,8 @@ function parseContentToHtml(rawText) {
         tableHeader = null;
         tableRows = [];
       }
-      if (line.includes('---')) continue;
+      // Chỉ bỏ qua dòng phân cách header (dòng chỉ chứa |, -, :, khoảng trắng)
+      if (/^[|:\s-]+$/.test(line)) continue;
       const cells = line.split('|').slice(1, -1);
       if (!tableHeader) {
         tableHeader = cells;

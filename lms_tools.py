@@ -3282,7 +3282,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                 copy = c.get("copiedStudent", {})
                 orig_str = f"{orig.get('name', 'N/A')} ({orig.get('code', 'N/A')})<br/>(Nộp: {orig.get('submittedAt', 'N/A')})"
                 copy_str = f"{copy.get('name', 'N/A')} ({copy.get('code', 'N/A')})<br/>(Nộp: {copy.get('submittedAt', 'N/A')})"
-                ev = c.get("evidence", "").replace("|", "/").replace("\r", " ").replace("\n", " ").strip()
+                ev = c.get("evidence", "").replace("|", "/").replace("---", "──").replace("\r", " ").replace("\n", " ").strip()
                 rec = c.get("recommendation", "").replace("|", "/").replace("\r", " ").replace("\n", " ").strip()
                 hw = c.get("homeworkTitle", "Bài tập").replace("|", "/").strip()
                 sim = c.get("similarityPercentage", 0.0)
