@@ -50,6 +50,26 @@ def load_plagiarism_disk_cache(class_id: str = None, session_id: str = None):
                 saved_dt = datetime.fromisoformat(entry.get("saved_at", "2000-01-01"))
                 if (datetime.now() - saved_dt).total_seconds() < 86400:
                     return entry.get("result")
+            # Đúng class_id và session_id mà file không tồn tại -> bắt buộc trả về None, KHÔNG fallback sang lớp khác!
+            return None
+
+        if class_id:
+            # Chỉ tìm các file của đúng class_id đó
+            files = [
+                os.path.join(PLAGIARISM_CACHE_DIR, f)
+                for f in os.listdir(PLAGIARISM_CACHE_DIR)
+                if f.startswith(f"{class_id}_") and f.endswith(".json")
+            ]
+            if not files:
+                return None
+            latest_file = max(files, key=os.path.getmtime)
+            if (datetime.now().timestamp() - os.path.getmtime(latest_file)) < 86400:
+                with open(latest_file, "r", encoding="utf-8") as f:
+                    entry = json.load(f)
+                return entry.get("result")
+            return None
+
+        # Chỉ khi hoàn toàn không có class_id và session_id (ví dụ follow-up chung):
         files = [os.path.join(PLAGIARISM_CACHE_DIR, f) for f in os.listdir(PLAGIARISM_CACHE_DIR) if f.endswith(".json")]
         if not files:
             return None

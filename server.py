@@ -182,28 +182,72 @@ def _sanitize_and_patch_plagiarism_table(reply: str, message: str, agent: RikkaA
                 cache = getattr(agent.executor._tools, "_plagiarism_cache", {})
         if not cache:
             cache = getattr(lms_tools, "GLOBAL_PLAGIARISM_CACHE", {})
+
         has_plag_call = any(tc.get("name") == "check_session_homework_plagiarism" for tc in tool_calls)
         msg_low = (message or "").lower()
-        is_plag_intent = any(w in msg_low for w in ["sao chép", "nghi vấn", "gian lận", "toàn bộ", "xem tiếp", "còn lại", "16", "17", "bài tập", "plagiarism", "buổi", "session"])
+        has_placeholder = bool(re.search(r':::(?:PLAGIARISM_TABLE_TOP15|PLAGIARISM_TABLE_REMAINING|PLAGIARISM_TABLE_ALL|PLAGIARISM_TABLE):::', reply))
+        
+        # Chỉ kích hoạt intent khi người dùng hỏi đích danh về sao chép / gian lận / đạo văn hoặc phân trang danh sách nghi vấn
+        is_plag_intent = (
+            any(w in msg_low for w in ["sao chép", "nghi vấn", "gian lận", "plagiarism", "đạo văn", "dùng chung bài", "copy bài", "chép bài"]) or
+            (any(w in msg_low for w in ["xem tiếp", "còn lại", "toàn bộ", "tất cả", "full", "trang sau"]) and any(w in msg_low for w in ["cặp", "đối chiếu", "trùng khớp"]))
+        )
+
+        if not has_plag_call and not has_placeholder and not is_plag_intent:
+            return reply
+
+        # Xác định lớp mục tiêu từ tool_calls hoặc message để KHÔNG BAO GIỜ bị nhầm lẫn giữa Lớp 1 và Lớp 2
+        plag_tc = next((tc for tc in tool_calls if tc.get("name") == "check_session_homework_plagiarism"), None)
+        tc_args = plag_tc.get("args", {}) if plag_tc else {}
+        tc_class = str(tc_args.get("class_name") or tc_args.get("class_id") or "").lower()
+
+        target_class_hint = None
+        if any(k in msg_low for k in ["cntt2", "lớp 2", "lop 2", "ks26-cntt2"]):
+            target_class_hint = "cntt2"
+        elif any(k in msg_low for k in ["cntt1", "lớp 1", "lop 1", "ks26-cntt1"]):
+            target_class_hint = "cntt1"
+        elif "cntt2" in tc_class or "6aac91786fde2b6e692ed4fd" in tc_class:
+            target_class_hint = "cntt2"
+        elif "cntt1" in tc_class or "6aac91736fde2b6e692ed4f8" in tc_class:
+            target_class_hint = "cntt1"
 
         c_data = None
         if cache:
-            valid_keys = [k for k in cache.keys() if k != "_latest"]
-            if valid_keys:
-                latest_key = max(valid_keys, key=lambda k: cache[k][0])
-                c_time, c_data = cache[latest_key]
-            elif "_latest" in cache:
-                c_time, c_data = cache["_latest"]
+            candidates = []
+            for k, val in cache.items():
+                if k == "_latest" or not isinstance(val, (tuple, list)) or len(val) < 2:
+                    continue
+                c_time, entry_data = val
+                c_name = entry_data.get("data", {}).get("class", {}).get("name", "").lower()
+                c_id = entry_data.get("data", {}).get("class", {}).get("id", "").lower()
+                if target_class_hint:
+                    if target_class_hint in c_name or target_class_hint in c_id:
+                        candidates.append((c_time, entry_data))
+                else:
+                    candidates.append((c_time, entry_data))
+            if candidates:
+                candidates.sort(key=lambda x: x[0], reverse=True)
+                c_data = candidates[0][1]
 
-        # Nếu RAM cache không có, tải ngay từ disk cache
+        # Nếu RAM cache không có, tải ngay từ disk cache theo đúng lớp
         if not c_data and hasattr(lms_tools, "load_plagiarism_disk_cache"):
-            c_data = lms_tools.load_plagiarism_disk_cache()
+            if target_class_hint == "cntt2":
+                c_data = lms_tools.load_plagiarism_disk_cache(class_id="6aac91786fde2b6e692ed4fd")
+            elif target_class_hint == "cntt1":
+                c_data = lms_tools.load_plagiarism_disk_cache(class_id="6aac91736fde2b6e692ed4f8")
+            elif not target_class_hint:
+                c_data = lms_tools.load_plagiarism_disk_cache()
 
         if not c_data:
             return reply
 
-        if not has_plag_call and not is_plag_intent:
-            return reply
+        # Kiểm tra an toàn tuyệt đối: nếu đã có target_class_hint, c_data BẮT BUỘC phải thuộc về đúng lớp đó
+        if target_class_hint:
+            c_name = c_data.get("data", {}).get("class", {}).get("name", "").lower()
+            c_id = c_data.get("data", {}).get("class", {}).get("id", "").lower()
+            if target_class_hint not in c_name and target_class_hint not in c_id:
+                safe_print(f"  ⚠️ [Auto-Patch] Cache class ({c_name}) does not match requested class ({target_class_hint})! Skipping patch.")
+                return reply
 
         data = c_data.get("data", {})
         if not data:
