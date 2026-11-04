@@ -1,0 +1,1885 @@
+{
+  "saved_at": "2026-11-04T07:54:18.131283",
+  "result": {
+    "statusCode": 200,
+    "data": {
+      "session": {
+        "id": "6a8d143a8c16f152a54bd7f7",
+        "name": "Session 18 : Thực hành làm việc với trình duyệt"
+      },
+      "class": {
+        "id": "6aac91736fde2b6e692ed4f8",
+        "name": "HCM-KS26-CNTT1"
+      },
+      "course": {
+        "id": "6a88fb77a493e63f11a75432",
+        "name": "Nhập Môn Công Nghệ Thông Tin"
+      },
+      "summary": {
+        "totalStudents": 46,
+        "totalSubmissionsScanned": 235,
+        "flaggedPairsCount": 20,
+        "sameRepoCount": 0,
+        "forensicLeakCount": 0,
+        "highSimilarityCount": 20,
+        "similarityThreshold": "75%",
+        "sameRepoCases": [],
+        "conclusion": "Phát hiện 20 cặp sinh viên nghi vấn sao chép / dùng chung bài (ngưỡng 75%): 0 trường hợp dùng chung repo/link, 0 trường hợp quên xóa tên bạn, 20 trường hợp tương đồng nội dung cao."
+      },
+      "flagged_cases": [
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:48; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:49; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:20",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:30",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session16_Ex02.git"
+          },
+          "similarityPercentage": 99.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 99.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (99.0%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02 ## 1. Phân tích: Cache vs...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:20; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:30.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:48.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:49.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:15",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:26",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session17_Ex01.git"
+          },
+          "similarityPercentage": 96.7,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 96.7%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (96.7%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01  ## 1. Phân tích lỗi & Tr...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:15; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:26.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        }
+      ],
+      "flaggedPairs": [
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:48; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:49; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:20",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:30",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session16_Ex02.git"
+          },
+          "similarityPercentage": 99.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 99.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (99.0%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02 ## 1. Phân tích: Cache vs...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:20; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:30.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:48.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:49.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:15",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:26",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session17_Ex01.git"
+          },
+          "similarityPercentage": 96.7,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 96.7%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (96.7%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01  ## 1. Phân tích lỗi & Tr...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:15; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:26.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        }
+      ],
+      "items": [
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:48; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:49; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:20",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:30",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session16_Ex02.git"
+          },
+          "similarityPercentage": 99.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 99.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (99.0%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02 ## 1. Phân tích: Cache vs...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:20; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:30.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:48.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:49.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:15",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:26",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session17_Ex01.git"
+          },
+          "similarityPercentage": 96.7,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 96.7%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (96.7%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01  ## 1. Phân tích lỗi & Tr...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:15; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:26.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        }
+      ],
+      "same_repo_cases": [],
+      "forensic_leak_cases": [],
+      "high_similarity_cases": [
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:41; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 03/11/2026 20:42; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:48; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 100.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 100.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Lê Phúc Duy nộp lúc 04/11/2026 01:49; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:20",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:30",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session16_Ex02.git"
+          },
+          "similarityPercentage": 99.0,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 99.0%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (99.0%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02 ## 1. Phân tích: Cache vs...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:20; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:30.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:05",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README1.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:05; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:41",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:41.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:09",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README2.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:09; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:13",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README3.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:13; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "03/11/2026 20:42",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Lê Phúc Duy nộp sau lúc 03/11/2026 20:42.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 00:19",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README4.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 00:19; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:48",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:48.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:06",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README5.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:06; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RK2600062",
+            "name": "Lê Phúc Duy",
+            "submittedAt": "04/11/2026 01:49",
+            "githubUrl": "https://github.com/leefusdii5-create/IT108_Stage-18/blob/main/REAME6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Lê Phúc Duy nộp sau lúc 04/11/2026 01:49.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 6 : Kiểm tra và tối ưu hiệu năng Portal",
+          "originalAuthor": {
+            "code": "N26DTCN040",
+            "name": "Hồ Gia Bảo",
+            "submittedAt": "03/11/2026 23:10",
+            "githubUrl": "https://github.com/hgb2007-hcm/stage-18"
+          },
+          "copiedStudent": {
+            "code": "RE26441",
+            "name": "Bạch Chí Lân",
+            "submittedAt": "04/11/2026 03:02",
+            "githubUrl": "https://github.com/bachchilan3103/IT108_Stage18/blob/main/README6.md"
+          },
+          "similarityPercentage": 98.1,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 98.1%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...'",
+          "timeline": "Bạn Hồ Gia Bảo nộp lúc 03/11/2026 23:10; bạn Bạch Chí Lân nộp sau lúc 04/11/2026 03:02.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        },
+        {
+          "homeworkTitle": "Bài 1 : Sự cố không truy cập được hệ thống quản trị",
+          "originalAuthor": {
+            "code": "N26DTCN008",
+            "name": "Đoàn Bảo Duy",
+            "submittedAt": "02/11/2026 22:15",
+            "githubUrl": "https://github.com/HCM-CNTT1-K26/CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01.git"
+          },
+          "copiedStudent": {
+            "code": "N26DTCN011",
+            "name": "Nguyễn Bảo Huy",
+            "submittedAt": "02/11/2026 22:26",
+            "githubUrl": "https://github.com/Ngbhuy2711/-HCM-KS26-CNTT1-_-Nh-p-M-n-C-ng-Ngh-Th-ng-Tin-_Session17_Ex01.git"
+          },
+          "similarityPercentage": 96.7,
+          "violationTypes": [
+            "TƯƠNG ĐỒNG NỘI DUNG 96.7%"
+          ],
+          "verdict": "🚨 SAO CHÉP TRỰC TIẾP",
+          "evidence": "Đoạn văn tương đồng cao (96.7%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01  ## 1. Phân tích lỗi & Tr...'",
+          "timeline": "Bạn Đoàn Bảo Duy nộp lúc 02/11/2026 22:15; bạn Nguyễn Bảo Huy nộp sau lúc 02/11/2026 22:26.",
+          "recommendation": "Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn."
+        }
+      ],
+      "formatted_table_top15": "| STT | Bài tập | Sinh viên A (Nộp trước - Tác giả gốc) | Sinh viên B (Nộp sau - Nghi vấn) | Tỷ lệ trùng khớp | Dấu hiệu vi phạm & Bằng chứng | Kết luận & Khuyến nghị |\n|:---:|---|---|---|:---:|---|---|\n| 1 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 2 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 3 | Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 4 | Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 5 | Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:48) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 6 | Bài 6 : Kiểm tra và tối ưu hiệu năng Portal | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:49) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 7 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Đoàn Bảo Duy (N26DTCN008)<br/>(Nộp: 02/11/2026 22:20) | Nguyễn Bảo Huy (N26DTCN011)<br/>(Nộp: 02/11/2026 22:30) | 99.0% | Đoạn văn tương đồng cao (99.0%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02 ## 1. Phân tích: Cache vs...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 8 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:05) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 9 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:05) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 10 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:09) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 11 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:09) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 12 | Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:13) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 13 | Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:13) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 14 | Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:19) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 15 | Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:19) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |",
+      "formatted_table_remaining": "| STT | Bài tập | Sinh viên A (Nộp trước - Tác giả gốc) | Sinh viên B (Nộp sau - Nghi vấn) | Tỷ lệ trùng khớp | Dấu hiệu vi phạm & Bằng chứng | Kết luận & Khuyến nghị |\n|:---:|---|---|---|:---:|---|---|\n| 16 | Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:06) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:48) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 17 | Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:06) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 18 | Bài 6 : Kiểm tra và tối ưu hiệu năng Portal | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:10) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:49) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 19 | Bài 6 : Kiểm tra và tối ưu hiệu năng Portal | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:10) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 20 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Đoàn Bảo Duy (N26DTCN008)<br/>(Nộp: 02/11/2026 22:15) | Nguyễn Bảo Huy (N26DTCN011)<br/>(Nộp: 02/11/2026 22:26) | 96.7% | Đoạn văn tương đồng cao (96.7%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01  ## 1. Phân tích lỗi & Tr...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |",
+      "formatted_table_all": "| STT | Bài tập | Sinh viên A (Nộp trước - Tác giả gốc) | Sinh viên B (Nộp sau - Nghi vấn) | Tỷ lệ trùng khớp | Dấu hiệu vi phạm & Bằng chứng | Kết luận & Khuyến nghị |\n|:---:|---|---|---|:---:|---|---|\n| 1 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 2 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 3 | Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 4 | Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 5 | Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:48) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 6 | Bài 6 : Kiểm tra và tối ưu hiệu năng Portal | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:49) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 100.0% | Đoạn văn tương đồng cao (100.0%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 7 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Đoàn Bảo Duy (N26DTCN008)<br/>(Nộp: 02/11/2026 22:20) | Nguyễn Bảo Huy (N26DTCN011)<br/>(Nộp: 02/11/2026 22:30) | 99.0% | Đoạn văn tương đồng cao (99.0%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex02 ## 1. Phân tích: Cache vs...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 8 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:05) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 9 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:05) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 10 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:09) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:41) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 11 | Bài 2 : Sự cố phiên làm việc trên hệ thống vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:09) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 12 | Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:13) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 13 | Bài 3 : Xử lý lỗi bố cục giao diện hệ thống theo dõi xe | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:13) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 14 | Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:19) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 03/11/2026 20:42) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 15 | Bài 4 : Sự cố xung đột phiên đăng nhập trên trình duyệt | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 00:19) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 16 | Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:06) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:48) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 17 | Bài 5 : Tối ưu tiện ích mở rộng cho hệ thống điều phối vận tải | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:06) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 18 | Bài 6 : Kiểm tra và tối ưu hiệu năng Portal | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:10) | Lê Phúc Duy (RK2600062)<br/>(Nộp: 04/11/2026 01:49) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README1.md --- # Sự cố không truy cập được hệ thống quản trị  ## ***Phần 1. Phân tích tiến...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 19 | Bài 6 : Kiểm tra và tối ưu hiệu năng Portal | Hồ Gia Bảo (N26DTCN040)<br/>(Nộp: 03/11/2026 23:10) | Bạch Chí Lân (RE26441)<br/>(Nộp: 04/11/2026 03:02) | 98.1% | Đoạn văn tương đồng cao (98.1%): '--- File: README.md ---   --- File: [CNTT 1]_[Nhập môn cntt]_Session18_Ex01.md --- # Sự cố không tru...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |\n| 20 | Bài 1 : Sự cố không truy cập được hệ thống quản trị | Đoàn Bảo Duy (N26DTCN008)<br/>(Nộp: 02/11/2026 22:15) | Nguyễn Bảo Huy (N26DTCN011)<br/>(Nộp: 02/11/2026 22:26) | 96.7% | Đoạn văn tương đồng cao (96.7%): '--- File: README.md --- # CNTT1-nh-p-m-n-c-ng-ngh-th-ng-tin-Session18_Ex01  ## 1. Phân tích lỗi & Tr...' | 🚨 SAO CHÉP TRỰC TIẾP<br/>Cần xử lý trừ điểm hoặc yêu cầu sinh viên làm lại bài độc lập. Kiểm tra đối chất hai bạn. |",
+      "remaining_count": 5
+    }
+  }
+}

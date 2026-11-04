@@ -14,6 +14,7 @@ Mô tả:
 =============================================================================
 """
 
+import os
 import json
 import requests
 from typing import Any, Optional
@@ -25,6 +26,41 @@ BASE_URL = "https://lms-admin.rikkei.edu.vn"
 
 # Múi giờ Việt Nam (UTC+7 / GMT+7)
 VIETNAM_TZ = timezone(timedelta(hours=7))
+
+# Global cache cho kết quả đối chiếu chống sao chép (tối đa 30 phút, đồng bộ cả RAM và File Disk)
+GLOBAL_PLAGIARISM_CACHE: dict = {}
+PLAGIARISM_CACHE_DIR = os.path.join(os.path.dirname(__file__), "data", "plagiarism_cache")
+os.makedirs(PLAGIARISM_CACHE_DIR, exist_ok=True)
+
+def save_plagiarism_disk_cache(class_id: str, session_id: str, data: dict):
+    try:
+        fpath = os.path.join(PLAGIARISM_CACHE_DIR, f"{class_id}_{session_id}.json")
+        with open(fpath, "w", encoding="utf-8") as f:
+            json.dump({"saved_at": datetime.now().isoformat(), "result": data}, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        pass
+
+def load_plagiarism_disk_cache(class_id: str = None, session_id: str = None):
+    try:
+        if class_id and session_id:
+            fpath = os.path.join(PLAGIARISM_CACHE_DIR, f"{class_id}_{session_id}.json")
+            if os.path.exists(fpath):
+                with open(fpath, "r", encoding="utf-8") as f:
+                    entry = json.load(f)
+                saved_dt = datetime.fromisoformat(entry.get("saved_at", "2000-01-01"))
+                if (datetime.now() - saved_dt).total_seconds() < 1800:
+                    return entry.get("result")
+        files = [os.path.join(PLAGIARISM_CACHE_DIR, f) for f in os.listdir(PLAGIARISM_CACHE_DIR) if f.endswith(".json")]
+        if not files:
+            return None
+        latest_file = max(files, key=os.path.getmtime)
+        if (datetime.now().timestamp() - os.path.getmtime(latest_file)) < 1800:
+            with open(latest_file, "r", encoding="utf-8") as f:
+                entry = json.load(f)
+            return entry.get("result")
+    except Exception:
+        pass
+    return None
 
 def format_vietnam_time(dt_str: Any) -> Optional[str]:
     """Chuyển đổi chuỗi ISO UTC từ server LMS sang giờ Việt Nam (UTC+7, định dạng DD/MM/YYYY HH:mm)."""
@@ -3013,13 +3049,24 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         if not resolved_session_id:
             return {"statusCode": 400, "error": f"Không tìm thấy buổi học phù hợp với '{session_search}'."}
 
-        # Kiểm tra Cache kết quả quét trong vòng 15 phút (hỗ trợ phân trang và xem tiếp tức thì)
+        # Kiểm tra Cache kết quả quét trong vòng 30 phút (RAM + File Disk)
         cache_key = (resolved_class_id, resolved_session_id, (homework_search or "").strip().lower(), round(similarity_threshold, 2))
-        if hasattr(self, "_plagiarism_cache") and cache_key in self._plagiarism_cache:
-            c_time, c_data = self._plagiarism_cache[cache_key]
-            if (datetime.now() - c_time).total_seconds() < 900:
-                self._emit_progress("Đã tải nhanh dữ liệu đối chiếu chống sao chép từ bộ nhớ đệm...")
+        cached_entry = (hasattr(self, "_plagiarism_cache") and self._plagiarism_cache.get(cache_key)) or GLOBAL_PLAGIARISM_CACHE.get(cache_key)
+        if cached_entry:
+            c_time, c_data = cached_entry
+            if (datetime.now() - c_time).total_seconds() < 1800:
+                self._emit_progress("Đã tải nhanh dữ liệu đối chiếu chống sao chép từ bộ nhớ đệm RAM...")
                 return c_data
+
+        disk_entry = load_plagiarism_disk_cache(resolved_class_id, resolved_session_id)
+        if disk_entry:
+            self._emit_progress("Đã tải nhanh dữ liệu đối chiếu chống sao chép từ bộ nhớ đệm Disk...")
+            if not hasattr(self, "_plagiarism_cache"):
+                self._plagiarism_cache = {}
+            self._plagiarism_cache[cache_key] = (datetime.now(), disk_entry)
+            GLOBAL_PLAGIARISM_CACHE[cache_key] = (datetime.now(), disk_entry)
+            GLOBAL_PLAGIARISM_CACHE["_latest"] = (datetime.now(), disk_entry)
+            return disk_entry
 
         # 2. Lấy danh sách sinh viên trong lớp
         c_detail = self._get(f"/api/staff/classes/{resolved_class_id}/detail")
@@ -3106,6 +3153,12 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
             with ThreadPoolExecutor(max_workers=8) as pool:
                 subs = list(pool.map(load_content, subs))
 
+            # Tiền xử lý tokens để lọc nhanh (tăng tốc độ gấp 100 lần)
+            for s in subs:
+                snip = (s.get("content") or "").strip()[:3000].lower()
+                s["_snip"] = snip
+                s["_words"] = set(re.findall(r'\w{3,}', snip))
+
             # So khớp từng cặp sinh viên
             n_subs = len(subs)
             for i in range(n_subs):
@@ -3149,16 +3202,21 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
                             evidence_list.append(f"Tên '{n2}' ({code2}) xuất hiện trong file bài làm của bạn {s1['fullName']} ({code1})")
                             name_leak_count += 1
 
-                        # So sánh độ tương đồng nội dung văn bản
-                        ratio = difflib.SequenceMatcher(None, c1[:3000].lower(), c2[:3000].lower()).ratio()
-                        if ratio > sim_score:
-                            sim_score = ratio
+                        # So sánh độ tương đồng nội dung văn bản (có bộ lọc token nhanh Jaccard)
+                        w1 = s1.get("_words", set())
+                        w2 = s2.get("_words", set())
+                        jaccard = (len(w1 & w2) / len(w1 | w2)) if (w1 and w2) else 0.0
 
-                        if ratio >= similarity_threshold:
-                            violations.append(f"TƯƠNG ĐỒNG NỘI DUNG {ratio*100:.1f}%")
-                            high_similarity_count += 1
-                            clean_snip = c1[:100].replace('\r', ' ').replace('\n', ' ').replace('|', '/').strip()
-                            evidence_list.append(f"Đoạn văn tương đồng cao ({ratio*100:.1f}%): '{clean_snip}...'")
+                        if jaccard >= 0.35 or violations:
+                            ratio = difflib.SequenceMatcher(None, s1["_snip"], s2["_snip"]).ratio()
+                            if ratio > sim_score:
+                                sim_score = ratio
+
+                            if ratio >= similarity_threshold:
+                                violations.append(f"TƯƠNG ĐỒNG NỘI DUNG {ratio*100:.1f}%")
+                                high_similarity_count += 1
+                                clean_snip = c1[:100].replace('\r', ' ').replace('\n', ' ').replace('|', '/').strip()
+                                evidence_list.append(f"Đoạn văn tương đồng cao ({ratio*100:.1f}%): '{clean_snip}...'")
 
                     if violations:
                         # Xác định ai nộp trước (tác giả gốc nghi vấn) và ai nộp sau
@@ -3284,10 +3342,13 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
             }
         }
 
-        # Lưu cache cho các lượt gọi phân trang tiếp theo
+        # Lưu cache cho các lượt gọi phân trang tiếp theo (cả instance, global RAM và Disk)
         if not hasattr(self, "_plagiarism_cache"):
             self._plagiarism_cache = {}
         self._plagiarism_cache[cache_key] = (datetime.now(), final_result)
+        GLOBAL_PLAGIARISM_CACHE[cache_key] = (datetime.now(), final_result)
+        GLOBAL_PLAGIARISM_CACHE["_latest"] = (datetime.now(), final_result)
+        save_plagiarism_disk_cache(resolved_class_id, resolved_session_id, final_result)
 
         return final_result
 

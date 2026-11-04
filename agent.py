@@ -53,11 +53,7 @@ GEMINI_API_KEY  = os.getenv("GEMINI_API_KEY")
 # Các model theo ưu tiên — tự động fallback nếu model trước bị 503/404/429
 MODEL_PRIORITY  = [
     "gemini-flash-lite-latest",
-    "gemini-3.5-flash-lite",
-    "gemini-3.1-flash-lite",
-    "gemini-3-flash-preview",
-    "gemini-3.8-flash",
-    "gemini-3.7-flash",
+    "gemini-3.5-flash",
 ]
 GEMINI_MODEL    = MODEL_PRIORITY[0]   # Default
 
@@ -503,31 +499,24 @@ class RikkaAgent:
                 )
 
             # Thêm kết quả tool vào contents và gọi lại Gemini
-            # ── Inject bảng plagiarism vào cùng user turn (không tạo thêm turn mới) ──
+            # ── Inject bảng plagiarism vào cùng user turn (dùng placeholder siêu nhẹ, không làm quá tải token) ──
             if _plag_cache.get("top15"):
-                _t15  = _plag_cache["top15"]
-                _trem = _plag_cache.get("remaining", "")
                 _rcnt = _plag_cache.get("remaining_count", 0)
-                _inject_parts = [
-                    "[BẢNG ĐÃ RENDER SẴN — COPY NGUYÊN VĂN VÀO CÂU TRẢ LỜI]",
-                    "Hệ thống backend đã dựng sẵn 100% bảng Markdown hoàn chỉnh bên dưới.",
-                    "BẮT BUỘC đặt bảng này NGUYÊN VĂN vào phần danh sách các cặp nghi vấn trong câu trả lời.",
-                    "KHÔNG tự soạn lại. KHÔNG rút gọn. KHÔNG chỉ xuất tiêu đề rồi dừng.",
-                    "",
-                    _t15,
-                ]
-                if _trem and _rcnt > 0:
-                    _inject_parts += [
-                        "",
-                        f"[BẢNG CÒN LẠI — {_rcnt} cặp từ 16 trở đi]",
-                        _trem,
-                    ]
-                _inject_text = "\n".join(_inject_parts)
-                # Thêm vào cùng tool_response_parts (cùng user turn) để tránh lỗi consecutive user turns
+                _inject_text = (
+                    "[HƯỚNG DẪN HIỂN THỊ KẾT QUẢ KIỂM TRA CHỐNG SAO CHÉP]\n"
+                    "Hệ thống backend đã lưu trữ 100% bảng Markdown hoàn chỉnh.\n"
+                    "Trong câu trả lời của bạn:\n"
+                    "1. Hãy trình bày bảng 'Thống kê tổng quan' dựa trên kết quả tool.\n"
+                    "2. Ngay dưới tiêu đề 'Danh sách các cặp bài làm có dấu hiệu nghi vấn sao chép', "
+                    "BẠN BẮT BUỘC XUẤT ĐÚNG THẺ PLACEHOLDER SAU:\n"
+                    ":::PLAGIARISM_TABLE_TOP15:::\n"
+                    "Hệ thống backend sẽ tự động thay thế thẻ này bằng toàn bộ 15 dòng dữ liệu chi tiết một cách hoàn hảo.\n"
+                    "TUYỆT ĐỐI KHÔNG tự gõ lại bảng thủ công."
+                )
                 tool_response_parts.append(
                     types.Part.from_text(text=_inject_text)
                 )
-                safe_print(f"  📌 Injected plag table into tool turn ({len(_inject_text)} chars)")
+                safe_print(f"  📌 Injected lightweight plag table directive into tool turn")
             # ─────────────────────────────────────────────────────────────────────────
             contents.append(types.Content(role="user", parts=tool_response_parts))
             response = self._send(contents)
