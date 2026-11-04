@@ -175,7 +175,13 @@ def _sanitize_and_patch_plagiarism_table(reply: str, message: str, agent: RikkaA
         from datetime import datetime
 
         # 1. Kiểm tra cache dữ liệu plagiarism (RAM + Disk file)
-        cache = getattr(agent.executor, "_plagiarism_cache", {}) or getattr(lms_tools, "GLOBAL_PLAGIARISM_CACHE", {})
+        cache = {}
+        if hasattr(agent, "executor"):
+            cache = getattr(agent.executor, "_plagiarism_cache", {})
+            if not cache and hasattr(agent.executor, "_tools"):
+                cache = getattr(agent.executor._tools, "_plagiarism_cache", {})
+        if not cache:
+            cache = getattr(lms_tools, "GLOBAL_PLAGIARISM_CACHE", {})
         has_plag_call = any(tc.get("name") == "check_session_homework_plagiarism" for tc in tool_calls)
         msg_low = (message or "").lower()
         is_plag_intent = any(w in msg_low for w in ["sao chép", "nghi vấn", "gian lận", "toàn bộ", "xem tiếp", "còn lại", "16", "17", "bài tập", "plagiarism", "buổi", "session"])
@@ -251,34 +257,33 @@ def _sanitize_and_patch_plagiarism_table(reply: str, message: str, agent: RikkaA
             safe_print(f"  ⚡ [Auto-Patch] Replaced placeholder with verified table")
             return reply
 
-        # 5. Tìm kiếm bảng markdown nghi vấn trong reply của AI (chỉ khớp các dòng bắt đầu bằng |)
-        table_pattern = re.compile(
-            r'(\|\s*STT\s*\|\s*Bài tập[^\n]*\n(?:[ \t]*\|[^\n]*\n*)*)',
-            re.IGNORECASE
-        )
-        matches = list(table_pattern.finditer(reply))
-        target_row_count = len(re.findall(r'\|\s*\d+\s*\|', target_table))
+        # 5. Tìm kiếm bảng markdown nghi vấn / header bất kỳ (kể cả khi kết thúc không có \n)
+        header_table_m = re.search(r"(\|\s*STT\s*\|\s*Bài tập[\s\S]*?)(?=(?:\n\s*\n(?!\s*\|))|\Z)", reply, re.IGNORECASE)
+        target_row_count = len(re.findall(r"\|\s*\d+\s*\|", target_table))
 
-        if matches:
-            match = matches[0]
-            existing_table_str = match.group(1)
-            existing_row_count = len(re.findall(r'\|\s*\d+\s*\|', existing_table_str))
-
-            # Nếu bảng của AI có số dòng ít hơn bảng chuẩn HOẶC bị cụt ở cuối -> Thay thế hoàn toàn!
-            if existing_row_count < target_row_count or not existing_table_str.rstrip().endswith("|"):
-                reply = reply[:match.start(1)] + replacement_block + reply[match.end(1):]
-                safe_print(f"  ⚡ [Auto-Patch] Replaced defective table ({existing_row_count} rows) with verified table ({target_row_count} rows)")
+        if header_table_m:
+            matched_str = header_table_m.group(1)
+            row_count = len(re.findall(r"\|\s*\d+\s*\|", matched_str))
+            if row_count < target_row_count or not matched_str.rstrip().endswith("|"):
+                start_pos = header_table_m.start(1)
+                end_pos = header_table_m.end(1)
+                after_text = reply[end_pos:]
+                after_text = re.sub(r"^\s*\(Còn\s+\d+\s+cặp[^\n]*\)?", "", after_text, flags=re.IGNORECASE)
+                reply = reply[:start_pos] + replacement_block + after_text
+                safe_print(f"  ⚡ [Auto-Patch] Replaced header/table ({row_count} rows) with verified table ({target_row_count} rows)")
+                return reply
         else:
-            # AI hoàn toàn quên render bảng -> Tự động chèn vào sau tiêu đề danh sách
-            header_m = re.search(r'((?:Danh sách|Bảng|Chi tiết)[^\n]*nghi vấn[^\n]*\n+)', reply, re.IGNORECASE)
-            if header_m:
-                insert_pos = header_m.end(1)
-                reply = reply[:insert_pos] + "\n" + replacement_block + "\n\n" + reply[insert_pos:]
+            # AI hoàn toàn quên render header -> Tự động chèn vào sau tiêu đề danh sách
+            section_m = re.search(r"((?:Danh sách|Bảng|Chi tiết)[^\n]*nghi vấn[^\n]*)", reply, re.IGNORECASE)
+            if section_m:
+                insert_pos = section_m.end(1)
+                reply = reply[:insert_pos] + "\n\n" + replacement_block + "\n\n" + reply[insert_pos:]
                 safe_print(f"  ⚡ [Auto-Patch] Inserted verified table ({target_row_count} rows) after list header")
+                return reply
             else:
-                reply = reply + "\n\n### Danh sách các cặp bài làm có dấu hiệu nghi vấn sao chép\n\n" + replacement_block + "\n"
+                reply = reply.rstrip() + "\n\n### Danh sách các cặp bài làm có dấu hiệu nghi vấn sao chép\n\n" + replacement_block + "\n"
                 safe_print(f"  ⚡ [Auto-Patch] Appended verified table ({target_row_count} rows) to end of reply")
-
+                return reply
         return reply
     except Exception as e:
         safe_print(f"  ⚠️ Error in _sanitize_and_patch_plagiarism_table: {e}")

@@ -48,13 +48,13 @@ def load_plagiarism_disk_cache(class_id: str = None, session_id: str = None):
                 with open(fpath, "r", encoding="utf-8") as f:
                     entry = json.load(f)
                 saved_dt = datetime.fromisoformat(entry.get("saved_at", "2000-01-01"))
-                if (datetime.now() - saved_dt).total_seconds() < 1800:
+                if (datetime.now() - saved_dt).total_seconds() < 86400:
                     return entry.get("result")
         files = [os.path.join(PLAGIARISM_CACHE_DIR, f) for f in os.listdir(PLAGIARISM_CACHE_DIR) if f.endswith(".json")]
         if not files:
             return None
         latest_file = max(files, key=os.path.getmtime)
-        if (datetime.now().timestamp() - os.path.getmtime(latest_file)) < 1800:
+        if (datetime.now().timestamp() - os.path.getmtime(latest_file)) < 86400:
             with open(latest_file, "r", encoding="utf-8") as f:
                 entry = json.load(f)
             return entry.get("result")
@@ -3054,7 +3054,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
         cached_entry = (hasattr(self, "_plagiarism_cache") and self._plagiarism_cache.get(cache_key)) or GLOBAL_PLAGIARISM_CACHE.get(cache_key)
         if cached_entry:
             c_time, c_data = cached_entry
-            if (datetime.now() - c_time).total_seconds() < 1800:
+            if (datetime.now() - c_time).total_seconds() < 86400:
                 self._emit_progress("Đã tải nhanh dữ liệu đối chiếu chống sao chép từ bộ nhớ đệm RAM...")
                 return c_data
 
