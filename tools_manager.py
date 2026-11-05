@@ -25,6 +25,7 @@ DEFAULT_CATEGORIES = {
     "get_training_system_detail": "Hệ thống đào tạo",
     "list_classes": "Lớp học",
     "get_class_detail": "Lớp học",
+    "get_class_groups": "Lớp học",
     "list_courses": "Khoá học & Môn học",
     "get_course_detail": "Khoá học & Môn học",
     "list_students": "Quản lý Sinh viên",

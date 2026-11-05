@@ -1239,5 +1239,40 @@
         "session_search"
       ]
     }
+  },
+  {
+    "name": "get_class_groups",
+    "description": "Xem danh sách các nhóm học tập (study groups / project teams) của một lớp học. Hỗ trợ lọc theo môn học (course_name, course_code) hoặc tìm kiếm theo tên nhóm. Hiển thị đầy đủ tên nhóm, môn học áp dụng, số lượng thành viên và danh sách sinh viên kèm Họ tên và MSSV. Dùng khi người dùng hỏi: 'Xem các nhóm của lớp X môn Y', 'Danh sách nhóm học tập lớp CNTT1', 'Nhóm của lớp này có những ai', 'Các nhóm trong link monitoring/class/.../study-groups'.",
+    "category": "Lớp học",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên lớp học hoặc mã lớp (ví dụ: 'HCM-KS26-CNTT1', 'HCM-KS24-CNTT1') hoặc link URL nhóm học tập."
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học (ví dụ: '6ae7101c1d5754b993d4fc87', '6aac91736fde2b6e692ed4f8') hoặc link URL nhóm học tập."
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học cần lọc nhóm (ví dụ: 'Nhập Môn Công Nghệ Thông Tin', 'Devops Fundamentals', 'Kỹ năng học tập đại học')."
+        },
+        "course_code": {
+          "type": "string",
+          "description": "Mã môn học cần lọc nhóm (ví dụ: 'IT-209', 'IT108-K26', 'SSK101', 'SKL01')."
+        },
+        "group_search": {
+          "type": "string",
+          "description": "Từ khóa tìm kiếm theo tên nhóm (ví dụ: 'Nhóm 1', 'Nhóm C', 'Nhóm D')."
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1793865138076,
+    "updatedAt": 1793865138076
   }
 ]

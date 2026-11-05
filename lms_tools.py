@@ -17,6 +17,8 @@ Mô tả:
 import os
 import json
 import requests
+import re
+import unicodedata
 from typing import Any, Optional
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor
@@ -224,6 +226,46 @@ TOOLS_SCHEMA = [
             }
         }
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_class_groups",
+            "description": (
+                "Xem danh sách các nhóm học tập (study groups / project teams) của một lớp học. "
+                "Hỗ trợ lọc theo môn học (course_name, course_code) hoặc tìm kiếm theo tên nhóm. "
+                "Hiển thị đầy đủ tên nhóm, môn học áp dụng, số lượng thành viên và danh sách sinh viên kèm Họ tên và MSSV. "
+                "Dùng khi người dùng hỏi: 'Xem các nhóm của lớp X môn Y', 'Danh sách nhóm học tập lớp CNTT1', "
+                "'Nhóm của lớp này có những ai', 'Các nhóm trong link monitoring/class/.../study-groups'."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "class_name": {
+                        "type": "string",
+                        "description": "Tên lớp học hoặc mã lớp (ví dụ: 'HCM-KS26-CNTT1', 'HCM-KS24-CNTT1') hoặc link URL nhóm học tập."
+                    },
+                    "class_id": {
+                        "type": "string",
+                        "description": "ID lớp học (ví dụ: '6ae7101c1d5754b993d4fc87', '6aac91736fde2b6e692ed4f8') hoặc link URL nhóm học tập."
+                    },
+                    "course_name": {
+                        "type": "string",
+                        "description": "Tên môn học cần lọc nhóm (ví dụ: 'Nhập Môn Công Nghệ Thông Tin', 'Devops Fundamentals', 'Kỹ năng học tập đại học')."
+                    },
+                    "course_code": {
+                        "type": "string",
+                        "description": "Mã môn học cần lọc nhóm (ví dụ: 'IT-209', 'IT108-K26', 'SSK101', 'SKL01')."
+                    },
+                    "group_search": {
+                        "type": "string",
+                        "description": "Từ khóa tìm kiếm theo tên nhóm (ví dụ: 'Nhóm 1', 'Nhóm C', 'Nhóm D')."
+                    }
+                },
+                "required": []
+            }
+        }
+    },
+
 
     # -----------------------------------------------------------------------
     # NHÓM 4: QUẢN LÝ KHOÁ HỌC / MÔN HỌC
@@ -1255,6 +1297,207 @@ class LMSFunctionExecutor:
         if isinstance(res, dict) and res.get("statusCode") == 200:
             return res
         return self._get(f"/api/staff/classes/{class_id}")
+
+    def get_class_groups(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        course_name: str = None,
+        course_code: str = None,
+        group_search: str = None
+    ) -> dict:
+        """
+        Xem danh sách các nhóm học tập (study groups / project teams) của một lớp học.
+        Hỗ trợ lọc theo môn học (course_name, course_code) hoặc tìm kiếm theo tên nhóm.
+        Tự động map danh sách sinh viên trong nhóm kèm Họ tên và MSSV.
+        Trả về bảng Markdown định dạng chuẩn để giao diện hiển thị ngay lập tức.
+        """
+        import unicodedata
+
+        # Trích xuất class_id và course từ URL nếu người dùng truyền link LMS
+        raw_inputs = f"{class_id or ''} {class_name or ''}"
+        url_match = re.search(r'/class/([a-f0-9]{24})', raw_inputs)
+        if url_match:
+            class_id = url_match.group(1)
+        course_match = re.search(r'[?&]course=([^&\s]+)', raw_inputs)
+        if course_match and not course_code and not course_name:
+            course_code = course_match.group(1)
+
+        # Phân giải lớp học và môn học
+        user_course_req = course_code or course_name
+        cid, cname, cobj, crsid, crsname = self._resolve_course_and_class(
+            class_id=class_id,
+            class_name=class_name,
+            course_id=None,
+            course_name=user_course_req
+        )
+
+        if not cid and class_id:
+            # Fallback nếu class_id truyền trực tiếp là ObjectId hợp lệ
+            if re.match(r'^[a-f0-9]{24}$', str(class_id).strip()):
+                cid = str(class_id).strip()
+
+        if not cid:
+            return {
+                "statusCode": 404,
+                "error": f"Không tìm thấy thông tin lớp học '{class_name or class_id}'. Vui lòng kiểm tra lại tên lớp (ví dụ: HCM-KS26-CNTT1, HCM-KS24-CNTT1)."
+            }
+
+        detail_res = self.get_class_detail(cid)
+        if not isinstance(detail_res, dict) or detail_res.get("statusCode") not in (200, None):
+            return {
+                "statusCode": 500,
+                "error": f"Không thể lấy thông tin chi tiết của lớp ID {cid}: {detail_res.get('message', 'Unknown error')}"
+            }
+
+        class_data = detail_res.get("data", {}) if isinstance(detail_res.get("data"), dict) else {}
+        class_info = class_data.get("class", {}) if isinstance(class_data.get("class"), dict) else {}
+        actual_class_name = class_info.get("name") or class_info.get("classCode") or cname or cid
+        actual_class_code = class_info.get("classCode") or class_info.get("name") or actual_class_name
+
+        raw_groups = class_data.get("groups", []) or []
+        raw_students = class_data.get("students", []) or []
+        raw_courses = class_data.get("courses", []) or []
+
+        # Danh mục môn học của lớp để tham khảo nếu lọc không khớp
+        available_courses = []
+        for c in raw_courses:
+            c_info = c.get("courseId") if isinstance(c.get("courseId"), dict) else {}
+            if c_info:
+                available_courses.append({
+                    "id": c_info.get("id"),
+                    "name": c_info.get("name"),
+                    "courseCode": c_info.get("courseCode")
+                })
+
+        # Xây dựng danh bạ sinh viên trong lớp: studentId -> {studentCode, fullName, email}
+        student_map = {}
+        for s_entry in raw_students:
+            s_obj = s_entry.get("student") if isinstance(s_entry.get("student"), dict) else s_entry
+            if isinstance(s_obj, dict):
+                sid = str(s_obj.get("id") or s_obj.get("_id") or "")
+                if sid:
+                    student_map[sid] = {
+                        "id": sid,
+                        "studentCode": s_obj.get("studentCode") or "N/A",
+                        "fullName": s_obj.get("fullName") or "N/A",
+                        "email": s_obj.get("email") or ""
+                    }
+
+        def _norm(s: str) -> str:
+            s = (s or "").replace("đ", "d").replace("Đ", "d")
+            s = unicodedata.normalize("NFD", s)
+            s = "".join(c for c in s if unicodedata.category(c) != "Mn")
+            return re.sub(r"[^a-z0-9\s]", " ", s.lower()).strip()
+
+        target_course = user_course_req or ""
+        norm_target_course = _norm(target_course)
+        active_crsid = crsid if user_course_req else None
+
+        filtered_groups = []
+        for g in raw_groups:
+            # 1. Lọc theo môn học nếu có yêu cầu
+            if norm_target_course:
+                g_subjects = g.get("subjects", []) or []
+                match_subj = False
+                for subj in g_subjects:
+                    s_code = _norm(subj.get("courseCode") or "")
+                    s_name = _norm(subj.get("name") or "")
+                    s_id = str(subj.get("id") or "")
+                    if active_crsid and active_crsid == s_id:
+                        match_subj = True
+                        break
+                    if norm_target_course in s_code or s_code in norm_target_course:
+                        match_subj = True
+                        break
+                    if norm_target_course in s_name or s_name in norm_target_course:
+                        match_subj = True
+                        break
+                    tokens = [w for w in norm_target_course.split() if len(w) > 1]
+                    if tokens and all(t in f"{s_name} {s_code}" for t in tokens):
+                        match_subj = True
+                        break
+                if not match_subj:
+                    continue
+
+            # 2. Lọc theo tên nhóm nếu có group_search
+            if group_search:
+                g_title = g.get("title", "")
+                if group_search.strip().lower() not in g_title.lower():
+                    continue
+
+            filtered_groups.append(g)
+
+        # Xử lý format danh sách nhóm thành JSON và Markdown table
+        processed_groups = []
+        for idx, g in enumerate(filtered_groups, 1):
+            g_title = g.get("title") or f"Nhóm {idx}"
+            subj_names = [s.get("name") or s.get("courseCode") for s in g.get("subjects", [])]
+            subj_text = ", ".join(filter(None, subj_names)) or "Chung (Toàn bộ môn)"
+            
+            st_ids = g.get("studentIds", []) or []
+            members = []
+            member_names_for_table = []
+            for sid in st_ids:
+                s_info = student_map.get(str(sid))
+                if s_info:
+                    members.append(s_info)
+                    member_names_for_table.append(f"{s_info['fullName']} ({s_info['studentCode']})")
+                else:
+                    members.append({"id": sid, "studentCode": "N/A", "fullName": f"SV_{str(sid)[-6:]}"})
+                    member_names_for_table.append(f"SV_{str(sid)[-6:]}")
+
+            processed_groups.append({
+                "stt": idx,
+                "groupId": g.get("id") or g.get("_id"),
+                "title": g_title,
+                "description": g.get("description", ""),
+                "subjects": g.get("subjects", []),
+                "subjects_text": subj_text,
+                "studentsCount": len(st_ids),
+                "members": members,
+                "members_text": ", ".join(member_names_for_table)
+            })
+
+        # Xây dựng bảng Markdown
+        if processed_groups:
+            table_lines = [
+                "| STT | Tên nhóm | Môn học | Sĩ số | Danh sách thành viên |",
+                "|:---:|:---|:---|:---:|:---|"
+            ]
+            for g in processed_groups:
+                m_str = g["members_text"]
+                if not m_str:
+                    m_str = "*(Chưa có thành viên)*"
+                m_str_clean = m_str.replace("|", "/")
+                subj_clean = g["subjects_text"].replace("|", "/")
+                title_clean = g["title"].replace("|", "/")
+                table_lines.append(f"| {g['stt']} | **{title_clean}** | {subj_clean} | {g['studentsCount']} | {m_str_clean} |")
+            formatted_table = "\n".join(table_lines)
+        else:
+            if len(raw_groups) == 0:
+                formatted_table = f"*(Lớp **{actual_class_name}** hiện chưa được tạo nhóm học tập trên LMS)*"
+            elif norm_target_course:
+                formatted_table = f"*(Không tìm thấy nhóm học tập nào của lớp **{actual_class_name}** thuộc môn **{target_course}**)*"
+            else:
+                formatted_table = f"*(Không tìm thấy nhóm học tập nào phù hợp)*"
+
+        return {
+            "statusCode": 200,
+            "data": {
+                "class_id": cid,
+                "class_name": actual_class_name,
+                "class_code": actual_class_code,
+                "course_filter": target_course or None,
+                "total_groups_in_class": len(raw_groups),
+                "total_groups_matched": len(processed_groups),
+                "total_students_in_class": len(raw_students),
+                "available_courses_in_class": available_courses,
+                "formatted_table": formatted_table,
+                "groups": processed_groups
+            }
+        }
+
 
     # --- NHÓM 4: KHOÁ HỌC ---
 
@@ -4412,6 +4655,7 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
             "get_class_care_cases":          self.get_class_care_cases,
             "audit_failed_homework_grading": self.audit_failed_homework_grading,
             "check_session_homework_plagiarism": self.check_session_homework_plagiarism,
+            "get_class_groups": self.get_class_groups,
         }
 
         fn = dispatch.get(function_name)
