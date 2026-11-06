@@ -31,6 +31,35 @@ VIETNAM_TZ = timezone(timedelta(hours=7))
 
 # Global cache cho kết quả đối chiếu chống sao chép (tối đa 30 phút, đồng bộ cả RAM và File Disk)
 GLOBAL_PLAGIARISM_CACHE: dict = {}
+
+# Global cache cho kết quả phát hiện bài làm do AI sinh ra (tối đa 24h, đồng bộ RAM + Disk)
+GLOBAL_AI_DETECTION_CACHE: dict = {}
+AI_DETECTION_CACHE_DIR = os.path.join(os.path.dirname(__file__), "data", "ai_detection_cache")
+os.makedirs(AI_DETECTION_CACHE_DIR, exist_ok=True)
+
+def save_ai_detection_disk_cache(cache_key: str, data: dict):
+    try:
+        clean_key = re.sub(r'[^a-zA-Z0-9_\-]', '_', str(cache_key))
+        fpath = os.path.join(AI_DETECTION_CACHE_DIR, f"{clean_key}.json")
+        with open(fpath, "w", encoding="utf-8") as f:
+            json.dump({"saved_at": datetime.now().isoformat(), "result": data}, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+def load_ai_detection_disk_cache(cache_key: str):
+    try:
+        clean_key = re.sub(r'[^a-zA-Z0-9_\-]', '_', str(cache_key))
+        fpath = os.path.join(AI_DETECTION_CACHE_DIR, f"{clean_key}.json")
+        if os.path.exists(fpath):
+            with open(fpath, "r", encoding="utf-8") as f:
+                d = json.load(f)
+                saved_at = datetime.fromisoformat(d["saved_at"])
+                if (datetime.now() - saved_at).total_seconds() < 86400:
+                    return d["result"]
+    except Exception:
+        pass
+    return None
+
 PLAGIARISM_CACHE_DIR = os.path.join(os.path.dirname(__file__), "data", "plagiarism_cache")
 os.makedirs(PLAGIARISM_CACHE_DIR, exist_ok=True)
 
@@ -1016,6 +1045,7 @@ TOOLS_SCHEMA = [
                         "type": "string",
                         "description": "ID lớp học nếu đã biết."
                     },
+
                     "session_search": {
                         "type": "string",
                         "description": "Tên hoặc số buổi học (Ví dụ: 'buổi 16', 'Session 16')."
@@ -1089,6 +1119,65 @@ TOOLS_SCHEMA = [
                     }
                 },
                 "required": ["class_name", "session_search"]
+            }
+        }
+    },
+
+    {
+        "type": "function",
+        "function": {
+            "name": "detect_ai_generated_homework",
+            "description": (
+                "Kiểm tra và phát hiện bài làm/mã nguồn của sinh viên có phải do AI (ChatGPT, Claude, Gemini, Copilot...) sinh ra hay không. "
+                "Tự động tải mã nguồn hoặc file báo cáo (.docx, .md, code...) từ GitHub của sinh viên trong buổi học, "
+                "phân tích dấu vết văn phong, thuật ngữ vượt cấp, cấu trúc code và chú thích chuẩn mực kiểu AI. "
+                "Đưa ra tỷ lệ xác suất AI (%), bằng chứng trích dẫn và các câu hỏi phỏng vấn/vấn đáp (viva questions) để giảng viên đối chất sinh viên. "
+                "Dùng khi người dùng hỏi: 'Kiểm tra xem bài các bạn có do AI làm không', 'Phát hiện sinh viên dùng ChatGPT làm bài', "
+                "'Soi bài làm AI session X lớp Y', 'Bài của bạn Z có phải do AI viết không'."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "class_name": {
+                        "type": "string",
+                        "description": "Tên lớp học hoặc mã lớp (ví dụ: 'HCM-KS26-CNTT1', 'HCM-KS26-CNTT2')."
+                    },
+                    "class_id": {
+                        "type": "string",
+                        "description": "ID lớp học (ví dụ: '6aac91736fde2b6e692ed4f8')."
+                    },
+                    "session_search": {
+                        "type": "string",
+                        "description": "Tên hoặc số buổi học cần kiểm tra (ví dụ: 'Session 18', '18', 'Buổi 2')."
+                    },
+                    "session_id": {
+                        "type": "string",
+                        "description": "ID buổi học nếu đã biết."
+                    },
+                    "course_name": {
+                        "type": "string",
+                        "description": "Tên môn học (ví dụ: 'Nhập Môn Công Nghệ Thông Tin', 'Devops Fundamentals')."
+                    },
+                    "student_search": {
+                        "type": "string",
+                        "description": "Tên hoặc mã sinh viên nếu muốn kiểm tra riêng một sinh viên cụ thể (ví dụ: 'Bảo Duy', 'N26DTCN008'). Để trống nếu muốn quét cả lớp."
+                    },
+                    "homework_search": {
+                        "type": "string",
+                        "description": "Từ khóa lọc bài tập cụ thể (ví dụ: 'Bài 1', 'DNS'). Để trống để kiểm tra tất cả bài trong buổi."
+                    },
+                    "threshold": {
+                        "type": "integer",
+                        "description": "Ngưỡng cảnh báo xác suất AI (0-100%). Mặc định: 70%.",
+                        "default": 70
+                    },
+                    "max_students": {
+                        "type": "integer",
+                        "description": "Số lượng sinh viên tối đa phân tích mỗi lần gọi. Mặc định: 30.",
+                        "default": 30
+                    }
+                },
+                "required": []
             }
         }
     },
@@ -3615,6 +3704,374 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
 
         return final_result
 
+
+    def detect_ai_generated_homework(
+        self,
+        class_name: str = None,
+        class_id: str = None,
+        session_search: str = None,
+        session_id: str = None,
+        course_name: str = None,
+        course_id: str = None,
+        student_search: str = None,
+        homework_search: str = None,
+        threshold: int = 70,
+        max_students: int = 30
+    ) -> dict:
+        """
+        Kiểm tra và phát hiện bài làm do AI sinh ra (AI-generated content detection).
+        Đọc trực tiếp bài nộp của sinh viên từ GitHub (.docx, .md, code...),
+        phân tích dấu hiệu nhận diện AI và sinh ra câu hỏi vấn đáp đối chất.
+        """
+        import os, re, json
+        from google import genai
+        from concurrent.futures import ThreadPoolExecutor
+
+        self._emit_progress("Đang khởi tạo quy trình phát hiện bài làm do AI...")
+
+        # 1. Phân giải lớp học & môn học
+        resolved_class_id, resolved_class_name, class_obj, resolved_course_id, resolved_course_name = self._resolve_course_and_class(
+            class_id=class_id, class_name=class_name, course_id=course_id, course_name=course_name
+        )
+
+        if not resolved_class_id:
+            return {"statusCode": 400, "error": f"Không tìm thấy lớp học phù hợp với '{class_name}'."}
+
+        # 2. Phân giải buổi học (session)
+        resolved_session_id = session_id
+        session_name = "N/A"
+        avail_sessions = []
+
+        if resolved_course_id:
+            try:
+                c_sess_res = self._get(f"/api/staff/sessions/course/{resolved_course_id}")
+                c_sessions = c_sess_res.get("data", []) if isinstance(c_sess_res, dict) else []
+                for cs in c_sessions:
+                    cs_id = cs.get("id") or cs.get("_id")
+                    if cs_id:
+                        avail_sessions.append({"id": cs_id, "name": cs.get("name", "")})
+            except Exception:
+                pass
+
+        if not avail_sessions:
+            sess_res = self.list_attendance_sessions(class_id=resolved_class_id)
+            raw_sess_list = sess_res.get("data", []) if isinstance(sess_res, dict) else []
+            sess_list = [s for s in raw_sess_list if s.get("courseId") == resolved_course_id] if resolved_course_id else raw_sess_list
+            for s in sess_list:
+                s_meta = s.get("sessionId")
+                if isinstance(s_meta, dict):
+                    avail_sessions.append({"id": s_meta.get("_id") or s_meta.get("id"), "name": s_meta.get("name", "")})
+
+        if not resolved_session_id:
+            s_q = (session_search or "").lower().strip()
+            num_match = re.search(r'\d+', s_q)
+            target_num = int(num_match.group(0)) if num_match else None
+
+            matched_sess = None
+            if target_num is not None:
+                for asess in avail_sessions:
+                    as_name = asess["name"].lower()
+                    if f"session {target_num:02d}" in as_name or f"session {target_num}" in as_name or f"buổi {target_num}" in as_name:
+                        matched_sess = asess
+                        break
+            if not matched_sess:
+                for asess in avail_sessions:
+                    if s_q in asess["name"].lower():
+                        matched_sess = asess
+                        break
+
+            if matched_sess:
+                resolved_session_id = matched_sess.get("id")
+                session_name = matched_sess.get("name", "")
+            elif not session_search and avail_sessions:
+                resolved_session_id = avail_sessions[0].get("id")
+                session_name = avail_sessions[0].get("name", "")
+
+            # Cross-course fallback
+            if not resolved_session_id and session_search and class_obj and class_obj.get("courseIds"):
+                for alt_cid in class_obj["courseIds"]:
+                    if alt_cid == resolved_course_id:
+                        continue
+                    try:
+                        alt_res = self._get(f"/api/staff/sessions/course/{alt_cid}")
+                        alt_sessions = alt_res.get("data", []) if isinstance(alt_res, dict) else []
+                        for alt_s in alt_sessions:
+                            alt_name = alt_s.get("name", "")
+                            alt_num_m = re.search(r'\b(?:session|buổi|lesson|bài)\s*0*([0-9]+)\b', alt_name, re.IGNORECASE)
+                            if (target_num is not None and alt_num_m and int(alt_num_m.group(1)) == target_num) or (s_q in alt_name.lower()):
+                                resolved_session_id = alt_s.get("id") or alt_s.get("_id")
+                                session_name = alt_name
+                                resolved_course_id = alt_cid
+                                alt_cd = self.get_course_detail(alt_cid)
+                                if isinstance(alt_cd, dict) and alt_cd.get("data"):
+                                    resolved_course_name = alt_cd["data"].get("name")
+                                break
+                    except Exception:
+                        pass
+                    if resolved_session_id:
+                        break
+
+        if not resolved_session_id:
+            return {"statusCode": 404, "error": f"Không tìm thấy buổi học phù hợp với '{session_search}'."}
+
+        # 3. Kiểm tra Cache kết quả (Disk + RAM)
+        cache_key = f"{resolved_class_id}_{resolved_session_id}_{(student_search or '').strip().lower()}_{(homework_search or '').strip().lower()}_{threshold}"
+        cached_data = GLOBAL_AI_DETECTION_CACHE.get(cache_key) or load_ai_detection_disk_cache(cache_key)
+        if cached_data:
+            self._emit_progress("Đã tải kết quả phân tích AI từ bộ nhớ đệm cache...")
+            return cached_data
+
+        # 4. Lấy danh sách sinh viên
+        c_detail_res = self.get_class_detail(resolved_class_id)
+        class_detail_data = c_detail_res.get("data", {}) if isinstance(c_detail_res, dict) else {}
+        raw_students = class_detail_data.get("students", []) or []
+
+        student_list = []
+        for s_entry in raw_students:
+            s_obj = s_entry.get("student") if isinstance(s_entry.get("student"), dict) else s_entry
+            sid = str(s_obj.get("id") or s_obj.get("_id") or "")
+            if sid:
+                student_list.append({
+                    "studentId": sid,
+                    "studentCode": s_obj.get("studentCode") or "N/A",
+                    "fullName": s_obj.get("fullName") or "N/A",
+                    "email": s_obj.get("email") or ""
+                })
+
+        if not student_list:
+            roster_res = self.list_students(class_id=resolved_class_id, limit=100)
+            items = roster_res.get("data", {}).get("items", []) if isinstance(roster_res.get("data"), dict) else []
+            for it in items:
+                student_list.append({
+                    "studentId": it.get("id"),
+                    "studentCode": it.get("studentCode") or "N/A",
+                    "fullName": it.get("fullName") or "N/A",
+                    "email": it.get("email") or ""
+                })
+
+        if student_search:
+            s_q = student_search.lower().strip()
+            student_list = [
+                s for s in student_list
+                if s_q in (s.get("studentCode") or "").lower() or s_q in (s.get("fullName") or "").lower() or s_q in (s.get("studentId") or "").lower()
+            ]
+
+        target_students = student_list[:max_students]
+        self._emit_progress(f"Đang thu thập bài nộp của {len(target_students)} sinh viên cho buổi '{session_name}'...")
+
+        # 5. Thu thập bài nộp của sinh viên
+        def fetch_student_submissions(st):
+            st_id = st["studentId"]
+            det = self._get(f"/api/homework/completion/session/{resolved_session_id}/student/{st_id}")
+            det_data = det.get("data", {}) if isinstance(det, dict) else {}
+            items = det_data.get("items", [])
+            subs = []
+            for it in items:
+                hw_title = it.get("title") or "Bài tập"
+                if homework_search and homework_search.lower() not in hw_title.lower():
+                    continue
+                gh_url = it.get("githubUrl")
+                if gh_url:
+                    subs.append({
+                        "homeworkId": it.get("homeworkId"),
+                        "title": hw_title,
+                        "githubUrl": gh_url,
+                        "submissionId": it.get("submissionId"),
+                        "submittedAt": it.get("submittedAt")
+                    })
+            return {
+                "studentId": st_id,
+                "studentCode": st["studentCode"],
+                "fullName": st["fullName"],
+                "submissions": subs
+            }
+
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            student_subs = list(pool.map(fetch_student_submissions, target_students))
+
+        # Flatten list of submissions to analyze
+        tasks_to_analyze = []
+        for s in student_subs:
+            for sub in s["submissions"]:
+                tasks_to_analyze.append({
+                    "studentCode": s["studentCode"],
+                    "fullName": s["fullName"],
+                    "homeworkTitle": sub["title"],
+                    "githubUrl": sub["githubUrl"],
+                    "submissionId": sub["submissionId"]
+                })
+
+        self._emit_progress(f"Tìm thấy {len(tasks_to_analyze)} bài nộp cần phân tích dấu vết AI...")
+
+        api_key = os.getenv("GEMINI_API_KEY")
+        client = genai.Client(api_key=api_key) if api_key else None
+
+        # 6. Phân tích nội dung từng bài nộp qua Gemini
+        def analyze_submission(task):
+            gh_url = task["githubUrl"]
+            content, is_ok = self._fetch_github_submission_content(gh_url)
+            if not is_ok:
+                return {
+                    **task,
+                    "ai_probability": 0,
+                    "assessment_label": "LỖI REPO / TRỐNG",
+                    "ai_signals": f"Không thể đọc mã nguồn ({content})",
+                    "quote_evidence": "N/A",
+                    "viva_questions": ["Yêu cầu sinh viên kiểm tra lại link GitHub cá nhân và push code lên."]
+                }
+
+            if not client:
+                return {
+                    **task,
+                    "ai_probability": 0,
+                    "assessment_label": "CHƯA PHÂN TÍCH (THIẾU KEY)",
+                    "ai_signals": "Cần cấu hình GEMINI_API_KEY",
+                    "quote_evidence": "N/A",
+                    "viva_questions": []
+                }
+
+            # Truncate content to 3,500 chars to ensure fast and reliable inference
+            content_sample = content[:3500]
+
+            prompt = f"""Bạn là chuyên gia thẩm định và giám định học thuật (Academic Integrity & AI Detection Specialist) của Rikkei Education.
+Nhiệm vụ của bạn là phân tích bài nộp của sinh viên xem có phải do AI (ChatGPT, Claude, Gemini, Copilot...) sinh ra hay do sinh viên tự làm.
+
+TÊN BÀI TẬP: {task['homeworkTitle']}
+NỘI DUNG BÀI NỘP CỦA SINH VIÊN (từ GitHub):
+{content_sample}
+
+TIÊU CHÍ ĐÁNH GIÁ:
+1. Dấu vết văn phong AI: Cấu trúc mở đầu/kết luận rập khuôn ("Tóm lại...", "Dưới đây là..."), gạch đầu dòng siêu chuẩn, văn phong dịch máy tiếng Anh sang tiếng Việt, từ ngữ quá hàn lâm so với trình độ sinh viên mới học CNTT, hoặc để sót prompt AI.
+2. Dấu vết code/kỹ thuật AI: Chú thích giải thích từng dòng thừa thãi kiểu giáo khoa ("// Khởi tạo...", "// Calculate..."), dùng hàm/thư viện nâng cao bất thường, tên biến quá trang trọng chuẩn camelCase.
+3. Dấu hiệu người thật (Human): Có sự ngẫu hứng, có lỗi đánh máy nhỏ, cú pháp mộc mạc, chú thích mang tính cá nhân, trả lời đơn giản đúng trình độ.
+
+TRẢ VỀ JSON DUY NHẤT (không kèm markdown code fence thừa):
+{{
+  "ai_probability": <số nguyên từ 0 đến 100 biểu thị xác suất bài do AI làm>,
+  "assessment_label": "KHẢ NĂNG CAO TỰ LÀM" (0-39) hoặc "NGHI VẤN HỖ TRỢ AI" (40-69) hoặc "CẢNH BÁO: KHẢ NĂNG RẤT CAO LÀ AI LÀM" (70-100),
+  "ai_signals": "<Mô tả ngắn gọn 2-3 bằng chứng cụ thể nhất>",
+  "quote_evidence": "<Trích dẫn 1-2 đoạn tiêu biểu nhất làm bằng chứng>",
+  "viva_questions": [
+    "<Câu hỏi phỏng vấn nhanh 1 về bài làm để giảng viên đối chất sinh viên>",
+    "<Câu hỏi phỏng vấn nhanh 2 để kiểm tra mức độ hiểu sâu kiến thức>"
+  ]
+}}
+"""
+            try:
+                resp = client.models.generate_content(
+                    model="gemini-flash-lite-latest",
+                    contents=prompt
+                )
+                raw_txt = resp.text.strip()
+                raw_txt = re.sub(r'^```json\s*', '', raw_txt)
+                raw_txt = re.sub(r'\s*```$', '', raw_txt)
+                parsed = json.loads(raw_txt)
+
+                return {
+                    **task,
+                    "ai_probability": int(parsed.get("ai_probability", 0)),
+                    "assessment_label": parsed.get("assessment_label", "CHƯA XÁC ĐỊNH"),
+                    "ai_signals": parsed.get("ai_signals", "Không có ghi chú"),
+                    "quote_evidence": parsed.get("quote_evidence", ""),
+                    "viva_questions": parsed.get("viva_questions", [])
+                }
+            except Exception as e:
+                return {
+                    **task,
+                    "ai_probability": 0,
+                    "assessment_label": "LỖI PHÂN TÍCH",
+                    "ai_signals": str(e),
+                    "quote_evidence": "",
+                    "viva_questions": []
+                }
+
+        with ThreadPoolExecutor(max_workers=5) as pool:
+            analysis_results = list(pool.map(analyze_submission, tasks_to_analyze))
+
+        # 7. Phân loại & Thống kê
+        high_risk = []
+        medium_risk = []
+        low_risk = []
+        repo_error = []
+
+        for r in analysis_results:
+            prob = r["ai_probability"]
+            if "LỖI" in r["assessment_label"]:
+                repo_error.append(r)
+            elif prob >= threshold:
+                high_risk.append(r)
+            elif prob >= 40:
+                medium_risk.append(r)
+            else:
+                low_risk.append(r)
+
+        # Sắp xếp các ca nghi vấn theo xác suất AI giảm dần
+        high_risk.sort(key=lambda x: x["ai_probability"], reverse=True)
+        medium_risk.sort(key=lambda x: x["ai_probability"], reverse=True)
+
+        flagged_list = high_risk + medium_risk
+
+        # 8. Xây dựng Bảng Markdown chuẩn
+        table_lines = [
+            "| STT | Mã SV | Họ và tên | Bài tập | Xác suất AI | Đánh giá & Bằng chứng nhận diện | Câu hỏi đối chất gợi ý |",
+            "|:---:|:---:|:---|:---|:---:|:---|:---|"
+        ]
+
+        if flagged_list:
+            for idx, item in enumerate(flagged_list[:25], 1):
+                prob = item["ai_probability"]
+                prob_badge = f"🚨 **{prob}%**" if prob >= threshold else f"⚠️ **{prob}%**"
+                label_badge = f"**{item['assessment_label']}**"
+                signals = (item['ai_signals'] or "").replace("|", "/")
+                quote = (item['quote_evidence'] or "").replace("|", "/").replace("\n", " ")
+                if quote and quote != "N/A":
+                    signals_text = f"{label_badge}<br>• **Dấu hiệu:** {signals}<br>• **Trích dẫn:** *\"{quote[:120]}...\"* "
+                else:
+                    signals_text = f"{label_badge}<br>• **Dấu hiệu:** {signals}"
+
+                v_list = item.get("viva_questions", [])
+                viva_text = "<br>".join([f"{i+1}. {q.replace('|', '/')}" for i, q in enumerate(v_list[:2])]) if v_list else "*(Chưa có câu hỏi)*"
+
+                table_lines.append(
+                    f"| {idx} | {item['studentCode']} | {item['fullName']} | {item['homeworkTitle']} | {prob_badge} | {signals_text} | {viva_text} |"
+                )
+            formatted_table = "\n".join(table_lines)
+        else:
+            if analysis_results:
+                formatted_table = "*(Tất cả bài nộp phân tích đều có phong cách tự làm mộc mạc, không phát hiện dấu hiệu nghi vấn sao chép từ AI vượt ngưỡng)*"
+            else:
+                formatted_table = "*(Chưa có bài nộp nào được tìm thấy để phân tích)*"
+
+        final_result = {
+            "statusCode": 200,
+            "data": {
+                "class_id": resolved_class_id,
+                "class_name": resolved_class_name,
+                "course_name": resolved_course_name,
+                "session_id": resolved_session_id,
+                "session_name": session_name,
+                "threshold": threshold,
+                "summary": {
+                    "totalStudentsScanned": len(target_students),
+                    "totalSubmissionsAnalyzed": len(analysis_results),
+                    "highRiskCount": len(high_risk),
+                    "mediumRiskCount": len(medium_risk),
+                    "lowRiskCount": len(low_risk),
+                    "repoErrorCount": len(repo_error)
+                },
+                "formatted_table": formatted_table,
+                "high_risk_cases": high_risk,
+                "medium_risk_cases": medium_risk,
+                "low_risk_cases": low_risk
+            }
+        }
+
+        # Lưu cache
+        GLOBAL_AI_DETECTION_CACHE[cache_key] = final_result
+        save_ai_detection_disk_cache(cache_key, final_result)
+
+        return final_result
+
     # --- NHÓM 9: CHỈ SỐ ĐÀO TẠO, ĐIỂM RPOINT & ĐIỀU KIỆN THI ---
 
     def _resolve_course_and_class(self, class_id: str = None, class_name: str = None, course_id: str = None, course_name: str = None) -> tuple:
@@ -4655,6 +5112,8 @@ Chỉ trả về JSON thuần túy, không kèm markdown thừa.
             "get_class_care_cases":          self.get_class_care_cases,
             "audit_failed_homework_grading": self.audit_failed_homework_grading,
             "check_session_homework_plagiarism": self.check_session_homework_plagiarism,
+            "detect_ai_generated_homework": self.detect_ai_generated_homework,
+
             "get_class_groups": self.get_class_groups,
         }
 

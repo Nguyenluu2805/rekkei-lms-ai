@@ -44,6 +44,7 @@ DEFAULT_CATEGORIES = {
     "update_homework": "Bài tập về nhà",
     "delete_homework": "Bài tập về nhà",
     "update_submission_feedback": "Bài tập về nhà",
+    "detect_ai_generated_homework": "Bài tập về nhà",
     "get_student_training_metrics": "Chỉ số đào tạo & rPoint",
     "get_class_training_metrics": "Chỉ số đào tạo & rPoint",
     "get_course_class_roster": "Chỉ số đào tạo & rPoint",

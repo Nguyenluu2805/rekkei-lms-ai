@@ -1274,5 +1274,58 @@
     },
     "createdAt": 1793865138076,
     "updatedAt": 1793865138076
+  },
+  {
+    "name": "detect_ai_generated_homework",
+    "description": "Kiểm tra và phát hiện bài làm/mã nguồn của sinh viên có phải do AI (ChatGPT, Claude, Gemini, Copilot...) sinh ra hay không. Tự động tải mã nguồn hoặc file báo cáo (.docx, .md, code...) từ GitHub của sinh viên trong buổi học, phân tích dấu vết văn phong, thuật ngữ vượt cấp, cấu trúc code và chú thích chuẩn mực kiểu AI. Đưa ra tỷ lệ xác suất AI (%), bằng chứng trích dẫn và các câu hỏi phỏng vấn/vấn đáp (viva questions) để giảng viên đối chất sinh viên. Dùng khi người dùng hỏi: 'Kiểm tra xem bài các bạn có do AI làm không', 'Phát hiện sinh viên dùng ChatGPT làm bài', 'Soi bài làm AI session X lớp Y', 'Bài của bạn Z có phải do AI viết không'.",
+    "category": "Bài tập về nhà",
+    "enabled": true,
+    "is_builtin": true,
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "type": "string",
+          "description": "Tên lớp học hoặc mã lớp (ví dụ: 'HCM-KS26-CNTT1', 'HCM-KS26-CNTT2')."
+        },
+        "class_id": {
+          "type": "string",
+          "description": "ID lớp học (ví dụ: '6aac91736fde2b6e692ed4f8')."
+        },
+        "session_search": {
+          "type": "string",
+          "description": "Tên hoặc số buổi học cần kiểm tra (ví dụ: 'Session 18', '18', 'Buổi 2')."
+        },
+        "session_id": {
+          "type": "string",
+          "description": "ID buổi học nếu đã biết."
+        },
+        "course_name": {
+          "type": "string",
+          "description": "Tên môn học (ví dụ: 'Nhập Môn Công Nghệ Thông Tin', 'Devops Fundamentals')."
+        },
+        "student_search": {
+          "type": "string",
+          "description": "Tên hoặc mã sinh viên nếu muốn kiểm tra riêng một sinh viên cụ thể (ví dụ: 'Bảo Duy', 'N26DTCN008'). Để trống nếu muốn quét cả lớp."
+        },
+        "homework_search": {
+          "type": "string",
+          "description": "Từ khóa lọc bài tập cụ thể (ví dụ: 'Bài 1', 'DNS'). Để trống để kiểm tra tất cả bài trong buổi."
+        },
+        "threshold": {
+          "type": "integer",
+          "description": "Ngưỡng cảnh báo xác suất AI (0-100%). Mặc định: 70%.",
+          "default": 70
+        },
+        "max_students": {
+          "type": "integer",
+          "description": "Số lượng sinh viên tối đa phân tích mỗi lần gọi. Mặc định: 30.",
+          "default": 30
+        }
+      },
+      "required": []
+    },
+    "createdAt": 1793934717274,
+    "updatedAt": 1793934717274
   }
 ]

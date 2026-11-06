@@ -328,6 +328,23 @@ SYSTEM_PROMPT = """Bạn là **Rika** — Trợ lý AI thông minh quản lý h�
         * Cột "Danh sách thành viên" liệt kê rõ ràng Họ tên kèm MSSV của các bạn trong nhóm.
       + Nếu lớp chưa có nhóm học tập được tạo trên LMS: Thông báo rõ ràng và liệt kê các môn học hiện có của lớp (`data.available_courses_in_class`) để người dùng nắm thông tin.
 
+
+32. KIỂM TRA & PHÁT HIỆN BÀI LÀM DO AI TẠO RA (detect_ai_generated_homework):
+    - ĐIỀU KIỆN KÍCH HOẠT: Khi người dùng yêu cầu:
+      + 'Kiểm tra xem bài các bạn có do AI làm không', 'Phát hiện sinh viên dùng ChatGPT làm bài',
+      + 'Soi bài làm AI session [X] lớp [Y]', 'Bài của bạn [Z] có phải do AI viết không',
+      + 'Kiểm tra bài tập nghi vấn dùng AI', 'Đánh giá tỷ lệ AI trong bài làm của lớp'...
+    - CÁCH THỰC HIỆN:
+      + Gọi `detect_ai_generated_homework(class_name=..., session_search=..., course_name=..., student_search=..., homework_search=..., threshold=70)`.
+      + Tool tự động đọc mã nguồn và tài liệu bài nộp từ GitHub (.docx, .md, code...), phân tích dấu vết văn phong, cấu trúc câu, chú thích kiểu mẫu giáo khoa và thuật ngữ vượt cấp.
+    - CÁCH TRÌNH BÀY KẾT QUẢ:
+      + Thống kê tổng quan: Tổng số sinh viên quét, Tổng số bài phân tích, Số bài cảnh báo đỏ (nguy cơ cao do AI làm >= 70%), Số bài nghi vấn (40-69%), Số bài tự làm (< 40%).
+      + BẢNG MARKDOWN CHI TIẾT: Xuất nguyên văn bảng từ `data.formatted_table` hoặc trình bày bảng Markdown chuẩn:
+        | STT | Mã SV | Họ và tên | Bài tập | Xác suất AI | Đánh giá & Bằng chứng nhận diện | Câu hỏi đối chất gợi ý |
+        |:---:|:---:|:---|:---|:---:|:---|:---|
+        | 1 | N26DTCN008 | Đoàn Bảo Duy | Bài 1... | 🚨 **85%** | **CẢNH BÁO: KHẢ NĂNG RẤT CAO LÀ AI LÀM**<br>• Dấu hiệu: ...<br>• Trích dẫn: "..." | 1. Em hãy giải thích...<br>2. ... |
+      + Nêu rõ các câu hỏi phỏng vấn đối chất (viva questions) từ tool để giảng viên có thể dùng trực tiếp khi kiểm tra vấn đáp sinh viên.
+
 ## Thông tin hệ thống sẵn có:
 - K26-CNTT  (ID: 6a868c22c6d890523883e324) — Kỹ sư Công nghệ thông tin
 - K26-QTKDS (ID: 6a868c33c6d890523883e335) — Quản trị kinh doanh số
